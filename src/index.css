@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif-display: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
+  --font-anton: 'Anton', 'Archivo Black', sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --color-ground-light: #FAF8F5;
+  --color-ground-dark: #0D1B2A;
+  --color-ground-card: #132238;
+  
+  --color-glacier-start: #F0F5FA;
+  --color-glacier-end: #E2ECF7;
+  --color-coral-start: #FAF5EE;
+  --color-coral-end: #F3EBE0;
+  
+  --color-accent-blue: #1D4ED8;
+  --color-accent-blue-hover: #1E40AF;
+  --color-accent-blue-deep: #1E3A8A;
+  --color-accent-red: #DC2626;
+  --color-accent-red-hover: #B91C1C;
+  --color-accent-dark: #0D1B2A;
+  
+  --color-text-dark-primary: #FFFFFF;
+  --color-text-dark-muted: #94A3B8;
+  --color-text-light-primary: #0F172A;
+  --color-text-light-muted: #475569;
+}
+
+@layer base {
+  :root {
+    --ground: #FAF8F5;
+    --ink-primary: #0F172A;
+    --accent-blue: #1D4ED8;
+    --accent-red: #DC2626;
+    --border-subtle: rgba(29, 78, 216, 0.1);
+    caret-color: #1D4ED8;
+    color-scheme: light dark;
+  }
+
+  body {
+    background-color: #FAF8F5;
+    color: #0F172A;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 1. Curated text selection */
+  ::selection {
+    background: #1D4ED8;
+    color: #FFFFFF;
+  }
+
+  /* 2. Tactile scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0D1B2A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1E3A8A;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1D4ED8;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #DC2626;
+  }
+
+  /* 3. Keyboard focus ring */
+  :focus-visible {
+    outline: 2px solid #1D4ED8;
+    outline-offset: 2px;
+  }
+
+  /* 4. Hyperlink underlines */
+  a {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+}
+
+/* Custom font utilities */
+.font-serif-display {
+  font-family: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
+}
+
+.font-anton {
+  font-family: 'Anton', 'Archivo Black', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.font-sans {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* 3D Perspective utils for Tilt Carousel */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* 5. Numeric alignment stabilization */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tactile button active states */
+button:active {
+  transform: scale(0.975);
+}
+
+/* Subtle glassmorphism */
+.glass-pill {
+  background: rgba(250, 248, 245, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-pill-dark {
+  background: rgba(13, 27, 42, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Premium Frosted Glassmorphism */
+.glass-navbar-light {
+  background: rgba(250, 248, 245, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 8px 24px -4px rgba(0, 0, 0, 0.05),
+    0 1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+.glass-navbar-dark {
+  background: rgba(13, 27, 42, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 12px 32px -6px rgba(0, 0, 0, 0.35),
+    0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.glass-inner-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.glass-inner-dark {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Global reduced-motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
