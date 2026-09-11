@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FACILITIES_DATA } from '../data/facilities';
 import { Layers } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
-import { gsap, isDesktop, isReducedMotion } from '../lib/useScrollTrigger';
+import { gsap, ScrollTrigger, isDesktop as checkIsDesktop } from '../lib/useScrollTrigger';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface FacilityRevealProps {
   onOpenAppointment?: () => void;
@@ -10,69 +12,107 @@ interface FacilityRevealProps {
 
 export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState(0);
+  const [isDesktopState, setIsDesktopState] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const mainPhotoRef = useRef<HTMLDivElement>(null);
   const cornerLeftRef = useRef<HTMLDivElement>(null);
   const cornerRightRef = useRef<HTMLDivElement>(null);
+  const isReduced = useReducedMotion();
 
   const currentFeature = FACILITIES_DATA.features[selectedFeatureIndex];
 
   useEffect(() => {
-    if (!sectionRef.current || !mainPhotoRef.current || !cornerLeftRef.current || !cornerRightRef.current) {
+    setIsDesktopState(checkIsDesktop());
+    const handleResize = () => {
+      setIsDesktopState(checkIsDesktop());
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // 1. Scroll-in layered reveal for the main block using GSAP ScrollTrigger
+  useEffect(() => {
+    if (!sectionRef.current || !mainPhotoRef.current || isReduced) {
       return;
     }
 
-    if (!isDesktop() || isReducedMotion()) {
-      return;
-    }
+    const mm = gsap.matchMedia();
 
-    const ctx = gsap.context(() => {
+    mm.add('(min-width: 768px)', () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top 80%',
-          end: 'bottom 20%',
-          scrub: true,
+          end: 'top 20%',
+          scrub: 1,
         },
       });
 
-      // Phase 1 (0–50%): main photo shrinks, corners slide in
-      tl.to(
+      // Background main photo: zoom-out into place (scale: 1.1 -> 1, opacity: 0 -> 1)
+      tl.fromTo(
         mainPhotoRef.current,
-        { scale: 0.82, ease: 'none' },
+        { scale: 1.1, opacity: 0 },
+        { scale: 1, opacity: 1, ease: 'none', duration: 0.6 },
         0
       );
 
-      tl.fromTo(
-        cornerLeftRef.current,
-        { x: '-40%', y: '40%', opacity: 0 },
-        { x: '0%', y: '0%', opacity: 1, ease: 'none' },
-        0
-      );
+      // Overlapping thumbnail cards: slide up from below with a slight delay
+      if (cornerLeftRef.current) {
+        tl.fromTo(
+          cornerLeftRef.current,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, ease: 'power2.out', duration: 0.5 },
+          0.15
+        );
+      }
 
-      tl.fromTo(
-        cornerRightRef.current,
-        { x: '40%', y: '-40%', opacity: 0 },
-        { x: '0%', y: '0%', opacity: 1, ease: 'none' },
-        0
-      );
+      if (cornerRightRef.current) {
+        tl.fromTo(
+          cornerRightRef.current,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, ease: 'power2.out', duration: 0.5 },
+          0.22
+        );
+      }
+    });
 
-      // Phase 2 (50–100%): subtle focus parallax
-      tl.to(
-        cornerLeftRef.current,
-        { scale: 1.05, ease: 'none' },
-        0.5
-      );
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
 
-      tl.to(
-        cornerRightRef.current,
-        { scale: 1.05, ease: 'none' },
-        0.5
-      );
-    }, sectionRef);
+    return () => {
+      clearTimeout(timer);
+      mm.revert();
+    };
+  }, [isReduced]);
 
-    return () => ctx.revert();
-  }, []);
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      rotateX: isDesktopState && !isReduced ? 15 : 0,
+      y: 40,
+      scale: 0.92,
+    },
+    visible: {
+      opacity: 1,
+      rotateX: 0,
+      y: 0,
+      scale: 1,
+      transition: isReduced
+        ? { duration: 0 }
+        : { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  };
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: isReduced ? 0 : 0.15,
+      },
+    },
+  };
 
   return (
     <section
@@ -109,47 +149,58 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
         {/* Layered Photo Peekaboo Stage */}
         <div className="relative min-h-[500px] sm:min-h-[640px] rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-4 sm:p-8 flex items-center justify-center">
           
-          {/* Main Hero Photo */}
+          {/* Main Hero Photo with AnimatePresence crossfade when switching cards */}
           <div
             ref={mainPhotoRef}
-            className="relative w-full h-[400px] sm:h-[500px] rounded-2xl overflow-hidden shadow-2xl z-10 will-change-transform"
+            className="relative w-full h-[400px] sm:h-[500px] rounded-2xl overflow-hidden shadow-2xl z-10 will-change-transform bg-slate-900"
           >
-            <img
-              src={currentFeature.image}
-              alt=""
-              className="w-full h-full object-cover object-center filter brightness-[0.95]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            
-            {/* Overlay Title Pill */}
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono tracking-widest text-[#93C5FD] uppercase">
-                  {currentFeature.tag}
-                </span>
-                <h3 className="font-anton text-2xl sm:text-4xl uppercase text-white">
-                  {currentFeature.title}
-                </h3>
-                <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-lg">
-                  {currentFeature.subtitle}
-                </p>
-              </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentFeature.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={isReduced ? { duration: 0 } : { duration: 0.4, ease: 'easeInOut' }}
+                className="absolute inset-0"
+              >
+                <img
+                  src={currentFeature.image}
+                  alt={currentFeature.title}
+                  className="w-full h-full object-cover object-center filter brightness-[0.95]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                
+                {/* Overlay Title Pill */}
+                <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                  <div className="space-y-1">
+                    <span className="text-[11px] font-mono tracking-widest text-[#93C5FD] uppercase">
+                      {currentFeature.tag}
+                    </span>
+                    <h3 className="font-anton text-2xl sm:text-4xl uppercase text-white">
+                      {currentFeature.title}
+                    </h3>
+                    <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-lg">
+                      {currentFeature.subtitle}
+                    </p>
+                  </div>
 
-              {/* Specs Pills */}
-              <div className="flex flex-wrap gap-2">
-                {currentFeature.specs.map((spec) => (
-                  <span
-                    key={spec}
-                    className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[11px] font-sans text-white border border-white/10"
-                  >
-                    {spec}
-                  </span>
-                ))}
-              </div>
-            </div>
+                  {/* Specs Pills */}
+                  <div className="flex flex-wrap gap-2">
+                    {currentFeature.specs.map((spec) => (
+                      <span
+                        key={spec}
+                        className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[11px] font-sans text-white border border-white/10"
+                      >
+                        {spec}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          {/* Corner Left Peekaboo Photo */}
+          {/* Corner Left Overlapping Thumbnail Photo */}
           <div
             ref={cornerLeftRef}
             className="hidden lg:block absolute bottom-4 left-4 w-64 h-44 rounded-2xl overflow-hidden border-2 border-white/20 z-20 pointer-events-none will-change-transform"
@@ -165,7 +216,7 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
             </div>
           </div>
 
-          {/* Corner Right Peekaboo Photo */}
+          {/* Corner Right Overlapping Thumbnail Photo */}
           <div
             ref={cornerRightRef}
             className="hidden lg:block absolute top-4 right-4 w-72 h-48 rounded-2xl overflow-hidden border-2 border-white/20 z-20 pointer-events-none will-change-transform"
@@ -183,15 +234,23 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
 
         </div>
 
-        {/* Feature Selector Strip & Caption Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8">
+        {/* 3 Selector Cards with Staggered 3D Perspective Tilt Entrance */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          style={{ perspective: isDesktopState && !isReduced ? 1000 : undefined }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8"
+        >
           {FACILITIES_DATA.features.map((feature, idx) => {
             const isSelected = idx === selectedFeatureIndex;
 
             return (
-              <button
+              <motion.button
                 type="button"
                 key={feature.id}
+                variants={cardVariants}
                 onClick={() => setSelectedFeatureIndex(idx)}
                 className={`text-left p-6 rounded-2xl transition-[background-color,border-color,transform] duration-200 cursor-pointer active:scale-[0.98] border ${
                   isSelected
@@ -204,8 +263,8 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                     0{idx + 1}
                   </span>
                   <div
-                    className={`w-2 h-2 rounded-full ${
-                      isSelected ? 'bg-[#DC2626]' : 'bg-white/20'
+                    className={`w-2.5 h-2.5 rounded-full transition-[background-color,transform] duration-200 ${
+                      isSelected ? 'bg-[#DC2626] scale-110' : 'bg-white/20'
                     }`}
                     aria-hidden="true"
                   />
@@ -215,13 +274,13 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                   {feature.title}
                 </h4>
 
-                <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
                   {feature.description}
                 </p>
-              </button>
+              </motion.button>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>

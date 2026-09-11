@@ -1,42 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CARE_PACKAGES } from '../data/packages';
 import { ArrowUpRight, Clock, ShieldCheck, Bed, HeartHandshake } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion } from 'framer-motion';
+import { isDesktop as checkIsDesktop } from '../lib/useScrollTrigger';
+import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface TiltCardCarouselProps {
   onOpenAppointment: () => void;
 }
 
-const containerVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    rotateX: 15,
-    y: 40,
-    scale: 0.92,
-  },
-  show: {
-    opacity: 1,
-    rotateX: 0,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
-
 export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppointment }) => {
+  const [isDesktopState, setIsDesktopState] = useState(false);
+  const isReduced = useReducedMotion();
+
+  useEffect(() => {
+    setIsDesktopState(checkIsDesktop());
+    const handleResize = () => {
+      setIsDesktopState(checkIsDesktop());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: isReduced ? 0 : 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      rotateX: isDesktopState && !isReduced ? 15 : 0,
+      y: 40,
+      scale: 0.92,
+    },
+    show: {
+      opacity: 1,
+      rotateX: 0,
+      y: 0,
+      scale: 1,
+      transition: isReduced
+        ? { duration: 0 }
+        : {
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+    },
+  };
+
   const getStatIcon = (iconType: string) => {
     switch (iconType) {
       case 'slot':
@@ -91,7 +107,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center"
-          style={{ perspective: 1000 }}
+          style={{ perspective: isDesktopState && !isReduced ? 1000 : undefined }}
         >
           {CARE_PACKAGES.map((pkg) => {
             const isFeatured = pkg.isFeatured;
