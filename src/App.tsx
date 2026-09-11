@@ -9,7 +9,7 @@ import DoctorList from './components/DoctorList';
 import FacilityReveal from './components/FacilityReveal';
 import TiltCardCarousel from './components/TiltCardCarousel';
 import HowItWorksSticky from './components/HowItWorksSticky';
-import DoctorSpotlight from './components/DoctorSpotlight';
+import FounderSpotlight from './components/FounderSpotlight';
 import Footer from './components/Footer';
 import AppointmentModal from './components/AppointmentModal';
 import DoctorProfileModal from './components/DoctorProfileModal';
@@ -75,10 +75,9 @@ export function App() {
         onOpenAppointment={() => handleOpenAppointment()}
       />
 
-      {/* 9. Section 8: Doctor Spotlight (Reference A "Hey — I'm Dario" style) */}
-      <DoctorSpotlight
+      {/* 9. Section 8: Founder & CEO Spotlight (Reference A "Hey — I'm Dario" style) */}
+      <FounderSpotlight
         onOpenAppointment={() => handleOpenAppointment()}
-        onSelectDoctor={handleSelectDoctor}
       />
 
       {/* 10. Section 9: Dark Footer with Giant Anton Closing CTA Line */}
