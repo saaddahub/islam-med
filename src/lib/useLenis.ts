@@ -12,25 +12,22 @@ export function useLenis() {
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      lerp: 0.1,
       duration: 1.2,
-      smoothWheel: true,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
-    lenis.on('scroll', () => {
-      ScrollTrigger.update();
-    });
+    lenis.on('scroll', ScrollTrigger.update);
 
-    const rafCallback = (time: number) => {
+    const tickerCallback = (time: number) => {
       lenis.raf(time * 1000);
     };
 
-    gsap.ticker.add(rafCallback);
+    gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove(rafCallback);
+      gsap.ticker.remove(tickerCallback);
     };
   }, []);
 }
