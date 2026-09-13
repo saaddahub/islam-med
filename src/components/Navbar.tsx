@@ -37,8 +37,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
             : 'py-0 px-0'
         }`}
       >
+        {/* Dark gradient scrim — ensures navbar text is readable over any hero image */}
         <div
-          className={`mx-auto transition-all duration-500 ease-out ${
+          className={`absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/50 via-black/20 to-transparent pointer-events-none transition-opacity duration-500 ${
+            isScrolled ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+
+        <div
+          className={`relative mx-auto transition-all duration-500 ease-out ${
             isScrolled
               ? 'max-w-7xl rounded-full glass-navbar-dark text-white shadow-xl py-2.5 px-4 sm:px-6 border border-white/10'
               : 'w-full max-w-none rounded-none bg-transparent text-white py-3.5 sm:py-4 px-4 sm:px-8 lg:px-12'
