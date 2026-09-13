@@ -13,11 +13,11 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
   const getStepIcon = (index: number) => {
     switch (index) {
       case 0:
-        return <UserCheck className="w-5 h-5 text-[#1DBF8A]" aria-hidden="true" />;
+        return <UserCheck className="w-5 h-5 text-[#2563EB]" aria-hidden="true" />;
       case 1:
         return <CalendarDays className="w-5 h-5 text-[#DC2626]" aria-hidden="true" />;
       case 2:
-        return <HeartPulse className="w-5 h-5 text-[#1DBF8A]" aria-hidden="true" />;
+        return <HeartPulse className="w-5 h-5 text-[#2563EB]" aria-hidden="true" />;
       case 3:
       default:
         return <MessageSquareQuote className="w-5 h-5 text-[#DC2626]" aria-hidden="true" />;
@@ -25,7 +25,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
   };
 
   return (
-    <section id="how-it-works" className="relative z-20 w-full bg-[#F5F0E8] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200">
+    <section id="how-it-works" className="relative z-20 w-full bg-[#F0F4FA] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Two Column Layout: Left Column Sticky, Right Column Scrolling Stack */}
@@ -36,7 +36,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
             
             {/* Eyebrow Label in Inter uppercase */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-700 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#1DBF8A]" aria-hidden="true" />
+              <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />
               <span>06 / SIMPLE SCHEDULING</span>
             </div>
 
@@ -55,9 +55,9 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
             </p>
 
             {/* Persistent CTA block (pill button + circular arrow icon) */}
-            <div className="p-6 rounded-3xl bg-[#0C1414] text-white space-y-4 border border-white/10">
+            <div className="p-6 rounded-3xl bg-[#05091A] text-white space-y-4 border border-white/10">
               <div className="space-y-1">
-                <span className="text-[11px] font-mono text-[#A7F3D0] uppercase tracking-wider">
+                <span className="text-[11px] font-mono text-[#93C5FD] uppercase tracking-wider">
                   RAPID APPOINTMENT ACCESS
                 </span>
                 <div className="font-anton text-xl uppercase tracking-tight text-white">
@@ -69,7 +69,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
                 <button
                   type="button"
                   onClick={onOpenAppointment}
-                  className="flex-1 py-3 px-5 rounded-full bg-[#1DBF8A] text-white font-medium text-xs uppercase tracking-wider hover:bg-[#0EA571] active:scale-95 transition-[background-color,transform] duration-150 flex items-center justify-center gap-2 shadow-[0_2px_12px_rgba(29,191,138,0.25)] cursor-pointer"
+                  className="flex-1 py-3 px-5 rounded-full bg-[#2563EB] text-white font-medium text-xs uppercase tracking-wider hover:bg-[#1D4ED8] active:scale-95 transition-[background-color,transform] duration-150 flex items-center justify-center gap-2 shadow-[0_2px_12px_rgba(37,99,235,0.25)] cursor-pointer"
                 >
                   <span>Book Visit Now</span>
                 </button>
@@ -77,7 +77,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
                 <button
                   type="button"
                   onClick={onOpenAppointment}
-                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 text-white hover:bg-white hover:text-[#0C1414] active:scale-90 transition-[background-color,color,transform] duration-150 shrink-0 cursor-pointer"
+                  className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 text-white hover:bg-white hover:text-[#05091A] active:scale-90 transition-[background-color,color,transform] duration-150 shrink-0 cursor-pointer"
                   title="Direct Consultation"
                   aria-label="Direct Consultation"
                 >
@@ -130,7 +130,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
 
                   {/* Highlight pill at bottom */}
                   <div className="mt-6 pt-4 border-t border-black/10 flex items-center gap-2 text-xs font-sans text-slate-700 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-[#1DBF8A] shrink-0" aria-hidden="true" />
+                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" aria-hidden="true" />
                     <span>{step.highlight}</span>
                   </div>
 

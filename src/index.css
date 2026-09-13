@@ -5,44 +5,42 @@
   --font-anton: 'Anton', 'Archivo Black', sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-ground-light: #F5F0E8;
-  --color-ground-dark: #0C1414;
-  --color-ground-card: #141C1C;
+  --color-ground-light: #F0F4FA;
+  --color-ground-dark: #05091A;
+  --color-ground-card: #0A1128;
   
-  --color-glacier-start: #EDF7F4;
-  --color-glacier-end: #D0EEE6;
-  --color-coral-start: #F5F0E8;
-  --color-coral-end: #EBE3D5;
+  --color-glacier-start: #EEF3FC;
+  --color-glacier-end: #DDE8F8;
+  --color-blue-start: #F0F4FA;
+  --color-blue-end: #E2ECF7;
   
-  --color-accent-mint: #1DBF8A;
-  --color-accent-mint-hover: #0EA571;
-  --color-accent-mint-deep: #0B8A5E;
-  --color-accent-gold: #B7893D;
+  --color-accent-blue: #2563EB;
+  --color-accent-blue-hover: #1D4ED8;
+  --color-accent-blue-deep: #1E3A8A;
   --color-accent-red: #DC2626;
   --color-accent-red-hover: #B91C1C;
-  --color-accent-dark: #0C1414;
+  --color-accent-dark: #05091A;
   
   --color-text-dark-primary: #FFFFFF;
-  --color-text-dark-muted: #9CA3AF;
-  --color-text-light-primary: #1C1C1E;
-  --color-text-light-muted: #5BA48A;
+  --color-text-dark-muted: #94A3B8;
+  --color-text-light-primary: #0F172A;
+  --color-text-light-muted: #475569;
 }
 
 @layer base {
   :root {
-    --ground: #F5F0E8;
-    --ink-primary: #1C1C1E;
-    --accent-mint: #1DBF8A;
-    --accent-gold: #B7893D;
+    --ground: #F0F4FA;
+    --ink-primary: #0F172A;
+    --accent-blue: #2563EB;
     --accent-red: #DC2626;
-    --border-subtle: rgba(29, 191, 138, 0.15);
-    caret-color: #1DBF8A;
+    --border-subtle: rgba(37, 99, 235, 0.12);
+    caret-color: #2563EB;
     color-scheme: light;
   }
 
   body {
-    background-color: #F5F0E8;
-    color: #1C1C1E;
+    background-color: #F0F4FA;
+    color: #0F172A;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -51,8 +49,8 @@
 
   /* 1. Curated text selection */
   ::selection {
-    background: #1DBF8A;
-    color: #0C1414;
+    background: #1E3A8A;
+    color: #FFFFFF;
   }
 
   /* 2. Tactile scrollbars */
@@ -61,14 +59,14 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0C1414;
+    background: #05091A;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1DBF8A;
+    background: #2563EB;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #5BA48A;
+    background: #93C5FD;
   }
   ::-webkit-scrollbar-thumb:active {
     background: #B7893D;
@@ -76,7 +74,7 @@
 
   /* 3. Keyboard focus ring */
   :focus-visible {
-    outline: 2px solid #1DBF8A;
+    outline: 2px solid #2563EB;
     outline-offset: 2px;
   }
 
@@ -126,7 +124,7 @@ button:active {
 
 /* Subtle glassmorphism */
 .glass-pill {
-  background: rgba(245, 240, 232, 0.88);
+  background: rgba(240, 244, 250, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -139,10 +137,10 @@ button:active {
 
 /* Premium Frosted Glassmorphism */
 .glass-navbar-light {
-  background: rgba(245, 240, 232, 0.88);
+  background: rgba(240, 244, 250, 0.92);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(29, 191, 138, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.1);
   box-shadow: 
     0 8px 24px -4px rgba(0, 0, 0, 0.06),
     0 1px 2px 0 rgba(0, 0, 0, 0.04);
@@ -159,10 +157,10 @@ button:active {
 }
 
 .glass-inner-light {
-  background: rgba(245, 240, 232, 0.75);
+  background: rgba(240, 244, 250, 0.80);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(29, 191, 138, 0.1);
+  border: 1px solid rgba(37, 99, 235, 0.1);
 }
 
 .glass-inner-dark {
@@ -181,7 +179,7 @@ button:active {
 
 /* The scaling dark rectangle — fills its 100vh parent via absolute+inset */
 .founder-reveal-box {
-  background-color: #0C1414;    /* obsidian dark — used site-wide for dark sections */
+  background-color: #05091A;    /* obsidian dark — used site-wide for dark sections */
   position: absolute;
   inset: 0;
   /* CRITICAL: grow from the center outward in both axes — never from a corner */

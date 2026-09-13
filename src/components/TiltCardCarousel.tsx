@@ -56,12 +56,12 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
   const getStatIcon = (iconType: string) => {
     switch (iconType) {
       case 'slot':
-        return <Bed className="w-3.5 h-3.5 text-[#1DBF8A]" aria-hidden="true" />;
+        return <Bed className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />;
       case 'clock':
         return <Clock className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />;
       case 'shield':
       default:
-        return <ShieldCheck className="w-3.5 h-3.5 text-[#1DBF8A]" aria-hidden="true" />;
+        return <ShieldCheck className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />;
     }
   };
 
@@ -70,7 +70,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
       id="care-plans"
       className="relative z-20 w-full py-24 sm:py-32 overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, #F5F0E8 0%, #F0F5FA 50%, #F5EFE6 100%)',
+        background: 'linear-gradient(135deg, #F0F4FA 0%, #F0F5FA 50%, #F5EFE6 100%)',
       }}
     >
       {/* Background soft ambient noise/circles */}
@@ -118,7 +118,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                 variants={cardVariants}
                 className={`group relative rounded-[2rem] bg-white/90 backdrop-blur-xl p-6 sm:p-7 border border-slate-200/80 shadow-lg transition-[transform,background-color] duration-300 hover:bg-white ${
                   isFeatured
-                    ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-2 ring-[#1DBF8A]/30 shadow-2xl bg-white'
+                    ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-2 ring-[#2563EB]/30 shadow-2xl bg-white'
                     : 'z-10'
                 }`}
               >
@@ -138,7 +138,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   </div>
 
                   {/* Top-Right Department Tag */}
-                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-[#0C1414]/90 backdrop-blur-md text-[10px] font-mono text-white">
+                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-[#05091A]/90 backdrop-blur-md text-[10px] font-mono text-white">
                     {pkg.department}
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="flex-1 py-3 px-5 rounded-full bg-[#1DBF8A] hover:bg-[#0EA571] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(29,191,138,0.25)] flex items-center justify-center gap-2 group/btn cursor-pointer"
+                    className="flex-1 py-3 px-5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(37,99,235,0.25)] flex items-center justify-center gap-2 group/btn cursor-pointer"
                   >
                     <span>Explore Details</span>
                   </button>
@@ -186,7 +186,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white border border-slate-200 text-[#1C1C1E] hover:bg-[#0C1414] hover:text-white active:scale-90 transition-[background-color,color,transform] duration-150 shadow-xs shrink-0 cursor-pointer"
+                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white border border-slate-200 text-[#1C1C1E] hover:bg-[#05091A] hover:text-white active:scale-90 transition-[background-color,color,transform] duration-150 shadow-xs shrink-0 cursor-pointer"
                     title="Book Consultation"
                     aria-label="Book Consultation"
                   >
