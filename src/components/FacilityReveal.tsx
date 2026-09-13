@@ -15,8 +15,6 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
   const [isDesktopState, setIsDesktopState] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const mainPhotoRef = useRef<HTMLDivElement>(null);
-  const cornerLeftRef = useRef<HTMLDivElement>(null);
-  const cornerRightRef = useRef<HTMLDivElement>(null);
   const isReduced = useReducedMotion();
 
   const currentFeature = FACILITIES_DATA.features[selectedFeatureIndex];
@@ -56,25 +54,6 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
         { scale: 1, opacity: 1, ease: 'none', duration: 0.6 },
         0
       );
-
-      // Overlapping thumbnail cards: slide up from below with a slight delay
-      if (cornerLeftRef.current) {
-        tl.fromTo(
-          cornerLeftRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'power2.out', duration: 0.5 },
-          0.15
-        );
-      }
-
-      if (cornerRightRef.current) {
-        tl.fromTo(
-          cornerRightRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'power2.out', duration: 0.5 },
-          0.22
-        );
-      }
     });
 
     const timer = setTimeout(() => {
@@ -146,13 +125,13 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
           </p>
         </div>
 
-        {/* Layered Photo Peekaboo Stage */}
-        <div className="relative min-h-[500px] sm:min-h-[640px] rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-4 sm:p-8 flex items-center justify-center">
+        {/* Main Photo Stage */}
+        <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-3 sm:p-5">
           
           {/* Main Hero Photo with AnimatePresence crossfade when switching cards */}
           <div
             ref={mainPhotoRef}
-            className="relative w-full h-[400px] sm:h-[500px] rounded-2xl overflow-hidden shadow-2xl z-10 will-change-transform bg-slate-900"
+            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-hidden shadow-2xl z-10 will-change-transform bg-slate-900"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -176,7 +155,7 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                     <span className="text-[11px] font-mono tracking-widest text-[#93C5FD] uppercase">
                       {currentFeature.tag}
                     </span>
-                    <h3 className="font-anton text-2xl sm:text-4xl uppercase text-white">
+                    <h3 className="font-anton text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
                       {currentFeature.title}
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-lg">
@@ -198,38 +177,6 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                 </div>
               </motion.div>
             </AnimatePresence>
-          </div>
-
-          {/* Corner Left Overlapping Thumbnail Photo */}
-          <div
-            ref={cornerLeftRef}
-            className="hidden lg:block absolute bottom-4 left-4 w-64 h-44 rounded-2xl overflow-hidden border-2 border-white/20 z-20 pointer-events-none will-change-transform"
-          >
-            <img
-              src={FACILITIES_DATA.cornerImageLeft}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-[#0D1B2A]/90 text-[10px] font-mono text-[#93C5FD]">
-              01 Private Suite
-            </div>
-          </div>
-
-          {/* Corner Right Overlapping Thumbnail Photo */}
-          <div
-            ref={cornerRightRef}
-            className="hidden lg:block absolute top-4 right-4 w-72 h-48 rounded-2xl overflow-hidden border-2 border-white/20 z-20 pointer-events-none will-change-transform"
-          >
-            <img
-              src={FACILITIES_DATA.cornerImageRight}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-[#0D1B2A]/90 text-[10px] font-mono text-[#93C5FD]">
-              02 Robotic Theatre
-            </div>
           </div>
 
         </div>

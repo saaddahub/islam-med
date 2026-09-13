@@ -2,11 +2,11 @@ import { useState } from 'react';
 import useLenis from './lib/useLenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import PhotoMosaicTransition from './components/PhotoMosaicTransition';
 import DarkPanelSlide from './components/DarkPanelSlide';
 import ServiceAccordion from './components/ServiceAccordion';
 import DoctorList from './components/DoctorList';
 import FacilityReveal from './components/FacilityReveal';
+import { StickyImagePairSection } from './components/StickyImagePairSection';
 import TiltCardCarousel from './components/TiltCardCarousel';
 import HowItWorksSticky from './components/HowItWorksSticky';
 import FounderSpotlight from './components/FounderSpotlight';
@@ -43,9 +43,6 @@ export function App() {
         onOpenAppointment={() => handleOpenAppointment()}
       />
 
-      {/* 2.5 Post-Hero Photo Mosaic Transition (7-photo burst & contract scroll-scrubbed choreography) */}
-      <PhotoMosaicTransition />
-
       {/* 3. Section 2: Light -> Dark Panel Slide Transition (Reference A style with Anton Headline) */}
       <DarkPanelSlide />
 
@@ -64,6 +61,9 @@ export function App() {
       <FacilityReveal
         onOpenAppointment={() => handleOpenAppointment()}
       />
+
+      {/* 6.5 Sticky Image-Pair Scroll Transition (Solid caption on one side, scrolling image on other side) */}
+      <StickyImagePairSection />
 
       {/* 7. Section 6: Pastel Card Carousel with 3D Tilt Entrance (Reference B "Where care feels personal") */}
       <TiltCardCarousel
