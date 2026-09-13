@@ -56,12 +56,12 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
   const getStatIcon = (iconType: string) => {
     switch (iconType) {
       case 'slot':
-        return <Bed className="w-3.5 h-3.5 text-[#1D4ED8]" aria-hidden="true" />;
+        return <Bed className="w-3.5 h-3.5 text-[#1B4332]" aria-hidden="true" />;
       case 'clock':
         return <Clock className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />;
       case 'shield':
       default:
-        return <ShieldCheck className="w-3.5 h-3.5 text-[#1D4ED8]" aria-hidden="true" />;
+        return <ShieldCheck className="w-3.5 h-3.5 text-[#1B4332]" aria-hidden="true" />;
     }
   };
 
@@ -70,7 +70,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
       id="care-plans"
       className="relative z-20 w-full py-24 sm:py-32 overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, #FAF8F5 0%, #F0F5FA 50%, #F5EFE6 100%)',
+        background: 'linear-gradient(135deg, #F5F0E8 0%, #F0F5FA 50%, #F5EFE6 100%)',
       }}
     >
       {/* Background soft ambient noise/circles */}
@@ -86,9 +86,9 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
             <span>05 / INDIVIDUALIZED CARE PLANS</span>
           </div>
 
-          <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#0F172A] leading-[1.05]">
+          <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
             Where care feels{' '}
-            <span className="relative inline-block italic font-normal text-[#0F172A]">
+            <span className="relative inline-block italic font-normal text-[#1C1C1E]">
               personal
               <SquiggleUnderline color="#DC2626" className="w-full" />
             </span>
@@ -118,7 +118,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                 variants={cardVariants}
                 className={`group relative rounded-[2rem] bg-white/90 backdrop-blur-xl p-6 sm:p-7 border border-slate-200/80 shadow-lg transition-[transform,background-color] duration-300 hover:bg-white ${
                   isFeatured
-                    ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-2 ring-[#1D4ED8]/30 shadow-2xl bg-white'
+                    ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-2 ring-[#1B4332]/30 shadow-2xl bg-white'
                     : 'z-10'
                 }`}
               >
@@ -132,13 +132,13 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                   
                   {/* Top-Left Status Pill */}
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-semibold text-[#0F172A] shadow-xs flex items-center gap-1.5">
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-semibold text-[#1C1C1E] shadow-xs flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#DC2626]" aria-hidden="true" />
                     <span>{pkg.badge}</span>
                   </div>
 
                   {/* Top-Right Department Tag */}
-                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-[#0D1B2A]/90 backdrop-blur-md text-[10px] font-mono text-white">
+                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-[#0F2318]/90 backdrop-blur-md text-[10px] font-mono text-white">
                     {pkg.department}
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
                 {/* Title & 1-sentence Description */}
                 <div className="space-y-2 mb-6">
-                  <h3 className="font-anton text-2xl uppercase tracking-tight text-[#0F172A]">
+                  <h3 className="font-anton text-2xl uppercase tracking-tight text-[#1C1C1E]">
                     {pkg.title}
                   </h3>
                   <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed min-h-[3rem]">
@@ -165,7 +165,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
                 {/* Price & Duration */}
                 <div className="flex items-baseline gap-2 mb-6 border-t border-slate-200 pt-4">
-                  <span className="font-anton text-3xl sm:text-4xl text-[#0F172A] tabular-nums">
+                  <span className="font-anton text-3xl sm:text-4xl text-[#1C1C1E] tabular-nums">
                     {pkg.price}
                   </span>
                   <span className="text-xs text-slate-500 font-sans">
@@ -178,7 +178,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="flex-1 py-3 px-5 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(29,78,216,0.25)] flex items-center justify-center gap-2 group/btn cursor-pointer"
+                    className="flex-1 py-3 px-5 rounded-full bg-[#1B4332] hover:bg-[#15382A] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(27,67,50,0.25)] flex items-center justify-center gap-2 group/btn cursor-pointer"
                   >
                     <span>Explore Details</span>
                   </button>
@@ -186,7 +186,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white border border-slate-200 text-[#0F172A] hover:bg-[#0D1B2A] hover:text-white active:scale-90 transition-[background-color,color,transform] duration-150 shadow-xs shrink-0 cursor-pointer"
+                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white border border-slate-200 text-[#1C1C1E] hover:bg-[#0F2318] hover:text-white active:scale-90 transition-[background-color,color,transform] duration-150 shadow-xs shrink-0 cursor-pointer"
                     title="Book Consultation"
                     aria-label="Book Consultation"
                   >

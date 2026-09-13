@@ -31,7 +31,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#0F172A] flex flex-col selection:bg-[#1D4ED8] selection:text-white">
+    <div className="min-h-screen bg-[#F5F0E8] text-[#1C1C1E] flex flex-col selection:bg-[#1B4332] selection:text-white">
       
       {/* 1. Global Navigation Bar */}
       <Navbar

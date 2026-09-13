@@ -124,7 +124,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
       <div ref={boxRef} className="founder-reveal-box">
 
         {/* Subtle Background Glow Accent — unchanged */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#1D4ED8]/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#1B4332]/15 rounded-full blur-3xl pointer-events-none" />
 
         {/*
          * All founder content is UNCHANGED — only the entrance animation wrapping
@@ -137,7 +137,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
               {/* Circular Headshot */}
               <div className="relative shrink-0">
-                <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden ring-4 ring-[#1D4ED8]/40 shadow-2xl bg-slate-800">
+                <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden ring-4 ring-[#1B4332]/40 shadow-2xl bg-slate-800">
                   <img
                     src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=85&w=600"
                     alt="Dr. Tariq Islam, Founder & Medical Director"
@@ -146,7 +146,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                 </div>
                 {/* Online / Active Chief Status Badge */}
                 <span
-                  className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#0D1B2A] flex items-center justify-center border border-white/20"
+                  className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#0F2318] flex items-center justify-center border border-white/20"
                   title="Active Chief of Surgery"
                 >
                   <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" aria-hidden="true" />
@@ -156,7 +156,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               {/* Headline and Tag Pill */}
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <span className="px-3.5 py-1 rounded-full bg-white/10 text-xs font-mono tracking-widest text-[#93C5FD] uppercase border border-white/10">
+                  <span className="px-3.5 py-1 rounded-full bg-white/10 text-xs font-mono tracking-widest text-[#86EFAC] uppercase border border-white/10">
                     LEADERSHIP &amp; VISION
                   </span>
                   <span className="text-xs text-slate-400 font-mono hidden sm:inline-block">
@@ -174,7 +174,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-8 border-t border-white/10">
               {/* Left Column: Role & Mission Statement */}
               <div className="md:col-span-4 space-y-3">
-                <div className="inline-block px-3.5 py-1.5 rounded-full bg-[#1D4ED8]/20 text-[#93C5FD] text-xs font-mono font-medium uppercase tracking-wider border border-[#1D4ED8]/30">
+                <div className="inline-block px-3.5 py-1.5 rounded-full bg-[#1B4332]/20 text-[#86EFAC] text-xs font-mono font-medium uppercase tracking-wider border border-[#1B4332]/30">
                   FOUNDER &amp; CHIEF SURGEON
                 </div>
                 <div className="text-sm font-sans font-medium text-white">
@@ -197,11 +197,11 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                 {/* Clinical Trust Credentials Row */}
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 text-xs text-slate-300">
                   <div className="flex items-center gap-2">
-                    <Award className="w-4 h-4 text-[#93C5FD]" aria-hidden="true" />
+                    <Award className="w-4 h-4 text-[#86EFAC]" aria-hidden="true" />
                     <span>MD, FACS • Johns Hopkins Fellow</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#1D4ED8]" aria-hidden="true" />
+                    <ShieldCheck className="w-4 h-4 text-[#1B4332]" aria-hidden="true" />
                     <span>25+ Years Surgical Leadership</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -215,7 +215,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="px-6 py-3 rounded-full bg-[#1D4ED8] hover:bg-[#1E40AF] active:scale-95 text-white font-medium text-xs sm:text-sm uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(29,78,216,0.25)] flex items-center gap-2 cursor-pointer"
+                    className="px-6 py-3 rounded-full bg-[#1B4332] hover:bg-[#15382A] active:scale-95 text-white font-medium text-xs sm:text-sm uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(27,67,50,0.25)] flex items-center gap-2 cursor-pointer"
                   >
                     <span>Schedule Consultation</span>
                     <ArrowUpRight className="w-4 h-4" aria-hidden="true" />

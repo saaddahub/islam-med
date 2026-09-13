@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
   };
 
   return (
-    <footer className="relative z-20 w-full bg-[#0D1B2A] text-white border-t border-white/10 pt-20 pb-12 overflow-hidden">
+    <footer className="relative z-20 w-full bg-[#0F2318] text-white border-t border-white/10 pt-20 pb-12 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
         <div className="border-b border-white/10 pb-16 mb-16">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="space-y-4 max-w-4xl">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#93C5FD]">
+              <span className="font-mono text-xs uppercase tracking-widest text-[#86EFAC]">
                 SPECIALIST REFERRALS & ADMISSIONS
               </span>
               <h2 className="font-anton text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.88]">
@@ -38,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             <button
               type="button"
               onClick={onOpenAppointment}
-              className="shrink-0 px-8 py-5 rounded-full bg-[#1D4ED8] text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-[#1E40AF] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_20px_rgba(29,78,216,0.35)] flex items-center gap-3 cursor-pointer"
+              className="shrink-0 px-8 py-5 rounded-full bg-[#1B4332] text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-[#15382A] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_20px_rgba(27,67,50,0.35)] flex items-center gap-3 cursor-pointer"
             >
               <span>Book Priority Consult</span>
               <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
@@ -57,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               with peaceful, recovery-oriented inpatient architecture.
             </p>
             <div className="flex items-center gap-2 text-white font-medium">
-              <ShieldCheck className="w-4 h-4 text-[#93C5FD]" aria-hidden="true" />
+              <ShieldCheck className="w-4 h-4 text-[#86EFAC]" aria-hidden="true" />
               <span>Accredited by Joint Commission International (JCI)</span>
             </div>
           </div>
@@ -103,15 +103,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
                 <span className="font-bold">Hotline: (800) 475-2663</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#93C5FD]" aria-hidden="true" />
+                <Mail className="w-3.5 h-3.5 text-[#86EFAC]" aria-hidden="true" />
                 <span>care@islammedical.org</span>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#93C5FD] shrink-0 mt-0.5" aria-hidden="true" />
+                <MapPin className="w-3.5 h-3.5 text-[#86EFAC] shrink-0 mt-0.5" aria-hidden="true" />
                 <span>Sector G-10 Medical Enclave, Islamabad, Pakistan</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-[#93C5FD]" aria-hidden="true" />
+                <Clock className="w-3.5 h-3.5 text-[#86EFAC]" aria-hidden="true" />
                 <span>OPD: 08:00 AM – 10:00 PM (Mon-Sat)</span>
               </div>
             </div>

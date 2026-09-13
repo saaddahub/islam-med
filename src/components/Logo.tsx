@@ -25,7 +25,7 @@ export const Logo: React.FC<LogoProps> = ({
           cx="60"
           cy="60"
           r="54"
-          stroke={isDarkBg ? "#3B82F6" : "#0D52BC"}
+          stroke={isDarkBg ? "#3B82F6" : "#1B4332"}
           strokeWidth="3.5"
           className="transition-colors duration-200"
         />
@@ -42,7 +42,7 @@ export const Logo: React.FC<LogoProps> = ({
         {/* Blue Figure Body */}
         <path
           d="M 52 50 C 51 40, 56 34, 60 30 C 64 34, 69 40, 68 50 C 64 45, 56 45, 52 50 Z"
-          fill={isDarkBg ? "#60A5FA" : "#0D52BC"}
+          fill={isDarkBg ? "#60A5FA" : "#1B4332"}
         />
         {/* Red Head Dot of Figure */}
         <circle cx="60" cy="27" r="3.5" fill="#E11D2A" />
@@ -50,19 +50,19 @@ export const Logo: React.FC<LogoProps> = ({
         {/* 'I' in IMC */}
         <path
           d="M 38 45 L 44 45 L 44 63 L 38 63 Z"
-          fill={isDarkBg ? "#FFFFFF" : "#0D52BC"}
+          fill={isDarkBg ? "#FFFFFF" : "#1B4332"}
         />
 
         {/* 'M' in IMC */}
         <path
           d="M 47 45 L 53 45 L 57 56 L 61 45 L 67 45 L 67 63 L 62 63 L 62 52 L 58.5 61 L 55.5 61 L 52 52 L 52 63 L 47 63 Z"
-          fill={isDarkBg ? "#FFFFFF" : "#0D52BC"}
+          fill={isDarkBg ? "#FFFFFF" : "#1B4332"}
         />
 
         {/* 'C' in IMC */}
         <path
           d="M 83 49 C 80 45, 75 44, 71 46 C 66 48, 64 54, 66 59 C 68 64, 75 66, 81 64 L 83 60 C 79 62, 74 61, 72 58 C 71 55, 72 51, 75 49 C 78 48, 81 49, 83 51 Z"
-          fill={isDarkBg ? "#FFFFFF" : "#0D52BC"}
+          fill={isDarkBg ? "#FFFFFF" : "#1B4332"}
         />
 
         {/* Heartbeat ECG Pulse Red Line cutting across C */}
@@ -78,7 +78,7 @@ export const Logo: React.FC<LogoProps> = ({
         {/* Bottom Blue Wave Accent */}
         <path
           d="M 34 76 Q 60 70, 86 76 Q 60 80, 34 76 Z"
-          fill={isDarkBg ? "#3B82F6" : "#0D52BC"}
+          fill={isDarkBg ? "#3B82F6" : "#1B4332"}
         />
       </svg>
     );
@@ -98,7 +98,7 @@ export const Logo: React.FC<LogoProps> = ({
           cx="60"
           cy="60"
           r="55"
-          stroke={isDarkBg ? "#60A5FA" : "#0D52BC"}
+          stroke={isDarkBg ? "#60A5FA" : "#1B4332"}
           strokeWidth="3.5"
           className="transition-colors duration-200"
         />
@@ -115,13 +115,13 @@ export const Logo: React.FC<LogoProps> = ({
         {/* Blue Figure Body */}
         <path
           d="M 51 49 C 50 39, 55 33, 60 29 C 65 33, 70 39, 69 49 C 65 44, 55 44, 51 49 Z"
-          fill={isDarkBg ? "#93C5FD" : "#0D52BC"}
+          fill={isDarkBg ? "#86EFAC" : "#1B4332"}
         />
         {/* Red Head Dot */}
         <circle cx="60" cy="26" r="3.5" fill="#E11D2A" />
 
         {/* IMC Monogram */}
-        <g fill={isDarkBg ? "#FFFFFF" : "#0D52BC"}>
+        <g fill={isDarkBg ? "#FFFFFF" : "#1B4332"}>
           <path d="M 37 45 L 43 45 L 43 63 L 37 63 Z" />
           <path d="M 46 45 L 52 45 L 56 56 L 60 45 L 66 45 L 66 63 L 61 63 L 61 52 L 57.5 61 L 54.5 61 L 51 52 L 51 63 L 46 63 Z" />
           <path d="M 83 49 C 80 45, 75 44, 71 46 C 66 48, 64 54, 66 59 C 68 64, 75 66, 81 64 L 83 60 C 79 62, 74 61, 72 58 C 71 55, 72 51, 75 49 C 78 48, 81 49, 83 51 Z" />
@@ -140,14 +140,14 @@ export const Logo: React.FC<LogoProps> = ({
         {/* Bottom Blue Wave */}
         <path
           d="M 32 76 Q 60 69, 88 76 Q 60 81, 32 76 Z"
-          fill={isDarkBg ? "#60A5FA" : "#0D52BC"}
+          fill={isDarkBg ? "#60A5FA" : "#1B4332"}
         />
       </svg>
 
       <div className="flex flex-col">
         <span
           className={`font-anton uppercase tracking-wider text-xl sm:text-2xl leading-none ${
-            isDarkBg ? 'text-white' : 'text-[#0D52BC]'
+            isDarkBg ? 'text-white' : 'text-[#1B4332]'
           }`}
         >
           ISLAM

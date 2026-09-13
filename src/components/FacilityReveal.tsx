@@ -97,14 +97,14 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
     <section
       id="facilities"
       ref={sectionRef}
-      className="relative z-20 w-full bg-[#0D1B2A] text-white py-24 sm:py-32 overflow-hidden border-t border-white/10"
+      className="relative z-20 w-full bg-[#0F2318] text-white py-24 sm:py-32 overflow-hidden border-t border-white/10"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8 mb-12 sm:mb-16">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-mono text-[#93C5FD] uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-mono text-[#86EFAC] uppercase tracking-wider">
               <Layers className="w-3.5 h-3.5" aria-hidden="true" />
               <span>04 / ARCHITECTURAL SANCTUARY</span>
             </div>
@@ -152,7 +152,7 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                 {/* Overlay Title Pill */}
                 <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                   <div className="space-y-1">
-                    <span className="text-[11px] font-mono tracking-widest text-[#93C5FD] uppercase">
+                    <span className="text-[11px] font-mono tracking-widest text-[#86EFAC] uppercase">
                       {currentFeature.tag}
                     </span>
                     <h3 className="font-anton text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
@@ -201,12 +201,12 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                 onClick={() => setSelectedFeatureIndex(idx)}
                 className={`text-left p-6 rounded-2xl transition-[background-color,border-color,transform] duration-200 cursor-pointer active:scale-[0.98] border ${
                   isSelected
-                    ? 'bg-white/10 border-[#1D4ED8] ring-1 ring-[#1D4ED8]/40'
+                    ? 'bg-white/10 border-[#1B4332] ring-1 ring-[#1B4332]/40'
                     : 'bg-white/[0.02] border-white/10 hover:bg-white/5'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-xs text-[#93C5FD] font-semibold">
+                  <span className="font-mono text-xs text-[#86EFAC] font-semibold">
                     0{idx + 1}
                   </span>
                   <div

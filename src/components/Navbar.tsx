@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               <button
                 type="button"
                 onClick={onOpenAppointment}
-                className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-[#1D4ED8] text-white font-medium text-xs sm:text-sm tracking-tight hover:bg-[#1E40AF] active:scale-95 transition-[background-color,transform,box-shadow] duration-150 shadow-[0_2px_10px_rgba(29,78,216,0.25)] cursor-pointer"
+                className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-[#1B4332] text-white font-medium text-xs sm:text-sm tracking-tight hover:bg-[#15382A] active:scale-95 transition-[background-color,transform,box-shadow] duration-150 shadow-[0_2px_10px_rgba(27,67,50,0.25)] cursor-pointer"
               >
                 <span>Book Appointment</span>
               </button>
@@ -142,8 +142,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
 
       {/* Slide-out / Dropdown Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 flex items-start justify-center pt-24 px-4 bg-[#0D1B2A]/80 backdrop-blur-xl">
-          <div className="w-full max-w-xl bg-[#0D1B2A]/95 backdrop-blur-2xl text-white rounded-3xl p-6 sm:p-8 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.6)] space-y-6">
+        <div className="fixed inset-0 z-40 flex items-start justify-center pt-24 px-4 bg-[#0F2318]/80 backdrop-blur-xl">
+          <div className="w-full max-w-xl bg-[#0F2318]/95 backdrop-blur-2xl text-white rounded-3xl p-6 sm:p-8 border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.6)] space-y-6">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <span className="font-anton uppercase tracking-widest text-xs text-[#DC2626]">
                 DIRECT NAVIGATION
@@ -167,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                   className="group flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 active:scale-[0.98] border border-white/5 transition-[background-color,transform] duration-150"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-[#93C5FD] font-mono font-bold">0{idx + 1}</span>
+                    <span className="text-xs text-[#86EFAC] font-mono font-bold">0{idx + 1}</span>
                     <span className="font-medium text-sm group-hover:translate-x-1 transition-transform">
                       {link.label}
                     </span>
@@ -183,7 +183,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                 <span>Hotline: +1 (800) 475-2663</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#93C5FD]" aria-hidden="true" />
+                <MapPin className="w-3.5 h-3.5 text-[#86EFAC]" aria-hidden="true" />
                 <span>Sector G-10 Medical Enclave</span>
               </div>
             </div>

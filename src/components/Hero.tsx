@@ -45,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   const activeSlide = HERO_SLIDES[activeSlideIndex];
 
   return (
-    <section id="hero" className="relative min-h-[100dvh] w-full flex flex-col justify-between overflow-hidden bg-[#FAF8F5] pt-28 pb-12 sm:pt-32 sm:pb-16">
+    <section id="hero" className="relative min-h-[100dvh] w-full flex flex-col justify-between overflow-hidden bg-[#F5F0E8] pt-28 pb-12 sm:pt-32 sm:pb-16">
       {/* Background Image Layer with Framer Motion AnimatePresence smooth crossfade */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <AnimatePresence mode="wait">
@@ -63,8 +63,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               className="w-full h-full object-cover object-center filter brightness-[0.94] contrast-[1.02]"
             />
             {/* Subtle editorial gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/95 via-[#FAF8F5]/75 to-transparent sm:w-2/3" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F5] via-transparent to-black/15" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F5F0E8]/95 via-[#F5F0E8]/75 to-transparent sm:w-2/3" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F5F0E8] via-transparent to-black/15" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -76,15 +76,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-            <span className="text-[11px] font-semibold tracking-wider uppercase text-[#0F172A] font-sans">
+            <span className="text-[11px] font-semibold tracking-wider uppercase text-[#1C1C1E] font-sans">
               Islam Medical Complex • Islamabad
             </span>
           </div>
 
           {/* Headline in Freight Text / Display Serif */}
-          <h1 className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#0F172A] leading-[0.95]">
+          <h1 className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#1C1C1E] leading-[0.95]">
             Care that feels{' '}
-            <span className="relative inline-block italic font-normal text-[#0F172A]">
+            <span className="relative inline-block italic font-normal text-[#1C1C1E]">
               closer
               <SquiggleUnderline color="#DC2626" className="w-full" />
             </span>{' '}
@@ -103,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
             <button
               type="button"
               onClick={onOpenAppointment}
-              className="flex items-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full bg-[#1D4ED8] text-white font-medium text-sm sm:text-base tracking-tight hover:bg-[#1E40AF] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_16px_rgba(29,78,216,0.25)] group cursor-pointer"
+              className="flex items-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full bg-[#1B4332] text-white font-medium text-sm sm:text-base tracking-tight hover:bg-[#15382A] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_16px_rgba(27,67,50,0.25)] group cursor-pointer"
             >
               <span>Schedule Consultation</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
@@ -111,7 +111,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
             <a
               href="#departments"
-              className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/90 backdrop-blur-md text-[#0F172A] font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer shadow-xs"
+              className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/90 backdrop-blur-md text-[#1C1C1E] font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer shadow-xs"
             >
               <span>Explore Departments</span>
               <ChevronRight className="w-4 h-4 text-slate-400" aria-hidden="true" />
@@ -121,13 +121,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           {/* Quick clinical trust indicators */}
           <div className="pt-6 flex flex-wrap items-center gap-6 text-xs text-slate-600 border-t border-slate-200">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#1D4ED8]" aria-hidden="true" />
+              <ShieldCheck className="w-4 h-4 text-[#1B4332]" aria-hidden="true" />
               <span className="font-medium">Joint Commission Gold Accredited</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1" aria-label="5 star rating">
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-[#1D4ED8] text-[#1D4ED8]" aria-hidden="true" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-[#1B4332] text-[#1B4332]" aria-hidden="true" />
                 ))}
               </div>
               <span className="font-medium">4.98/5.0 Patient Quality Index</span>
@@ -146,7 +146,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
         
         {/* Active image caption tag */}
         <div className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200 text-xs text-slate-700 shadow-xs">
-          <span className="font-mono text-[#1D4ED8] font-bold">{activeSlide.category}</span>
+          <span className="font-mono text-[#1B4332] font-bold">{activeSlide.category}</span>
           <span className="text-slate-300" aria-hidden="true">•</span>
           <span className="font-medium">{activeSlide.title}</span>
         </div>
@@ -161,7 +161,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                 onClick={() => setActiveSlideIndex(idx)}
                 className={`group relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden transition-[transform,opacity,box-shadow] duration-200 cursor-pointer active:scale-95 ${
                   idx === activeSlideIndex
-                    ? 'ring-2 ring-[#1D4ED8] scale-105 shadow-sm'
+                    ? 'ring-2 ring-[#1B4332] scale-105 shadow-sm'
                     : 'opacity-75 hover:opacity-100'
                 }`}
                 title={slide.title}
