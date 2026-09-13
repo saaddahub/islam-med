@@ -13,7 +13,7 @@ export function StickyImagePairSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-16 sm:mb-24">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1B4332]/10 border border-[#1B4332]/20 text-xs font-mono text-[#1B4332] uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1DBF8A]/10 border border-[#1DBF8A]/20 text-xs font-mono text-[#1DBF8A] uppercase tracking-wider">
               <Eye className="w-3.5 h-3.5" aria-hidden="true" />
               <span>05 / ARCHITECTURAL IMMERSION</span>
             </div>

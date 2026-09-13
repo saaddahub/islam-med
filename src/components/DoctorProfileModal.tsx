@@ -24,13 +24,13 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
       aria-labelledby="doctor-profile-name"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
     >
-      <div className="relative w-full max-w-3xl bg-[#0F2318] text-white rounded-3xl border border-white/15 overflow-hidden my-8">
+      <div className="relative w-full max-w-3xl bg-[#0C1414] text-white rounded-3xl border border-white/15 overflow-hidden my-8">
         
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1B4332] transition-[background-color,transform] duration-150 cursor-pointer"
+          className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1DBF8A] transition-[background-color,transform] duration-150 cursor-pointer"
           aria-label="Close profile"
         >
           <X className="w-5 h-5" aria-hidden="true" />
@@ -45,10 +45,10 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
               alt=""
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F2318] via-transparent to-transparent md:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0C1414] via-transparent to-transparent md:hidden" />
             
             <div className="absolute bottom-4 left-4 right-4 space-y-2">
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-xs font-mono text-[#86EFAC] border border-white/10 w-max">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-xs font-mono text-[#A7F3D0] border border-white/10 w-max">
                 <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
                 <span>ACCEPTING PATIENTS</span>
               </div>
@@ -60,7 +60,7 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
             
             {/* Header / Department */}
             <div className="space-y-1">
-              <div className="text-xs font-mono tracking-widest text-[#86EFAC] uppercase font-bold">
+              <div className="text-xs font-mono tracking-widest text-[#A7F3D0] uppercase font-bold">
                 {doctor.yearMeta}
               </div>
               <h2 id="doctor-profile-name" className="font-anton text-3xl sm:text-4xl uppercase tracking-tight text-white leading-none">
@@ -85,7 +85,7 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
                 <div className="text-[10px] text-slate-400 uppercase font-mono">Treated</div>
               </div>
               <div>
-                <div className="font-anton text-sm text-[#86EFAC]">{doctor.consultationFee}</div>
+                <div className="font-anton text-sm text-[#A7F3D0]">{doctor.consultationFee}</div>
                 <div className="text-[10px] text-slate-400 uppercase font-mono">Consult Fee</div>
               </div>
             </div>
@@ -103,13 +103,13 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
             {/* Credentials / Education */}
             <div className="space-y-2">
               <h4 className="text-xs font-mono uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                <GraduationCap className="w-3.5 h-3.5 text-[#86EFAC]" aria-hidden="true" />
+                <GraduationCap className="w-3.5 h-3.5 text-[#A7F3D0]" aria-hidden="true" />
                 <span>QUALIFICATIONS & FELLOWSHIPS</span>
               </h4>
               <div className="space-y-1.5">
                 {doctor.qualifications.map((q, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                    <CheckCircle className="w-3.5 h-3.5 text-[#86EFAC] shrink-0 mt-0.5" aria-hidden="true" />
+                    <CheckCircle className="w-3.5 h-3.5 text-[#A7F3D0] shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{q}</span>
                   </div>
                 ))}
@@ -150,7 +150,7 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
                   onClose();
                   onBookWithDoctor(doctor.id);
                 }}
-                className="px-6 py-2.5 rounded-full bg-[#1B4332] hover:bg-[#15382A] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(27,67,50,0.3)] flex items-center gap-2 cursor-pointer"
+                className="px-6 py-2.5 rounded-full bg-[#1DBF8A] hover:bg-[#0EA571] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(29,191,138,0.3)] flex items-center gap-2 cursor-pointer"
               >
                 <span>Book Direct with {doctor.name.split(' ')[1] || doctor.name}</span>
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />

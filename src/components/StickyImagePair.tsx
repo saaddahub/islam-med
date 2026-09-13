@@ -35,13 +35,13 @@ export function StickyImagePair({
           transition={{ duration: reduced ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           {heading && (
-            <span className="text-xs font-mono uppercase tracking-widest text-[#1B4332] font-semibold mb-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#1DBF8A] font-semibold mb-1">
               {heading}
             </span>
           )}
           <img src={caption.thumbnail} alt={caption.label} className="caption-thumb" />
           <p className="caption-label text-slate-900">
-            <span className="dot text-[#1B4332]" /> {caption.label}
+            <span className="dot text-[#1DBF8A]" /> {caption.label}
           </p>
           <p className="caption-description">{caption.description}</p>
         </motion.div>

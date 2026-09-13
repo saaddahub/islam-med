@@ -50,7 +50,7 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
           transition={{ duration: 0.2 }}
           className="hidden md:block"
         >
-          <span className="rounded-full bg-[#1B4332] text-white px-4 py-2 text-xs font-mono font-medium shadow-xl flex items-center gap-1.5">
+          <span className="rounded-full bg-[#1DBF8A] text-white px-4 py-2 text-xs font-mono font-medium shadow-xl flex items-center gap-1.5">
             <span>View Profile</span>
             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
           </span>
@@ -139,7 +139,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 layout
                 initial={false}
                 animate={{
-                  backgroundColor: isHovered ? '#0F2318' : 'rgba(245, 240, 232, 0)',
+                  backgroundColor: isHovered ? '#0C1414' : 'rgba(245, 240, 232, 0)',
                 }}
                 transition={rowTransition}
                 onHoverStart={() => {
@@ -166,7 +166,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                           animate={{ opacity: 1, x: 0, scale: 1 }}
                           exit={{ opacity: 0, x: -20, scale: 0.95 }}
                           transition={photoTransition}
-                          className="relative overflow-hidden rounded-2xl shrink-0 w-20 h-20 ring-2 ring-[#1B4332]"
+                          className="relative overflow-hidden rounded-2xl shrink-0 w-20 h-20 ring-2 ring-[#1DBF8A]"
                         >
                           <img
                             src={doctor.image}
@@ -181,7 +181,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                     <div className="space-y-1">
                       <div
                         className={`text-xs sm:text-sm font-mono tracking-widest uppercase transition-colors duration-200 ${
-                          isHovered ? 'text-[#86EFAC]' : 'text-slate-500'
+                          isHovered ? 'text-[#A7F3D0]' : 'text-slate-500'
                         }`}
                       >
                         {doctor.yearMeta}
@@ -212,7 +212,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                     <div
                       className={`w-11 h-11 rounded-full flex items-center justify-center transition-[background-color,border-color,transform] duration-200 border ${
                         isHovered
-                          ? 'bg-[#1B4332] text-white border-[#1B4332] rotate-45 scale-105'
+                          ? 'bg-[#1DBF8A] text-white border-[#1DBF8A] rotate-45 scale-105'
                           : 'border-slate-300 text-slate-500 group-hover:border-slate-400'
                       }`}
                     >
@@ -240,7 +240,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                             <span className="text-slate-400">({doctor.patientsTreated} patients)</span>
                           </div>
                           <div className="hidden sm:flex items-center gap-1.5">
-                            <Award className="w-4 h-4 text-[#86EFAC]" aria-hidden="true" />
+                            <Award className="w-4 h-4 text-[#A7F3D0]" aria-hidden="true" />
                             <span>{doctor.experience}</span>
                           </div>
                         </div>
@@ -255,7 +255,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                               e.stopPropagation();
                               onSelectDoctor(doctor);
                             }}
-                            className="px-4 py-1.5 rounded-full bg-[#1B4332] text-white font-medium text-xs tracking-wider uppercase hover:bg-[#15382A] active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-xs"
+                            className="px-4 py-1.5 rounded-full bg-[#1DBF8A] text-white font-medium text-xs tracking-wider uppercase hover:bg-[#0EA571] active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-xs"
                           >
                             View Full Dossier
                           </button>
@@ -271,7 +271,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         </div>
 
         {/* Bottom Fast Action */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-[#0F2318] text-white border border-white/10">
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-[#0C1414] text-white border border-white/10">
           <div className="space-y-1">
             <h4 className="font-anton text-2xl sm:text-3xl uppercase tracking-tight">
               Looking for a specific specialist or second opinion?
@@ -283,7 +283,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
           <button
             type="button"
             onClick={onOpenAppointment}
-            className="shrink-0 px-6 py-3 rounded-full bg-[#1B4332] text-white font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-[#15382A] active:scale-95 transition-[background-color,transform] duration-150 shadow-md cursor-pointer"
+            className="shrink-0 px-6 py-3 rounded-full bg-[#1DBF8A] text-white font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-[#0EA571] active:scale-95 transition-[background-color,transform] duration-150 shadow-md cursor-pointer"
           >
             Direct Specialist Triage
           </button>

@@ -41,7 +41,7 @@ export const DarkPanelSlide: React.FC = () => {
   return (
     <div
       ref={panelRef}
-      className="relative z-20 w-full bg-[#0F2318] text-white rounded-t-[2.5rem] sm:rounded-t-[3.5rem] border-t border-white/10 pt-16 sm:pt-24 pb-12"
+      className="relative z-20 w-full bg-[#0C1414] text-white rounded-t-[2.5rem] sm:rounded-t-[3.5rem] border-t border-white/10 pt-16 sm:pt-24 pb-12"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -49,13 +49,13 @@ export const DarkPanelSlide: React.FC = () => {
         <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8 sm:mb-12">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#86EFAC]">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#A7F3D0]">
               02 / CLINICAL EXCELLENCE DIVISIONS
             </span>
           </div>
           <div className="hidden sm:flex items-center gap-2 text-xs text-[#94A3B8] font-mono">
             <span>SCROLL TO EXPLORE DEPARTMENTS</span>
-            <ArrowDown className="w-3.5 h-3.5 text-[#86EFAC]" aria-hidden="true" />
+            <ArrowDown className="w-3.5 h-3.5 text-[#A7F3D0]" aria-hidden="true" />
           </div>
         </div>
 
@@ -79,7 +79,7 @@ export const DarkPanelSlide: React.FC = () => {
               </div>
               <div className="h-8 w-px bg-white/10" aria-hidden="true" />
               <div>
-                <div className="font-anton text-2xl text-[#86EFAC] tabular-nums leading-none">99.8%</div>
+                <div className="font-anton text-2xl text-[#A7F3D0] tabular-nums leading-none">99.8%</div>
                 <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Diagnostic Accuracy</div>
               </div>
             </div>

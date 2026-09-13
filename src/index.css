@@ -6,37 +6,37 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
   --color-ground-light: #F5F0E8;
-  --color-ground-dark: #0F2318;
-  --color-ground-card: #1A3025;
+  --color-ground-dark: #0C1414;
+  --color-ground-card: #141C1C;
   
-  --color-glacier-start: #EFF5F0;
-  --color-glacier-end: #D8EDE0;
+  --color-glacier-start: #EDF7F4;
+  --color-glacier-end: #D0EEE6;
   --color-coral-start: #F5F0E8;
   --color-coral-end: #EBE3D5;
   
-  --color-accent-green: #1B4332;
-  --color-accent-green-hover: #15382A;
-  --color-accent-green-deep: #0F2A1E;
+  --color-accent-mint: #1DBF8A;
+  --color-accent-mint-hover: #0EA571;
+  --color-accent-mint-deep: #0B8A5E;
   --color-accent-gold: #B7893D;
   --color-accent-red: #DC2626;
   --color-accent-red-hover: #B91C1C;
-  --color-accent-dark: #0F2318;
+  --color-accent-dark: #0C1414;
   
   --color-text-dark-primary: #FFFFFF;
   --color-text-dark-muted: #9CA3AF;
   --color-text-light-primary: #1C1C1E;
-  --color-text-light-muted: #52796F;
+  --color-text-light-muted: #5BA48A;
 }
 
 @layer base {
   :root {
     --ground: #F5F0E8;
     --ink-primary: #1C1C1E;
-    --accent-green: #1B4332;
+    --accent-mint: #1DBF8A;
     --accent-gold: #B7893D;
     --accent-red: #DC2626;
-    --border-subtle: rgba(27, 67, 50, 0.12);
-    caret-color: #1B4332;
+    --border-subtle: rgba(29, 191, 138, 0.15);
+    caret-color: #1DBF8A;
     color-scheme: light;
   }
 
@@ -51,8 +51,8 @@
 
   /* 1. Curated text selection */
   ::selection {
-    background: #1B4332;
-    color: #F5F0E8;
+    background: #1DBF8A;
+    color: #0C1414;
   }
 
   /* 2. Tactile scrollbars */
@@ -61,14 +61,14 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0F2318;
+    background: #0C1414;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1B4332;
+    background: #1DBF8A;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #52796F;
+    background: #5BA48A;
   }
   ::-webkit-scrollbar-thumb:active {
     background: #B7893D;
@@ -76,7 +76,7 @@
 
   /* 3. Keyboard focus ring */
   :focus-visible {
-    outline: 2px solid #1B4332;
+    outline: 2px solid #1DBF8A;
     outline-offset: 2px;
   }
 
@@ -142,7 +142,7 @@ button:active {
   background: rgba(245, 240, 232, 0.88);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(27, 67, 50, 0.1);
+  border: 1px solid rgba(29, 191, 138, 0.1);
   box-shadow: 
     0 8px 24px -4px rgba(0, 0, 0, 0.06),
     0 1px 2px 0 rgba(0, 0, 0, 0.04);
@@ -162,7 +162,7 @@ button:active {
   background: rgba(245, 240, 232, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(27, 67, 50, 0.1);
+  border: 1px solid rgba(29, 191, 138, 0.1);
 }
 
 .glass-inner-dark {
@@ -181,7 +181,7 @@ button:active {
 
 /* The scaling dark rectangle — fills its 100vh parent via absolute+inset */
 .founder-reveal-box {
-  background-color: #0F2318;    /* deep forest — used site-wide for dark sections */
+  background-color: #0C1414;    /* obsidian dark — used site-wide for dark sections */
   position: absolute;
   inset: 0;
   /* CRITICAL: grow from the center outward in both axes — never from a corner */

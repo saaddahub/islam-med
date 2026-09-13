@@ -176,7 +176,7 @@ export const PhotoMosaicTransition: React.FC = () => {
       {/* Floating Header Tag */}
       <div className="absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 text-center pointer-events-none px-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-700 shadow-xs">
-          <Sparkles className="w-3.5 h-3.5 text-[#1B4332]" aria-hidden="true" />
+          <Sparkles className="w-3.5 h-3.5 text-[#1DBF8A]" aria-hidden="true" />
           <span>SYNCHRONIZED MEDICAL SPACES</span>
         </div>
         <p className="font-serif-display text-xl sm:text-2xl text-[#1C1C1E] italic max-w-lg">
@@ -203,7 +203,7 @@ export const PhotoMosaicTransition: React.FC = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-90" />
           <div className="absolute bottom-2 left-2 right-2 text-[10px] font-mono text-white leading-tight truncate">
-            <span className="text-[#86EFAC] block">{item.category}</span>
+            <span className="text-[#A7F3D0] block">{item.category}</span>
             <span className="font-sans font-medium text-slate-100">{item.title}</span>
           </div>
         </div>
@@ -224,7 +224,7 @@ export const PhotoMosaicTransition: React.FC = () => {
           {/* Badge in Bottom Overlay */}
           <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex items-end justify-between gap-4">
             <div className="space-y-1">
-              <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-[#86EFAC]">
+              <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-mono uppercase tracking-widest text-[#A7F3D0]">
                 CAMPUS ATRIUM
               </span>
               <h3 className="font-anton text-xl sm:text-3xl uppercase tracking-tight text-white">
@@ -237,7 +237,7 @@ export const PhotoMosaicTransition: React.FC = () => {
 
             <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-mono border border-white/20">
               <span>SCROLL</span>
-              <ArrowDown className="w-3.5 h-3.5 text-[#86EFAC]" aria-hidden="true" />
+              <ArrowDown className="w-3.5 h-3.5 text-[#A7F3D0]" aria-hidden="true" />
             </div>
           </div>
         </div>
@@ -260,7 +260,7 @@ export const PhotoMosaicTransition: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
           
           <div className="absolute bottom-4 left-4 right-4 space-y-1">
-            <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[9px] font-mono uppercase tracking-widest text-[#86EFAC]">
+            <span className="px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[9px] font-mono uppercase tracking-widest text-[#A7F3D0]">
               CAMPUS ATRIUM
             </span>
             <h3 className="font-anton text-lg uppercase tracking-tight text-white">
