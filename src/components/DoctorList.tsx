@@ -17,7 +17,7 @@ interface CursorFollowButtonProps {
 const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
   const x = useMotionValue(-500);
   const y = useMotionValue(-500);
-  const springConfig = { stiffness: 600, damping: 35, mass: 0.08 };
+  const springConfig = { stiffness: 750, damping: 32, mass: 0.05 };
   const smoothX = useSpring(x, springConfig);
   const smoothY = useSpring(y, springConfig);
   const isInitialized = useRef(false);
@@ -42,8 +42,8 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const targetX = Math.min(window.innerWidth - 150, Math.max(16, e.clientX + 22));
-      const targetY = Math.min(window.innerHeight - 60, Math.max(16, e.clientY + 24));
+      const targetX = Math.min(window.innerWidth - 130, Math.max(10, e.clientX + 10));
+      const targetY = Math.min(window.innerHeight - 45, Math.max(10, e.clientY + 9));
 
       if (!isInitialized.current) {
         x.set(targetX);
