@@ -6,19 +6,20 @@ export function StickyImagePairSection() {
   return (
     <section
       id="spaces-exhibit"
-      className="relative z-20 w-full bg-[#F0F4FA] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200/60"
+      data-stack="out"
+      className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200/60"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-16 sm:mb-24">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 text-xs font-mono text-[#2563EB] uppercase tracking-wider">
+            <div data-reveal="up" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C3460]/10 border border-[#1C3460]/20 text-xs font-label text-[#1C3460] uppercase tracking-wider">
               <Eye className="w-3.5 h-3.5" aria-hidden="true" />
               <span>05 / ARCHITECTURAL IMMERSION</span>
             </div>
 
-            <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-none">
+            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
               A physical environment built for{' '}
               <span className="relative inline-block italic font-normal text-[#1C1C1E]">
                 clarity
@@ -28,7 +29,7 @@ export function StickyImagePairSection() {
             </h2>
           </div>
 
-          <p className="font-sans text-sm sm:text-base text-slate-600 max-w-md">
+          <p data-reveal="up" className="font-sans text-sm sm:text-base text-slate-600 max-w-md">
             Explore our continuous care spaces. As you scroll, experience seamless vertical transitions
             engineered with pure native precision.
           </p>
@@ -42,7 +43,7 @@ export function StickyImagePairSection() {
             heading="01 / Private Recovery"
             image="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1400"
             caption={{
-              thumbnail: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=600",
+              thumbnail: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=600",
               label: "Private Inpatient Sanctuary",
               description: "Acoustically isolated ensuite rooms with dynamic circadian lighting and ergonomic guest rest accommodations.",
             }}
@@ -93,3 +94,4 @@ export function StickyImagePairSection() {
 };
 
 export default StickyImagePairSection;
+

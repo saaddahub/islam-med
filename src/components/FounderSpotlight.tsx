@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { ArrowUpRight, Award, ShieldCheck, Heart } from 'lucide-react';
-import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface FounderSpotlightProps {
@@ -9,172 +9,128 @@ interface FounderSpotlightProps {
 
 export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppointment }) => {
   const isReduced = useReducedMotion();
-  const wrapperRef = useRef<HTMLElement>(null);
-  const boxRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const box = boxRef.current;
-    const content = contentRef.current;
-    if (!wrapper || !box || !content) return;
+  // Track scroll progress through this section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
 
-    // Reduced motion: full size + full opacity immediately, no animation
-    if (isReduced) {
-      gsap.set(box, { scaleX: 1, scaleY: 1 });
-      gsap.set(content, { opacity: 1 });
-      return;
-    }
+  // Responsive spring for 60-90 FPS buttery feel
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 26,
+    restDelta: 0.001,
+  });
 
-    const activeTriggers: ScrollTrigger[] = [];
+  // Card starts at 0.82 scale and grows to 1.0 (full bleed)
+  const scale = useTransform(
+    isReduced ? scrollYProgress : smoothProgress,
+    [0, 0.45],
+    [0.82, 1]
+  );
 
-    if (window.innerWidth >= 768) {
-      // ── Desktop: scroll-scrubbed scale-from-center + pin ──────────────────
-      // scaleX starts wider than scaleY (0.5 vs 0.45) to match the spec's
-      // "box starts slightly wider than it is tall relative to its final size"
-      const boxTween = gsap.fromTo(
-        box,
-        { scaleX: 0.5, scaleY: 0.45 },
-        {
-          scaleX: 1,
-          scaleY: 1,
-          ease: 'none',      // scrub provides all easing feel — no curve on top
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top bottom',  // begins as section enters viewport from below
-            end: 'top 20%',       // fully expanded before section top hits 20%
-            scrub: 1,
-            pin: true,            // section holds while box grows
-            pinSpacing: true,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
+  // Border radius collapses from 28px → 0 as it fills the screen
+  const borderRadius = useTransform(
+    isReduced ? scrollYProgress : smoothProgress,
+    [0, 0.45],
+    [28, 0]
+  );
 
-      // Content fades in only once box is mostly expanded (start at 55%, end at 20%)
-      const contentTween = gsap.fromTo(
-        content,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top 55%',
-            end: 'top 20%',
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
+  // Content fades in as the card expands
+  const contentOpacity = useTransform(
+    isReduced ? scrollYProgress : smoothProgress,
+    [0, 0.25],
+    [0.6, 1]
+  );
 
-      if (boxTween.scrollTrigger) activeTriggers.push(boxTween.scrollTrigger);
-      if (contentTween.scrollTrigger) activeTriggers.push(contentTween.scrollTrigger);
-    } else {
-      // ── Mobile: static box at full size, simple content slide-up ──────────
-      gsap.set(box, { scaleX: 1, scaleY: 1, clearProps: 'transform' });
-
-      const mobileTween = gsap.fromTo(
-        content,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top 85%',
-          },
-        }
-      );
-      if (mobileTween.scrollTrigger) activeTriggers.push(mobileTween.scrollTrigger);
-    }
-
-    // Give ScrollTrigger one tick to measure layout after mount
-    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
-
-    return () => {
-      clearTimeout(refreshTimer);
-      activeTriggers.forEach((st) => st.kill());
-    };
-  }, [isReduced]);
+  const contentY = useTransform(
+    isReduced ? scrollYProgress : smoothProgress,
+    [0, 0.25],
+    [20, 0]
+  );
 
   return (
-    /*
-     * height: 100vh + overflow: hidden set as INLINE STYLES intentionally.
-     * This keeps them scoped to this element only — no global CSS class collision.
-     * The absolute-positioned box inside resolves its height against this
-     * explicit 100vh (percentage heights need an explicit parent height, not
-     * just min-height, to resolve correctly).
-     */
     <section
       id="about"
-      ref={wrapperRef}
-      className="relative z-20 w-full border-t border-white/10"
-      style={{ height: '100vh', overflow: 'hidden' }}
+      ref={sectionRef}
+      data-stack="out"
+      className="relative z-20 w-full bg-[#F5F3EF] border-t border-slate-200 py-24 sm:py-36"
     >
-      {/*
-       * The reveal box: position: absolute; inset: 0 fills the section's
-       * explicit 100vh height exactly.
-       * transform-origin: center center is the critical property — scaleX/scaleY
-       * expand outward from the center in both axes simultaneously.
-       * overflow: hidden on the parent clips the box edges cleanly while
-       * scaleX/scaleY are below 1.
-       */}
-      <div ref={boxRef} className="founder-reveal-box">
+      {/* Ambient blobs on the light bg */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#1C3460]/5 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/4" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#DC2626]/5 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/4" />
 
-        {/* Subtle Background Glow Accent — unchanged */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[#2563EB]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Section label — fades in normally */}
+        <div
+          data-reveal="up"
+          className="flex items-center gap-2 text-xs font-label tracking-widest text-slate-500 uppercase mb-10"
+        >
+          <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
+          <span>06 / FOUNDER &amp; VISION</span>
+        </div>
 
         {/*
-         * All founder content is UNCHANGED — only the entrance animation wrapping
-         * was added above. Text, photo, bio, credentials, buttons: verbatim.
+         * The dark card — this is the element that scales outward toward the viewer.
+         * It starts at 82% size (scaleX/scaleY via scale) with rounded corners,
+         * and as the user scrolls, it grows to 100% and corners flatten to 0.
          */}
-        <div ref={contentRef} className="founder-content relative z-10">
-          <div className="max-w-5xl mx-auto space-y-12">
+        <motion.div
+          style={isReduced ? {} : { scale, borderRadius }}
+          className="relative bg-[#1C1C1E] text-white overflow-hidden shadow-2xl gpu-layer"
+        >
+          {/* Card inner ambient glow */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#1C3460]/20 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#DC2626]/10 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
 
-            {/* Top Two-Part Header: Circular Photo + Large Condensed Headline */}
+          {/* All content fades in as card expands */}
+          <motion.div
+            style={isReduced ? {} : { opacity: contentOpacity, y: contentY }}
+            className="relative z-10 p-8 sm:p-12 lg:p-16 space-y-10"
+          >
+            {/* Top: Photo + Headline */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10">
-              {/* Circular Headshot */}
+              {/* Circular headshot */}
               <div className="relative shrink-0">
-                <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden ring-4 ring-[#2563EB]/40 shadow-2xl bg-slate-800">
+                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-[#1C3460]/60 shadow-xl bg-slate-700">
                   <img
                     src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=85&w=600"
                     alt="Dr. Tariq Islam, Founder & Medical Director"
                     className="w-full h-full object-cover object-top"
                   />
                 </div>
-                {/* Online / Active Chief Status Badge */}
                 <span
-                  className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#05091A] flex items-center justify-center border border-white/20"
+                  className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#374151] flex items-center justify-center border border-white/10"
                   title="Active Chief of Surgery"
                 >
                   <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" aria-hidden="true" />
                 </span>
               </div>
 
-              {/* Headline and Tag Pill */}
+              {/* Headline */}
               <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <span className="px-3.5 py-1 rounded-full bg-white/10 text-xs font-mono tracking-widest text-[#93C5FD] uppercase border border-white/10">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="px-3.5 py-1 rounded-full bg-white/10 text-xs font-label tracking-widest text-slate-300 uppercase border border-white/10">
                     LEADERSHIP &amp; VISION
                   </span>
-                  <span className="text-xs text-slate-400 font-mono hidden sm:inline-block">
+                  <span className="text-xs text-slate-400 font-label hidden sm:inline-block">
                     FOUNDER &amp; MEDICAL DIRECTOR
                   </span>
                 </div>
-
                 <h2 className="font-anton text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white leading-[0.92]">
                   HEY — I&apos;M DR. TARIQ ISLAM
                 </h2>
               </div>
             </div>
 
-            {/* Lower Two-Column Body: Bio Copy + Credentials & CTA */}
+            {/* Bottom: Two-column body */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pt-8 border-t border-white/10">
-              {/* Left Column: Role & Mission Statement */}
+              {/* Left: Role */}
               <div className="md:col-span-4 space-y-3">
-                <div className="inline-block px-3.5 py-1.5 rounded-full bg-[#2563EB]/20 text-[#93C5FD] text-xs font-mono font-medium uppercase tracking-wider border border-[#2563EB]/30">
+                <div className="inline-block px-3.5 py-1.5 rounded-full bg-[#1C3460]/30 text-slate-300 text-xs font-label font-medium uppercase tracking-wider border border-[#1C3460]/40">
                   FOUNDER &amp; CHIEF SURGEON
                 </div>
                 <div className="text-sm font-sans font-medium text-white">
@@ -185,37 +141,37 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                 </p>
               </div>
 
-              {/* Right Column: Bio Paragraph, Stats, & CTA */}
+              {/* Right: Bio + credentials + CTAs */}
               <div className="md:col-span-8 space-y-6">
-                <p className="font-sans text-base sm:text-xl text-slate-200 leading-relaxed font-normal">
+                <p className="font-sans text-base sm:text-xl text-slate-300 leading-relaxed font-normal">
                   &ldquo;Islam Medical Complex was founded on a simple belief: world-class clinical precision
                   and genuine human warmth aren&apos;t a trade-off. Every space here — from our sub-millimeter
                   robotic theaters to light-filled circadian recovery suites — is designed around patient
                   dignity, safety, and tranquil restoration.&rdquo;
                 </p>
 
-                {/* Clinical Trust Credentials Row */}
-                <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 text-xs text-slate-300">
+                {/* Credentials row */}
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 text-xs text-slate-400">
                   <div className="flex items-center gap-2">
-                    <Award className="w-4 h-4 text-[#93C5FD]" aria-hidden="true" />
-                    <span>MD, FACS • Johns Hopkins Fellow</span>
+                    <Award className="w-4 h-4 text-[#93B4D4]" aria-hidden="true" />
+                    <span>Consultant Surgical Leadership</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#2563EB]" aria-hidden="true" />
-                    <span>25+ Years Surgical Leadership</span>
+                    <ShieldCheck className="w-4 h-4 text-slate-400" aria-hidden="true" />
+                    <span>Evidence-Based Clinical Standards</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Heart className="w-4 h-4 text-[#DC2626]" aria-hidden="true" />
-                    <span>18,400+ Surgeries Supervised</span>
+                    <span>Patient-Centered Bedside Care</span>
                   </div>
                 </div>
 
-                {/* Action Buttons */}
+                {/* Action buttons */}
                 <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="px-6 py-3 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white font-medium text-xs sm:text-sm uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(37,99,235,0.25)] flex items-center gap-2 cursor-pointer"
+                    className="px-6 py-3 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs sm:text-sm uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.30)] flex items-center gap-2 cursor-pointer"
                   >
                     <span>Schedule Consultation</span>
                     <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -231,11 +187,12 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               </div>
             </div>
 
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default FounderSpotlight;
+

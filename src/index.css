@@ -3,23 +3,24 @@
 @theme {
   --font-serif-display: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
   --font-anton: 'Anton', 'Archivo Black', sans-serif;
+  --font-label: 'Barlow Condensed', 'Archivo Narrow', 'DIN Alternate', ui-sans-serif, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --color-ground-light: #F0F4FA;
-  --color-ground-dark: #05091A;
+  --color-ground-light: #F5F3EF;
+  --color-ground-dark: #191919;
   --color-ground-card: #0A1128;
   
-  --color-glacier-start: #EEF3FC;
-  --color-glacier-end: #DDE8F8;
-  --color-blue-start: #F0F4FA;
-  --color-blue-end: #E2ECF7;
+  --color-glacier-start: #EDF0E8;
+  --color-glacier-end: #DDE8DC;
+  --color-blue-start: #F5F3EF;
+  --color-blue-end: #E5EDDF;
   
-  --color-accent-blue: #2563EB;
-  --color-accent-blue-hover: #1D4ED8;
-  --color-accent-blue-deep: #1E3A8A;
+  --color-accent-teal: #1C3460;
+  --color-accent-teal-hover: #152A52;
+  --color-accent-teal-deep: #0E1E3A;
   --color-accent-red: #DC2626;
   --color-accent-red-hover: #B91C1C;
-  --color-accent-dark: #05091A;
+  --color-accent-dark: #191919;
   
   --color-text-dark-primary: #FFFFFF;
   --color-text-dark-muted: #94A3B8;
@@ -29,27 +30,31 @@
 
 @layer base {
   :root {
-    --ground: #F0F4FA;
+    --ground: #F5F3EF;
     --ink-primary: #0F172A;
-    --accent-blue: #2563EB;
+    --accent-teal: #1C3460;
     --accent-red: #DC2626;
-    --border-subtle: rgba(37, 99, 235, 0.12);
-    caret-color: #2563EB;
+    --border-subtle: rgba(28,52,96,0.10);
+    caret-color: #1C3460;
     color-scheme: light;
   }
 
   body {
-    background-color: #F0F4FA;
+    background-color: #F5F3EF;
     color: #0F172A;
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  p {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.011em;
+  }
+
   /* 1. Curated text selection */
   ::selection {
-    background: #1E3A8A;
+    background: #0E1E3A;
     color: #FFFFFF;
   }
 
@@ -59,22 +64,22 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #05091A;
+    background: #191919;
   }
   ::-webkit-scrollbar-thumb {
-    background: #2563EB;
+    background: #1C3460;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #93C5FD;
+    background: #93B4D4;
   }
   ::-webkit-scrollbar-thumb:active {
-    background: #B7893D;
+    background: #A8C4DC;
   }
 
   /* 3. Keyboard focus ring */
   :focus-visible {
-    outline: 2px solid #2563EB;
+    outline: 2px solid #1C3460;
     outline-offset: 2px;
   }
 
@@ -95,8 +100,14 @@
   letter-spacing: -0.01em;
 }
 
+.font-label {
+  font-family: 'Barlow Condensed', 'Archivo Narrow', 'DIN Alternate', ui-sans-serif, sans-serif;
+  letter-spacing: 0.04em;
+}
+
 .font-sans {
   font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.011em;
 }
 
 /* 3D Perspective utils for Tilt Carousel */
@@ -170,48 +181,7 @@ button:active {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* ==========================================================================
-   CEO / Founder Box-Reveal Transition
-   NOTE: .founder-reveal-wrapper is intentionally NOT here — the section's
-   height and overflow are set as inline styles on the element to prevent
-   any possibility of collision with other sections on the page.
-   ========================================================================== */
 
-/* The scaling dark rectangle — fills its 100vh parent via absolute+inset */
-.founder-reveal-box {
-  background-color: #05091A;    /* obsidian dark — used site-wide for dark sections */
-  position: absolute;
-  inset: 0;
-  /* CRITICAL: grow from the center outward in both axes — never from a corner */
-  transform-origin: center center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* The founder content card centred inside the box */
-.founder-content {
-  width: 100%;
-  max-width: 1100px;
-  padding: 0 40px;
-  color: #ffffff;
-}
-
-@media (max-width: 767px) {
-  /* Mobile: box is always full-size — transform disabled so GSAP state can't bleed in */
-  .founder-reveal-box {
-    transform: none !important;
-    position: relative;    /* release from absolute so the section can grow with content */
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .founder-content {
-    padding: 60px 20px;
-  }
-}
 
 /* ==========================================================================
    Sticky Image-Pair Scroll Transition (Pure CSS position: sticky)
@@ -310,4 +280,240 @@ button:active {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* ==========================================================================
+   Apple-style Glass Bar
+   ========================================================================== */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --glass-solid: rgba(245, 245, 247, 0.96);
+  --glass-blur: 20px;
+  --glass-saturate: 180%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass-bg: rgba(28, 28, 30, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-highlight: rgba(255, 255, 255, 0.10);
+    --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+    --glass-solid: rgba(28, 28, 30, 0.96);
+  }
+}
+
+.glass-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
+  transform: translateZ(0);
+}
+
+/* Smaller screens: cheaper blur */
+@media (max-width: 640px) {
+  .glass-bar { --glass-blur: 12px; }
+}
+
+/* Fallback: browser has no backdrop-filter support */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-bar { background: var(--glass-solid); }
+}
+
+/* Accessibility: user asked for less transparency */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-bar {
+    background: var(--glass-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Low-end device tiers (class set by inline JS in index.html) */
+.glass-bar.is-lite { --glass-blur: 8px; --glass-saturate: 100%; }
+.glass-bar.is-solid {
+  background: var(--glass-solid);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* ==========================================================================
+   2026 SCROLL MOTION SYSTEM
+   ========================================================================== */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-distance: 40px;
+  --reveal-dur: 800ms;
+  --stagger: 70ms;
+  --curtain-radius: 32px;
+}
+
+@keyframes reveal-up    { from { opacity: 0; translate: 0 var(--reveal-distance); } to { opacity: 1; translate: 0 0; } }
+@keyframes reveal-fade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes reveal-scale { from { opacity: 0; translate: 0 56px; scale: 0.94; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@keyframes reveal-mask  { from { clip-path: inset(0 0 100% 0); translate: 0 0.3em; } to { clip-path: inset(-10% -10% -10% -10%); translate: 0 0; } }
+@keyframes reveal-image { from { clip-path: inset(9% 9% 9% 9% round 16px); } to { clip-path: inset(0% 0% 0% 0% round 16px); } }
+@keyframes image-drift  { from { translate: 0 -6%; scale: 1.14; } to { translate: 0 6%; scale: 1.14; } }
+@keyframes stack-away   { from { translate: 0 0; scale: 1; } to { translate: 0 6svh; scale: 0.94; } }
+@keyframes stack-dim    { from { opacity: 0; } to { opacity: 0.5; } }
+@keyframes progress-grow{ from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes intro-up     { from { opacity: 0; translate: 0 28px; } to { opacity: 1; translate: 0 0; } }
+
+/* static layout for stacking (safe in every mode) */
+[data-stack~="out"], [data-stack~="in"] { position: relative; isolation: isolate; }
+[data-stack~="in"] {
+  margin-top: calc(var(--curtain-radius) * -1);
+  border-radius: var(--curtain-radius) var(--curtain-radius) 0 0;
+  box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.16);
+}
+.stack-dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 50; }
+
+/* STEP 3: Padding adjustments for stacking overlap */
+#facilities[data-stack~="in"] {
+  padding-top: calc(6rem + var(--curtain-radius));
+}
+#doctors[data-stack~="in"] {
+  padding-top: calc(5rem + var(--curtain-radius));
+}
+#care-plans[data-stack~="in"] {
+  padding-top: calc(6rem + var(--curtain-radius));
+}
+#how-it-works[data-stack~="in"] {
+  padding-top: calc(6rem + var(--curtain-radius));
+}
+footer[data-stack~="in"] {
+  padding-top: calc(5rem + var(--curtain-radius));
+}
+
+/* stagger helper: put data-stagger on a parent, data-reveal on its children */
+[data-stagger] > :nth-child(1) { --i: 0; }
+[data-stagger] > :nth-child(2) { --i: 1; }
+[data-stagger] > :nth-child(3) { --i: 2; }
+[data-stagger] > :nth-child(4) { --i: 3; }
+[data-stagger] > :nth-child(5) { --i: 4; }
+[data-stagger] > :nth-child(n+6) { --i: 5; }
+
+/* PATH 1: scroll-driven (html.sd = browser supports animation-timeline) */
+html.sd [data-reveal] {
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: view();
+  animation-range: entry calc(4% + var(--i, 0) * 7%) entry calc(52% + var(--i, 0) * 7%);
+}
+html.sd [data-reveal="up"]    { animation-name: reveal-up; }
+html.sd [data-reveal="fade"]  { animation-name: reveal-fade; }
+html.sd [data-reveal="scale"] { animation-name: reveal-scale; }
+html.sd [data-reveal="mask"]  { animation-name: reveal-mask; }
+html.sd [data-reveal="image"] { animation-name: reveal-image; animation-range: entry 0% entry 80%; }
+
+html.sd [data-drift] {
+  animation-name: image-drift;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: view();
+  animation-range: cover 0% cover 100%;
+}
+
+html.sd [data-stack~="out"] {
+  transform-origin: 50% 100%;
+  animation-name: stack-away;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: view();
+  animation-range: cover calc(100% - 100svh) cover 100%;
+}
+html.sd .stack-dim {
+  animation-name: stack-dim;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: view();
+  animation-range: cover calc(100% - 100svh) cover 100%;
+}
+
+.scroll-progress { display: none; }
+html.sd .scroll-progress {
+  display: block;
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: #1C3460;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  z-index: 1100;
+  pointer-events: none;
+  animation-name: progress-grow;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-timeline: scroll(root block);
+}
+
+/* PATH 2: fallback for browsers without scroll-driven animations (html.fb) */
+html.fb [data-reveal] {
+  opacity: 0;
+  translate: 0 var(--reveal-distance);
+  transition: opacity var(--reveal-dur) var(--ease-out), translate var(--reveal-dur) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+html.fb [data-reveal].is-visible { opacity: 1; translate: 0 0; }
+
+/* hero intro on load (time-based, both paths) */
+html.sd [data-intro], html.fb [data-intro] {
+  animation: intro-up 900ms var(--ease-out) both;
+  animation-delay: calc(120ms + var(--i, 0) * 90ms);
+}
+
+/* LITE tier (weaker devices): no clip-path, no drift, no scale-back of sections */
+html[data-motion="lite"] [data-reveal="mask"],
+html[data-motion="lite"] [data-reveal="image"] { animation-name: reveal-up; animation-range: entry 4% entry 52%; }
+html[data-motion="lite"] [data-drift],
+html[data-motion="lite"] [data-stack~="out"] { animation: none; }
+
+/* safety net */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-drift], [data-stack], [data-intro], .stack-dim, .scroll-progress {
+    animation: none !important; transition: none !important;
+    opacity: 1 !important; translate: none !important; scale: none !important; clip-path: none !important;
+  }
+  .stack-dim, .scroll-progress { display: none !important; }
+}
+
+/* Lenis smooth scroll optimization */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* GPU hardware acceleration for 60-90 FPS buttery motion */
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@supports (content-visibility: auto) {
+  #doctors, #care-plans, #how-it-works, #about {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
+}
+
+
 

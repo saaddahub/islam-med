@@ -97,21 +97,22 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
     <section
       id="facilities"
       ref={sectionRef}
-      className="relative z-20 w-full bg-[#05091A] text-white py-24 sm:py-32 overflow-hidden border-t border-white/10"
+      data-stack="in out"
+      className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8 mb-12 sm:mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-12 sm:mb-16">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-mono text-[#93C5FD] uppercase tracking-wider">
+            <div data-reveal="up" className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1C3460]/10 border border-[#1C3460]/20 text-xs font-label text-[#1C3460] uppercase tracking-wider font-semibold">
               <Layers className="w-3.5 h-3.5" aria-hidden="true" />
               <span>04 / ARCHITECTURAL SANCTUARY</span>
             </div>
 
-            <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-white leading-none">
+            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
               Spaces designed for{' '}
-              <span className="relative inline-block italic font-normal text-white">
+              <span className="relative inline-block italic font-normal text-[#1C1C1E]">
                 healing
                 <SquiggleUnderline color="#DC2626" className="w-full" />
               </span>{' '}
@@ -119,19 +120,20 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
             </h2>
           </div>
 
-          <p className="font-sans text-sm sm:text-base text-slate-300 max-w-md">
-            Every square meter at Islam Medical Complex integrates HEPA-filtered clean air, 
+          <p className="font-sans text-sm sm:text-base text-slate-600 max-w-md">
+            Every square meter at Islam Medical Complex integrates HEPA-filtered clean air,
             acoustic isolation, and circadian light therapies to elevate restorative recovery.
           </p>
         </div>
 
         {/* Main Photo Stage */}
-        <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 p-3 sm:p-5">
+        <div className="relative rounded-3xl overflow-hidden bg-slate-200/60 border border-slate-300/80 p-3 sm:p-5 shadow-sm">
           
           {/* Main Hero Photo with AnimatePresence crossfade when switching cards */}
           <div
             ref={mainPhotoRef}
-            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-hidden shadow-2xl z-10 will-change-transform bg-slate-900"
+            data-reveal="image"
+            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-clip shadow-2xl z-10 bg-slate-900"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -143,6 +145,7 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                 className="absolute inset-0"
               >
                 <img
+                  data-drift
                   src={currentFeature.image}
                   alt={currentFeature.title}
                   className="w-full h-full object-cover object-center filter brightness-[0.95]"
@@ -152,7 +155,7 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                 {/* Overlay Title Pill */}
                 <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                   <div className="space-y-1">
-                    <span className="text-[11px] font-mono tracking-widest text-[#93C5FD] uppercase">
+                    <span className="text-[11px] font-label tracking-widest text-[#93B4D4] uppercase">
                       {currentFeature.tag}
                     </span>
                     <h3 className="font-anton text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
@@ -199,29 +202,29 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
                 key={feature.id}
                 variants={cardVariants}
                 onClick={() => setSelectedFeatureIndex(idx)}
-                className={`text-left p-6 rounded-2xl transition-[background-color,border-color,transform] duration-200 cursor-pointer active:scale-[0.98] border ${
+                className={`text-left p-6 rounded-2xl transition-[background-color,border-color,transform,box-shadow] duration-200 cursor-pointer active:scale-[0.98] border shadow-xs ${
                   isSelected
-                    ? 'bg-white/10 border-[#2563EB] ring-1 ring-[#2563EB]/40'
-                    : 'bg-white/[0.02] border-white/10 hover:bg-white/5'
+                    ? 'bg-white border-[#1C3460] ring-2 ring-[#1C3460]/20 shadow-md'
+                    : 'bg-white/70 border-slate-200 hover:bg-white'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono text-xs text-[#93C5FD] font-semibold">
+                  <span className="font-label text-xs text-slate-500 font-semibold">
                     0{idx + 1}
                   </span>
                   <div
                     className={`w-2.5 h-2.5 rounded-full transition-[background-color,transform] duration-200 ${
-                      isSelected ? 'bg-[#DC2626] scale-110' : 'bg-white/20'
+                      isSelected ? 'bg-[#DC2626] scale-110' : 'bg-slate-300'
                     }`}
                     aria-hidden="true"
                   />
                 </div>
 
-                <h4 className="font-anton text-xl uppercase tracking-tight text-white mb-2">
+                <h4 className="font-anton text-xl uppercase tracking-tight text-[#1C1C1E] mb-2">
                   {feature.title}
                 </h4>
 
-                <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                   {feature.description}
                 </p>
               </motion.button>
@@ -235,3 +238,4 @@ export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
 };
 
 export default FacilityReveal;
+

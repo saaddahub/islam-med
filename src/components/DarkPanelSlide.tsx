@@ -41,21 +41,22 @@ export const DarkPanelSlide: React.FC = () => {
   return (
     <div
       ref={panelRef}
-      className="relative z-20 w-full bg-[#05091A] text-white rounded-t-[2.5rem] sm:rounded-t-[3.5rem] border-t border-white/10 pt-16 sm:pt-24 pb-12"
+      data-stack="in"
+      className="relative z-20 w-full bg-[#191919] text-white rounded-t-[2.5rem] sm:rounded-t-[3.5rem] border-t border-white/10 pt-16 sm:pt-24 pb-12"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Top Header Tag */}
         <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8 sm:mb-12">
-          <div className="flex items-center gap-3">
+          <div data-reveal="up" className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#93C5FD]">
+            <span className="font-label text-xs uppercase tracking-widest text-slate-400">
               02 / CLINICAL EXCELLENCE DIVISIONS
             </span>
           </div>
-          <div className="hidden sm:flex items-center gap-2 text-xs text-[#94A3B8] font-mono">
+          <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 font-label">
             <span>SCROLL TO EXPLORE DEPARTMENTS</span>
-            <ArrowDown className="w-3.5 h-3.5 text-[#93C5FD]" aria-hidden="true" />
+            <ArrowDown className="w-3.5 h-3.5 text-slate-500" aria-hidden="true" />
           </div>
         </div>
 
@@ -63,24 +64,25 @@ export const DarkPanelSlide: React.FC = () => {
         <div className="space-y-4 max-w-5xl">
           <h2
             ref={headlineRef}
+            data-reveal="mask"
             className="font-anton text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.9]"
           >
             HOW WE CARE FOR YOU
           </h2>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
-            <p className="font-sans text-slate-300 text-base sm:text-xl max-w-2xl leading-relaxed font-normal">
-              Four specialized clinical pillars engineered to guide you from precision diagnostics 
+            <p data-reveal="up" className="font-sans text-slate-300 text-base sm:text-xl max-w-2xl leading-relaxed font-normal">
+              Four specialized clinical pillars engineered to guide you from precision diagnostics
               through minimally invasive treatment and tranquil post-operative recovery.
             </p>
             <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-3 self-start md:self-auto">
               <div className="text-right">
-                <div className="font-anton text-2xl text-[#DC2626] tabular-nums leading-none">90s</div>
-                <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Emergency Triage</div>
+                <div className="font-anton text-xl text-[#DC2626] uppercase leading-none">24 / 7</div>
+                <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Emergency &amp; Trauma</div>
               </div>
               <div className="h-8 w-px bg-white/10" aria-hidden="true" />
               <div>
-                <div className="font-anton text-2xl text-[#93C5FD] tabular-nums leading-none">99.8%</div>
-                <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Diagnostic Accuracy</div>
+                <div className="font-anton text-xl text-white uppercase leading-none">IN-HOUSE</div>
+                <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Pharmacy &amp; Diagnostics</div>
               </div>
             </div>
           </div>
@@ -92,3 +94,4 @@ export const DarkPanelSlide: React.FC = () => {
 };
 
 export default DarkPanelSlide;
+

@@ -24,3 +24,4 @@ export const isDesktop = () => {
 
 export { gsap, ScrollTrigger };
 export default ScrollTrigger;
+

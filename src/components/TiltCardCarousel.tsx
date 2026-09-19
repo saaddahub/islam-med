@@ -56,45 +56,43 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
   const getStatIcon = (iconType: string) => {
     switch (iconType) {
       case 'slot':
-        return <Bed className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />;
+        return <Bed className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" />;
       case 'clock':
         return <Clock className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />;
       case 'shield':
       default:
-        return <ShieldCheck className="w-3.5 h-3.5 text-[#2563EB]" aria-hidden="true" />;
+        return <ShieldCheck className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" />;
     }
   };
 
   return (
     <section
       id="care-plans"
-      className="relative z-20 w-full py-24 sm:py-32 overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #F0F4FA 0%, #F0F5FA 50%, #F5EFE6 100%)',
-      }}
+      data-stack="in out"
+      className="relative z-20 w-full bg-[#191919] text-white py-24 sm:py-32 border-t border-white/10 selection:bg-[#1C3460] selection:text-white"
     >
       {/* Background soft ambient noise/circles */}
-      <div className="absolute top-12 left-1/4 w-96 h-96 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-12 right-1/4 w-96 h-96 rounded-full bg-amber-100/30 blur-3xl pointer-events-none" />
+      <div className="absolute top-12 left-1/4 w-96 h-96 rounded-full bg-blue-900/15 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-12 right-1/4 w-96 h-96 rounded-full bg-amber-900/10 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Section Header with Instrument Serif and Squiggle */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-xs font-semibold uppercase tracking-wider text-slate-700 shadow-xs">
+          <div data-reveal="up" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold uppercase tracking-wider text-slate-300 shadow-xs">
             <HeartHandshake className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
             <span>05 / INDIVIDUALIZED CARE PLANS</span>
           </div>
 
-          <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
+          <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-white leading-[1.05]">
             Where care feels{' '}
-            <span className="relative inline-block italic font-normal text-[#1C1C1E]">
+            <span className="relative inline-block italic font-normal text-white">
               personal
               <SquiggleUnderline color="#DC2626" className="w-full" />
             </span>
           </h2>
 
-          <p className="font-sans text-base sm:text-lg text-slate-700 max-w-xl mx-auto leading-relaxed font-normal">
+          <p data-reveal="up" className="font-sans text-base sm:text-lg text-slate-400 max-w-xl mx-auto leading-relaxed font-normal">
             Transparent, concierge-managed treatment plans created to make world-class specialist 
             care straightforward, accessible, and seamless.
           </p>
@@ -102,6 +100,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
         {/* 3 Horizontally Arranged Cards with 3D Perspective Tilt Entrance */}
         <motion.div
+          data-stagger
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
@@ -114,11 +113,12 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
             return (
               <motion.div
+                data-reveal="scale"
                 key={pkg.id}
                 variants={cardVariants}
-                className={`group relative rounded-[2rem] bg-white/90 backdrop-blur-xl p-6 sm:p-7 border border-slate-200/80 shadow-lg transition-[transform,background-color] duration-300 hover:bg-white ${
+                className={`group relative rounded-[2rem] bg-white/[0.04] backdrop-blur-xl p-6 sm:p-7 border border-white/10 shadow-2xl transition-[transform,background-color,border-color] duration-300 hover:bg-white/[0.07] hover:border-white/20 ${
                   isFeatured
-                    ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-2 ring-[#2563EB]/30 shadow-2xl bg-white'
+                    ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-1 ring-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-white/[0.06]'
                     : 'z-10'
                 }`}
               >
@@ -129,22 +129,22 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                     alt=""
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   
                   {/* Top-Left Status Pill */}
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-semibold text-[#1C1C1E] shadow-xs flex items-center gap-1.5">
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#191919]/90 backdrop-blur-md text-[11px] font-semibold text-white shadow-xs border border-white/15 flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#DC2626]" aria-hidden="true" />
                     <span>{pkg.badge}</span>
                   </div>
 
                   {/* Top-Right Department Tag */}
-                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-[#05091A]/90 backdrop-blur-md text-[10px] font-mono text-white">
+                  <div className="absolute top-3 right-3 px-2.5 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[10px] font-label text-slate-300 border border-white/10">
                     {pkg.department}
                   </div>
                 </div>
 
                 {/* Stat Icons Row (3 stats: bed, clock, shield) */}
-                <div className="grid grid-cols-3 gap-2 py-3 px-3 rounded-xl bg-slate-50 border border-slate-200/80 mb-5 text-[11px] text-slate-700">
+                <div className="grid grid-cols-3 gap-2 py-3 px-3 rounded-xl bg-white/[0.03] border border-white/10 mb-5 text-[11px] text-slate-300">
                   {pkg.stats.map((st, sIdx) => (
                     <div key={sIdx} className="flex flex-col items-center text-center gap-1">
                       {getStatIcon(st.icon)}
@@ -155,22 +155,12 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
                 {/* Title & 1-sentence Description */}
                 <div className="space-y-2 mb-6">
-                  <h3 className="font-anton text-2xl uppercase tracking-tight text-[#1C1C1E]">
+                  <h3 className="font-anton text-2xl uppercase tracking-tight text-white">
                     {pkg.title}
                   </h3>
-                  <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed min-h-[3rem]">
+                  <p className="font-sans text-xs sm:text-sm text-slate-400 leading-relaxed min-h-[3rem]">
                     {pkg.description}
                   </p>
-                </div>
-
-                {/* Price & Duration */}
-                <div className="flex items-baseline gap-2 mb-6 border-t border-slate-200 pt-4">
-                  <span className="font-anton text-3xl sm:text-4xl text-[#1C1C1E] tabular-nums">
-                    {pkg.price}
-                  </span>
-                  <span className="text-xs text-slate-500 font-sans">
-                    / {pkg.period}
-                  </span>
                 </div>
 
                 {/* Side-by-side Button Pairing: Primary Pill + Secondary Circular Arrow */}
@@ -178,7 +168,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="flex-1 py-3 px-5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(37,99,235,0.25)] flex items-center justify-center gap-2 group/btn cursor-pointer"
+                    className="flex-1 py-3 px-5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.30)] flex items-center justify-center gap-2 group/btn cursor-pointer"
                   >
                     <span>Explore Details</span>
                   </button>
@@ -186,7 +176,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white border border-slate-200 text-[#1C1C1E] hover:bg-[#05091A] hover:text-white active:scale-90 transition-[background-color,color,transform] duration-150 shadow-xs shrink-0 cursor-pointer"
+                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white hover:bg-white hover:text-[#191919] active:scale-90 transition-[background-color,color,transform] duration-150 shrink-0 cursor-pointer"
                     title="Book Consultation"
                     aria-label="Book Consultation"
                   >
@@ -205,3 +195,4 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 };
 
 export default TiltCardCarousel;
+

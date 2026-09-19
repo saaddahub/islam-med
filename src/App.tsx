@@ -31,7 +31,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F4FA] text-[#1C1C1E] flex flex-col selection:bg-[#2563EB] selection:text-white">
+    <div className="min-h-screen bg-[#F5F3EF] text-[#1C1C1E] flex flex-col selection:bg-[#1C3460] selection:text-white">
       
       {/* 1. Global Navigation Bar */}
       <Navbar
@@ -43,7 +43,7 @@ export function App() {
         onOpenAppointment={() => handleOpenAppointment()}
       />
 
-      {/* 3. Section 2: Light -> Dark Panel Slide Transition (Reference A style with Anton Headline) */}
+      {/* 3. Section 2: Light -> Dark Panel Slide Transition */}
       <DarkPanelSlide />
 
       {/* 4. Section 3: Sticky Numbered Accordion (01-04 Departments) */}
@@ -51,18 +51,18 @@ export function App() {
         onOpenAppointment={() => handleOpenAppointment()}
       />
 
-      {/* 5. Section 4: Doctors List (Consultant roster with hover reveal & cursor tooltip) */}
+      {/* 5. Section 4: Layered Photo Reveal Gallery (Architectural Sanctuary) */}
+      <FacilityReveal
+        onOpenAppointment={() => handleOpenAppointment()}
+      />
+
+      {/* 4. Section 3: Doctors List (Consultant roster with hover reveal & cursor tooltip) */}
       <DoctorList
         onSelectDoctor={handleSelectDoctor}
         onOpenAppointment={() => handleOpenAppointment()}
       />
 
-      {/* 6. Section 5: Layered Photo Reveal Gallery (Peekaboo scroll choreography) */}
-      <FacilityReveal
-        onOpenAppointment={() => handleOpenAppointment()}
-      />
-
-      {/* 6.5 Sticky Image-Pair Scroll Transition (Solid caption on one side, scrolling image on other side) */}
+      {/* 5. Section 4: Sticky Image-Pair Scroll Transition (A physical environment built for clarity and ease) */}
       <StickyImagePairSection />
 
       {/* 7. Section 6: Pastel Card Carousel with 3D Tilt Entrance (Reference B "Where care feels personal") */}
@@ -75,7 +75,7 @@ export function App() {
         onOpenAppointment={() => handleOpenAppointment()}
       />
 
-      {/* 9. Section 8: Founder & CEO Spotlight (Reference A "Hey — I'm Dario" style) */}
+      {/* 9. Section 8: Founder & CEO Spotlight (Reference A "Hey � I'm Dario" style) */}
       <FounderSpotlight
         onOpenAppointment={() => handleOpenAppointment()}
       />
@@ -104,3 +104,4 @@ export function App() {
 }
 
 export default App;
+
