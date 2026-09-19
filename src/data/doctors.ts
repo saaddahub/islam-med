@@ -24,7 +24,7 @@ export const DOCTORS: Doctor[] = [
     experience: "18+ Years Experience",
     qualifications: ["MBBS", "FCPS (Gynae & Obs)", "Senior Consultant Gynecologist", "Infertility Specialist"],
     bio: "Senior consultant with over 18 years of clinical leadership in comprehensive obstetrics, gynecological surgery, maternal wellness, and advanced infertility management.",
-    image: "https://images.unsplash.com/photo-1594824813590-4824d56417fa?auto=format&fit=crop&q=80&w=800",
+    image: "/doctors/dr-yasmin-sattar.jpg",
     consultationFee: "Consultation Available",
     availability: ["Daily: 08:00 PM – 10:00 PM"],
     rating: 4.99,
