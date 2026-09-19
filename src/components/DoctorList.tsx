@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { DOCTORS } from '../data/doctors';
 import type { Doctor } from '../data/doctors';
 import { ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface DoctorListProps {
@@ -10,103 +10,12 @@ interface DoctorListProps {
   onOpenAppointment: () => void;
 }
 
-interface CursorFollowButtonProps {
-  visible: boolean;
-}
-
-const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
-  const x = useMotionValue(-500);
-  const y = useMotionValue(-500);
-  const springX = useSpring(x, { stiffness: 700, damping: 40, mass: 0.12 });
-  const springY = useSpring(y, { stiffness: 700, damping: 40, mass: 0.12 });
-  const hasPosition = useRef(false);
-
-  useEffect(() => {
-    function handleMove(e: MouseEvent) {
-      // Offset slightly to bottom-right of cursor and clamp within viewport
-      const targetX = Math.min(window.innerWidth - 130, Math.max(20, e.clientX + 14));
-      const targetY = Math.min(window.innerHeight - 45, Math.max(20, e.clientY + 14));
-      if (!hasPosition.current) {
-        x.set(targetX);
-        y.set(targetY);
-        springX.jump(targetX);
-        springY.jump(targetY);
-        hasPosition.current = true;
-      } else {
-        x.set(targetX);
-        y.set(targetY);
-      }
-    }
-
-    function handleMouseLeave() {
-      hasPosition.current = false;
-    }
-
-    window.addEventListener('mousemove', handleMove, { passive: true });
-    document.addEventListener('mouseleave', handleMouseLeave);
-    return () => {
-      window.removeEventListener('mousemove', handleMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [x, y, springX, springY]);
-
-  // When becoming visible, snap spring immediately to current cursor coordinates so it never flies across the screen
-  useEffect(() => {
-    if (visible && hasPosition.current) {
-      springX.jump(x.get());
-      springY.jump(y.get());
-    }
-  }, [visible, x, y, springX, springY]);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            x: springX,
-            y: springY,
-            pointerEvents: 'none',
-            zIndex: 40, // Stays below modal (z-50) so it never overlays active modals
-          }}
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.7 }}
-          transition={{ duration: 0.15, ease: 'easeOut' }}
-          className="hidden md:block select-none pointer-events-none"
-        >
-          <span className="rounded-full bg-[#1C3460] text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
-            <span>View Profile</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
-          </span>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
 export const DoctorList: React.FC<DoctorListProps> = ({
   onSelectDoctor,
   onOpenAppointment,
 }) => {
   const [hoveredDoctorId, setHoveredDoctorId] = useState<string | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
   const isReduced = useReducedMotion();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
-      setIsTouchDevice(!mq.matches);
-
-      const handler = (e: MediaQueryListEvent) => {
-        setIsTouchDevice(!e.matches);
-      };
-      mq.addEventListener('change', handler);
-      return () => mq.removeEventListener('change', handler);
-    }
-  }, []);
 
   const handleRowClick = (doctor: Doctor) => {
     setHoveredDoctorId(null);
@@ -115,11 +24,11 @@ export const DoctorList: React.FC<DoctorListProps> = ({
 
   const rowTransition = isReduced
     ? { duration: 0 }
-    : { duration: 0.25, ease: 'easeOut' as const };
+    : { duration: 0.2, ease: 'easeOut' as const };
 
   const photoTransition = isReduced
     ? { duration: 0 }
-    : { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
+    : { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section
@@ -127,11 +36,6 @@ export const DoctorList: React.FC<DoctorListProps> = ({
       data-stack="in out"
       className="relative z-20 w-full bg-[#191919] text-white py-20 sm:py-28 border-t border-white/10"
     >
-      {/* Signature Cursor-Following Pill Button (suppressed on touch & reduced motion) */}
-      {!isTouchDevice && !isReduced && (
-        <CursorFollowButton visible={!!hoveredDoctorId} />
-      )}
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Giant Oversized Section Label in Anton */}
@@ -154,9 +58,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         {/* Doctor Rows with Hairline Dividers */}
         <div
           data-stagger
-          onMouseLeave={() => {
-            if (!isTouchDevice) setHoveredDoctorId(null);
-          }}
+          onMouseLeave={() => setHoveredDoctorId(null)}
           className="border-t border-white/10 divide-y divide-white/10"
         >
           {DOCTORS.map((doctor) => {
@@ -171,9 +73,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.06)' : 'rgba(25, 25, 25, 0)',
                 }}
                 transition={rowTransition}
-                onMouseEnter={() => {
-                  if (!isTouchDevice) setHoveredDoctorId(doctor.id);
-                }}
+                onMouseEnter={() => setHoveredDoctorId(doctor.id)}
                 onClick={() => handleRowClick(doctor)}
                 className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-200 ${
                   isHovered ? 'shadow-lg' : ''
@@ -233,16 +133,27 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                     </h3>
                   </div>
 
-                  {/* Far Right: Directional Indicator */}
-                  <div className="hidden sm:flex items-center justify-end shrink-0 pl-4">
+                  {/* Far Right: View Profile Pill + Directional Indicator */}
+                  <div className="flex items-center justify-end shrink-0 gap-3 pl-2 sm:pl-4">
+                    <span
+                      className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-label font-medium uppercase tracking-wider transition-all duration-200 border ${
+                        isHovered
+                          ? 'bg-[#1C3460] text-white border-white/20 shadow-md translate-x-0 opacity-100'
+                          : 'opacity-0 translate-x-2 pointer-events-none'
+                      }`}
+                    >
+                      <span>View Profile</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
+                    </span>
+
                     <div
-                      className={`w-11 h-11 rounded-full flex items-center justify-center transition-[background-color,border-color,transform] duration-200 border ${
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-200 border ${
                         isHovered
                           ? 'bg-[#1C3460] text-white border-[#1C3460] rotate-45 scale-105 shadow-md'
                           : 'border-white/20 text-slate-400 group-hover:border-white/40 group-hover:text-white'
                       }`}
                     >
-                      <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
+                      <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                     </div>
                   </div>
 

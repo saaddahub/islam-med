@@ -379,6 +379,11 @@ button:active {
 }
 .stack-dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 50; }
 
+/* Ensure anchored section targets clear the sticky floating navbar */
+section[id], div[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* STEP 3: Padding adjustments for stacking overlap */
 #facilities[data-stack~="in"] {
   padding-top: calc(6rem + var(--curtain-radius));
