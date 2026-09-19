@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DOCTORS } from '../data/doctors';
 import type { Doctor } from '../data/doctors';
-import { ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, Clock, Star } from 'lucide-react';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface DoctorListProps {
@@ -10,12 +10,107 @@ interface DoctorListProps {
   onOpenAppointment: () => void;
 }
 
+interface CursorFollowButtonProps {
+  visible: boolean;
+}
+
+const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
+  const x = useMotionValue(-500);
+  const y = useMotionValue(-500);
+  const springConfig = { stiffness: 600, damping: 35, mass: 0.1 };
+  const smoothX = useSpring(x, springConfig);
+  const smoothY = useSpring(y, springConfig);
+  const isInitialized = useRef(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const targetX = Math.min(window.innerWidth - 130, Math.max(16, e.clientX + 16));
+      const targetY = Math.min(window.innerHeight - 45, Math.max(16, e.clientY + 16));
+
+      if (!isInitialized.current) {
+        x.set(targetX);
+        y.set(targetY);
+        smoothX.jump(targetX);
+        smoothY.jump(targetY);
+        isInitialized.current = true;
+      } else {
+        x.set(targetX);
+        y.set(targetY);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [x, y, smoothX, smoothY]);
+
+  // When visible changes to true, jump immediately to cursor position so it never flies across the screen
+  useEffect(() => {
+    if (visible && isInitialized.current) {
+      smoothX.jump(x.get());
+      smoothY.jump(y.get());
+    }
+  }, [visible, smoothX, smoothY, x, y]);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            x: smoothX,
+            y: smoothY,
+            pointerEvents: 'none',
+            zIndex: 40,
+          }}
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.7 }}
+          transition={{ duration: 0.15, ease: 'easeOut' }}
+          className="hidden md:block select-none pointer-events-none"
+        >
+          <span className="rounded-full bg-[#1C3460] text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
+            <span>View Profile</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 export const DoctorList: React.FC<DoctorListProps> = ({
   onSelectDoctor,
   onOpenAppointment,
 }) => {
   const [hoveredDoctorId, setHoveredDoctorId] = useState<string | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
   const isReduced = useReducedMotion();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+      setIsTouchDevice(!mq.matches);
+
+      const handler = (e: MediaQueryListEvent) => {
+        setIsTouchDevice(!e.matches);
+      };
+      mq.addEventListener('change', handler);
+      return () => mq.removeEventListener('change', handler);
+    }
+  }, []);
+
+  // Dismiss cursor-follow on window scroll to prevent any floating/sticking glitches
+  useEffect(() => {
+    const handleScroll = () => {
+      setHoveredDoctorId(null);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleRowClick = (doctor: Doctor) => {
     setHoveredDoctorId(null);
@@ -24,11 +119,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
 
   const rowTransition = isReduced
     ? { duration: 0 }
-    : { duration: 0.2, ease: 'easeOut' as const };
-
-  const photoTransition = isReduced
-    ? { duration: 0 }
-    : { duration: 0.25, ease: [0.22, 1, 0.36, 1] as const };
+    : { duration: 0.25, ease: [0.16, 1, 0.3, 1] as const };
 
   return (
     <section
@@ -36,6 +127,11 @@ export const DoctorList: React.FC<DoctorListProps> = ({
       data-stack="in out"
       className="relative z-20 w-full bg-[#191919] text-white py-20 sm:py-28 border-t border-white/10"
     >
+      {/* Signature Cursor-Following Pill Button (suppressed on touch & reduced motion) */}
+      {!isTouchDevice && !isReduced && (
+        <CursorFollowButton visible={!!hoveredDoctorId} />
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Giant Oversized Section Label in Anton */}
@@ -46,7 +142,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
               <span>03 / CONSULTANT ROSTER</span>
             </div>
             <span className="text-xs font-sans text-slate-400 hidden sm:inline-block">
-              Click any consultant to view full medical dossier
+              Hover to reveal credentials &amp; timings • Click to view full dossier
             </span>
           </div>
 
@@ -70,62 +166,42 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 key={doctor.id}
                 initial={false}
                 animate={{
-                  backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.06)' : 'rgba(25, 25, 25, 0)',
+                  backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.05)' : 'rgba(25, 25, 25, 0)',
                 }}
                 transition={rowTransition}
-                onMouseEnter={() => setHoveredDoctorId(doctor.id)}
+                onMouseEnter={() => {
+                  if (!isTouchDevice) setHoveredDoctorId(doctor.id);
+                }}
                 onClick={() => handleRowClick(doctor)}
                 className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-200 ${
                   isHovered ? 'shadow-lg' : ''
                 }`}
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                {/* Main Row Header (Stable layout that never wraps on hover) */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-6">
                   
-                  {/* Left Metadata + Animated Thumbnail Slide-in */}
-                  <div className="flex items-center gap-4 sm:gap-6">
-                    
-                    {/* Doctor thumbnail photo sliding in smoothly on hover */}
-                    <AnimatePresence>
-                      {isHovered && (
-                        <motion.div
-                          initial={{ opacity: 0, width: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, width: 72, scale: 1 }}
-                          exit={{ opacity: 0, width: 0, scale: 0.8 }}
-                          transition={photoTransition}
-                          className="relative overflow-hidden rounded-2xl shrink-0 h-18 ring-2 ring-[#1C3460] shadow-md hidden sm:block"
-                        >
-                          <img
-                            src={doctor.image}
-                            alt={doctor.name}
-                            loading="lazy"
-                            className="w-full h-full object-cover object-center"
-                          />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    <div className="space-y-1">
-                      <div
-                        className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-200 ${
-                          isHovered ? 'text-[#93B4D4]' : 'text-slate-400'
-                        }`}
-                      >
-                        {doctor.yearMeta}
-                      </div>
-                      <div
-                        className={`text-xs font-sans transition-colors duration-200 ${
-                          isHovered ? 'text-slate-200' : 'text-slate-400'
-                        }`}
-                      >
-                        {doctor.role} <span className="text-slate-500">•</span> <span className="text-[#93B4D4] font-medium">{doctor.experience}</span>
-                      </div>
+                  {/* Left: Department & Role */}
+                  <div className="space-y-0.5 shrink-0">
+                    <div
+                      className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-200 ${
+                        isHovered ? 'text-[#93B4D4]' : 'text-slate-400'
+                      }`}
+                    >
+                      {doctor.yearMeta}
+                    </div>
+                    <div
+                      className={`text-xs font-sans transition-colors duration-200 ${
+                        isHovered ? 'text-slate-200' : 'text-slate-400'
+                      }`}
+                    >
+                      {doctor.role}
                     </div>
                   </div>
 
                   {/* Doctor Full Name in Anton */}
-                  <div className="flex-1 md:text-right">
+                  <div className="flex-1 sm:text-right">
                     <h3
-                      className={`font-anton text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight transition-colors duration-200 ${
+                      className={`font-anton text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight transition-colors duration-200 ${
                         isHovered ? 'text-white' : 'text-slate-200'
                       }`}
                     >
@@ -133,19 +209,8 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                     </h3>
                   </div>
 
-                  {/* Far Right: View Profile Pill + Directional Indicator */}
-                  <div className="flex items-center justify-end shrink-0 gap-3 pl-2 sm:pl-4">
-                    <span
-                      className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-label font-medium uppercase tracking-wider transition-all duration-200 border ${
-                        isHovered
-                          ? 'bg-[#1C3460] text-white border-white/20 shadow-md translate-x-0 opacity-100'
-                          : 'opacity-0 translate-x-2 pointer-events-none'
-                      }`}
-                    >
-                      <span>View Profile</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
-                    </span>
-
+                  {/* Far Right: Circular Arrow Indicator */}
+                  <div className="hidden sm:flex items-center justify-end shrink-0 pl-2">
                     <div
                       className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-200 border ${
                         isHovered
@@ -158,6 +223,72 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   </div>
 
                 </div>
+
+                {/* Micro-details popping up smoothly from underneath on hover */}
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pt-5 mt-5 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-slate-300">
+                        
+                        {/* Left: Doctor photo thumbnail + credentials + timings */}
+                        <div className="flex items-center gap-4 sm:gap-5">
+                          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 ring-2 ring-[#1C3460] shadow-md bg-white/5">
+                            <img
+                              src={doctor.image}
+                              alt={doctor.name}
+                              loading="lazy"
+                              className="w-full h-full object-cover object-center"
+                            />
+                          </div>
+
+                          <div className="space-y-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-semibold text-white px-2.5 py-0.5 rounded-full bg-white/10 border border-white/10 text-[11px] font-label">
+                                {doctor.qualifications.slice(0, 2).join(' • ')}
+                              </span>
+                              <span className="text-[#93B4D4] font-medium text-xs">
+                                {doctor.experience}
+                              </span>
+                            </div>
+                            
+                            <div className="text-slate-300 flex items-center gap-2 text-xs">
+                              <Clock className="w-3.5 h-3.5 text-[#DC2626] shrink-0" aria-hidden="true" />
+                              <span>Timings: <strong className="text-white">{doctor.availability[0]}</strong></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right: Quick action buttons & stats */}
+                        <div className="flex items-center gap-3 self-end md:self-auto">
+                          <div className="hidden sm:flex items-center gap-1.5 text-amber-400 pr-2">
+                            <Star className="w-3.5 h-3.5 fill-amber-400" aria-hidden="true" />
+                            <span className="font-semibold text-white">{doctor.rating}</span>
+                            <span className="text-slate-400">({doctor.patientsTreated} patients)</span>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRowClick(doctor);
+                            }}
+                            className="px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
+                          >
+                            <span>View Full Dossier</span>
+                            <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
+                          </button>
+                        </div>
+
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
               </motion.div>
             );
