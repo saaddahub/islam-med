@@ -98,7 +98,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                 <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-[#1C3460]/60 shadow-xl bg-slate-700">
                   <img
                     src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=85&w=600"
-                    alt="Dr. Tariq Islam, Founder & Medical Director"
+                    alt="Dr. Imran Islam, Founder & Medical Director"
                     className="w-full h-full object-cover object-top"
                   />
                 </div>
@@ -121,7 +121,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                   </span>
                 </div>
                 <h2 className="font-anton text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white leading-[0.92]">
-                  HEY — I&apos;M DR. TARIQ ISLAM
+                  HEY — I&apos;M DR. IMRAN ISLAM
                 </h2>
               </div>
             </div>
