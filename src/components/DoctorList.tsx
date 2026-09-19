@@ -17,15 +17,33 @@ interface CursorFollowButtonProps {
 const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
   const x = useMotionValue(-500);
   const y = useMotionValue(-500);
-  const springConfig = { stiffness: 600, damping: 35, mass: 0.1 };
+  const springConfig = { stiffness: 600, damping: 35, mass: 0.08 };
   const smoothX = useSpring(x, springConfig);
   const smoothY = useSpring(y, springConfig);
   const isInitialized = useRef(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeoutRef = useRef<number | null>(null);
+
+  // Softly hide floating pill while scrolling so it never floats awkwardly in mid-air
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolling(true);
+      if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 120);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const targetX = Math.min(window.innerWidth - 130, Math.max(16, e.clientX + 16));
-      const targetY = Math.min(window.innerHeight - 45, Math.max(16, e.clientY + 16));
+      const targetX = Math.min(window.innerWidth - 140, Math.max(16, e.clientX + 16));
+      const targetY = Math.min(window.innerHeight - 50, Math.max(16, e.clientY + 16));
 
       if (!isInitialized.current) {
         x.set(targetX);
@@ -55,7 +73,7 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
 
   return (
     <AnimatePresence>
-      {visible && (
+      {visible && !isScrolling && (
         <motion.div
           style={{
             position: 'fixed',
@@ -69,7 +87,7 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.7 }}
-          transition={{ duration: 0.15, ease: 'easeOut' }}
+          transition={{ duration: 0.12, ease: 'easeOut' }}
           className="hidden md:block select-none pointer-events-none"
         >
           <span className="rounded-full bg-[#1C3460] text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
@@ -103,15 +121,6 @@ export const DoctorList: React.FC<DoctorListProps> = ({
     }
   }, []);
 
-  // Dismiss cursor-follow on window scroll to prevent any floating/sticking glitches
-  useEffect(() => {
-    const handleScroll = () => {
-      setHoveredDoctorId(null);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const handleRowClick = (doctor: Doctor) => {
     setHoveredDoctorId(null);
     onSelectDoctor(doctor);
@@ -119,7 +128,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
 
   const rowTransition = isReduced
     ? { duration: 0 }
-    : { duration: 0.25, ease: [0.16, 1, 0.3, 1] as const };
+    : { duration: 0.2, ease: [0.16, 1, 0.3, 1] as const };
 
   return (
     <section
@@ -173,7 +182,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   if (!isTouchDevice) setHoveredDoctorId(doctor.id);
                 }}
                 onClick={() => handleRowClick(doctor)}
-                className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-200 ${
+                className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-150 ${
                   isHovered ? 'shadow-lg' : ''
                 }`}
               >
@@ -183,14 +192,14 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   {/* Left: Department & Role */}
                   <div className="space-y-0.5 shrink-0">
                     <div
-                      className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-200 ${
+                      className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-150 ${
                         isHovered ? 'text-[#93B4D4]' : 'text-slate-400'
                       }`}
                     >
                       {doctor.yearMeta}
                     </div>
                     <div
-                      className={`text-xs font-sans transition-colors duration-200 ${
+                      className={`text-xs font-sans transition-colors duration-150 ${
                         isHovered ? 'text-slate-200' : 'text-slate-400'
                       }`}
                     >
@@ -201,7 +210,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   {/* Doctor Full Name in Anton */}
                   <div className="flex-1 sm:text-right">
                     <h3
-                      className={`font-anton text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight transition-colors duration-200 ${
+                      className={`font-anton text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight transition-colors duration-150 ${
                         isHovered ? 'text-white' : 'text-slate-200'
                       }`}
                     >
@@ -231,7 +240,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
                       <div className="pt-5 mt-5 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-slate-300">
