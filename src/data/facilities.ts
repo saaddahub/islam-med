@@ -10,7 +10,7 @@ export interface FacilityFeature {
 
 export const FACILITIES_DATA = {
   heroImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1600",
-  cornerImageLeft: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=900",
+  cornerImageLeft: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=900",
   cornerImageRight: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=900",
   
   features: [
@@ -20,7 +20,7 @@ export const FACILITIES_DATA = {
       subtitle: "Quiet, comfortable rooms designed for healing.",
       tag: "INPATIENT WELLNESS",
       description: "Acoustically isolated suites equipped with dynamic circadian lighting, HEPA-filtered clean air circulation, and ergonomic guest rest accommodations.",
-      image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=1000",
+      image: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=1200",
       specs: ["Single-Occupancy Ensuite", "Circadian Smart Lighting", "Dedicated Nurse Call System"],
     },
     {

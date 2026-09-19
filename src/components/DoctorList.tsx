@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DOCTORS } from '../data/doctors';
 import type { Doctor } from '../data/doctors';
-import { ArrowUpRight, Award, ShieldCheck } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
@@ -17,14 +17,15 @@ interface CursorFollowButtonProps {
 const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
   const x = useMotionValue(-500);
   const y = useMotionValue(-500);
-  const springX = useSpring(x, { stiffness: 650, damping: 38, mass: 0.15 });
-  const springY = useSpring(y, { stiffness: 650, damping: 38, mass: 0.15 });
+  const springX = useSpring(x, { stiffness: 700, damping: 40, mass: 0.12 });
+  const springY = useSpring(y, { stiffness: 700, damping: 40, mass: 0.12 });
   const hasPosition = useRef(false);
 
   useEffect(() => {
     function handleMove(e: MouseEvent) {
-      const targetX = e.clientX + 14;
-      const targetY = e.clientY + 14;
+      // Offset slightly to bottom-right of cursor and clamp within viewport
+      const targetX = Math.min(window.innerWidth - 130, Math.max(20, e.clientX + 14));
+      const targetY = Math.min(window.innerHeight - 45, Math.max(20, e.clientY + 14));
       if (!hasPosition.current) {
         x.set(targetX);
         y.set(targetY);
@@ -37,13 +38,19 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
       }
     }
 
+    function handleMouseLeave() {
+      hasPosition.current = false;
+    }
+
     window.addEventListener('mousemove', handleMove, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
     return () => {
       window.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [x, y, springX, springY]);
 
-  // When appearing, immediately sync spring to current mouse position so it never flies across the screen
+  // When becoming visible, snap spring immediately to current cursor coordinates so it never flies across the screen
   useEffect(() => {
     if (visible && hasPosition.current) {
       springX.jump(x.get());
@@ -62,15 +69,15 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
             x: springX,
             y: springY,
             pointerEvents: 'none',
-            zIndex: 100,
+            zIndex: 40, // Stays below modal (z-50) so it never overlays active modals
           }}
-          initial={{ opacity: 0, scale: 0.6 }}
+          initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.6 }}
-          transition={{ duration: 0.16, ease: 'easeOut' }}
-          className="hidden md:block select-none"
+          exit={{ opacity: 0, scale: 0.7 }}
+          transition={{ duration: 0.15, ease: 'easeOut' }}
+          className="hidden md:block select-none pointer-events-none"
         >
-          <span className="rounded-full bg-[#1C3460] text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/20 backdrop-blur-sm">
+          <span className="rounded-full bg-[#1C3460] text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
             <span>View Profile</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
           </span>
@@ -102,20 +109,17 @@ export const DoctorList: React.FC<DoctorListProps> = ({
   }, []);
 
   const handleRowClick = (doctor: Doctor) => {
-    if (isTouchDevice) {
-      setHoveredDoctorId((prev) => (prev === doctor.id ? null : doctor.id));
-    } else {
-      onSelectDoctor(doctor);
-    }
+    setHoveredDoctorId(null);
+    onSelectDoctor(doctor);
   };
 
   const rowTransition = isReduced
     ? { duration: 0 }
-    : { duration: 0.3, ease: [0.65, 0, 0.35, 1] as const };
+    : { duration: 0.25, ease: 'easeOut' as const };
 
   const photoTransition = isReduced
     ? { duration: 0 }
-    : { duration: 0.35, ease: 'easeOut' as const };
+    : { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section
@@ -138,9 +142,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
               <span>03 / CONSULTANT ROSTER</span>
             </div>
             <span className="text-xs font-sans text-slate-400 hidden sm:inline-block">
-              {isTouchDevice
-                ? 'Tap to expand credentials • View dossier'
-                : 'Hover to reveal credentials • Click to view full dossier'}
+              Click any consultant to view full medical dossier
             </span>
           </div>
 
@@ -149,8 +151,14 @@ export const DoctorList: React.FC<DoctorListProps> = ({
           </h2>
         </div>
 
-        {/* Doctor Rows with Hairline Dividers & Framer Motion Layout Tweening */}
-        <div data-stagger className="border-t border-white/10 divide-y divide-white/10">
+        {/* Doctor Rows with Hairline Dividers */}
+        <div
+          data-stagger
+          onMouseLeave={() => {
+            if (!isTouchDevice) setHoveredDoctorId(null);
+          }}
+          className="border-t border-white/10 divide-y divide-white/10"
+        >
           {DOCTORS.map((doctor) => {
             const isHovered = hoveredDoctorId === doctor.id;
 
@@ -160,34 +168,31 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 key={doctor.id}
                 initial={false}
                 animate={{
-                  backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.05)' : 'rgba(25, 25, 25, 0)',
+                  backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.06)' : 'rgba(25, 25, 25, 0)',
                 }}
                 transition={rowTransition}
                 onMouseEnter={() => {
                   if (!isTouchDevice) setHoveredDoctorId(doctor.id);
                 }}
-                onMouseLeave={() => {
-                  if (!isTouchDevice) setHoveredDoctorId(null);
-                }}
                 onClick={() => handleRowClick(doctor)}
-                className={`group relative py-7 px-4 sm:px-6 my-1 cursor-pointer select-none rounded-2xl gpu-layer text-white ${
-                  isHovered ? 'shadow-xl' : ''
+                className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-200 ${
+                  isHovered ? 'shadow-lg' : ''
                 }`}
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   
                   {/* Left Metadata + Animated Thumbnail Slide-in */}
-                  <div className="flex items-center gap-4 sm:gap-8">
+                  <div className="flex items-center gap-4 sm:gap-6">
                     
-                    {/* Doctor thumbnail photo sliding in from left with fade + scale */}
+                    {/* Doctor thumbnail photo sliding in smoothly on hover */}
                     <AnimatePresence>
                       {isHovered && (
                         <motion.div
-                          initial={{ opacity: 0, x: -20, scale: 0.95 }}
-                          animate={{ opacity: 1, x: 0, scale: 1 }}
-                          exit={{ opacity: 0, x: -20, scale: 0.95 }}
+                          initial={{ opacity: 0, width: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, width: 72, scale: 1 }}
+                          exit={{ opacity: 0, width: 0, scale: 0.8 }}
                           transition={photoTransition}
-                          className="relative overflow-hidden rounded-2xl shrink-0 w-20 h-20 ring-2 ring-[#1C3460]"
+                          className="relative overflow-hidden rounded-2xl shrink-0 h-18 ring-2 ring-[#1C3460] shadow-md hidden sm:block"
                         >
                           <img
                             src={doctor.image}
@@ -212,7 +217,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                           isHovered ? 'text-slate-200' : 'text-slate-400'
                         }`}
                       >
-                        {doctor.role}
+                        {doctor.role} <span className="text-slate-500">•</span> <span className="text-[#93B4D4] font-medium">{doctor.experience}</span>
                       </div>
                     </div>
                   </div>
@@ -233,7 +238,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                     <div
                       className={`w-11 h-11 rounded-full flex items-center justify-center transition-[background-color,border-color,transform] duration-200 border ${
                         isHovered
-                          ? 'bg-[#1C3460] text-white border-[#1C3460] rotate-45 scale-105'
+                          ? 'bg-[#1C3460] text-white border-[#1C3460] rotate-45 scale-105 shadow-md'
                           : 'border-white/20 text-slate-400 group-hover:border-white/40 group-hover:text-white'
                       }`}
                     >
@@ -242,48 +247,6 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   </div>
 
                 </div>
-
-                {/* Expanded Micro-details on hover or touch expansion */}
-                <AnimatePresence>
-                  {isHovered && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={rowTransition}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-6 mt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400">
-                        <div className="flex items-center gap-6">
-                          <div className="flex items-center gap-1.5 text-[#93B4D4]">
-                            <Award className="w-4 h-4 text-[#93B4D4]" aria-hidden="true" />
-                            <span className="font-semibold text-white">{doctor.experience}</span>
-                          </div>
-                          <div className="hidden sm:flex items-center gap-1.5 text-slate-400">
-                            <ShieldCheck className="w-4 h-4 text-[#DC2626]" aria-hidden="true" />
-                            <span>Verified Medical Specialist</span>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <span className="text-slate-300">
-                            Appointments: <strong className="text-white">Direct &amp; Walk-In</strong>
-                          </span>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onSelectDoctor(doctor);
-                            }}
-                            className="px-4 py-1.5 rounded-full bg-[#1C3460] text-white font-medium text-xs tracking-wider uppercase hover:bg-[#152A52] active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-xs"
-                          >
-                            View Full Dossier
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
 
               </motion.div>
             );
@@ -315,4 +278,3 @@ export const DoctorList: React.FC<DoctorListProps> = ({
 };
 
 export default DoctorList;
-

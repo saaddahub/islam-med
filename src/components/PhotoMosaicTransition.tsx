@@ -40,7 +40,7 @@ const SATELLITE_PHOTOS: SatellitePhoto[] = [
     id: 'mid-left',
     title: 'Inpatient Recovery Lounge',
     category: '03. Care Suites',
-    image: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=600',
+    image: 'https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=600',
     group: 'side',
     posX: 16,
     posY: 45,
