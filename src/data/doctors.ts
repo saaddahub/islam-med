@@ -16,8 +16,8 @@ export interface Doctor {
 
 export const DOCTORS: Doctor[] = [
   {
-    id: "dr-yasmin-saktar",
-    name: "DR. YASMIN SAKTAR",
+    id: "dr-yasmin-sattar",
+    name: "DR. YASMIN SATTAR",
     department: "GYNAECOLOGY & OBSTETRICS",
     yearMeta: "GYNAE & OBS • INFERTILITY",
     role: "Senior Consultant Gynecologist & Infertility Specialist",
@@ -61,8 +61,8 @@ export const DOCTORS: Doctor[] = [
     patientsTreated: "6,200+",
   },
   {
-    id: "dr-wakaral-hassan",
-    name: "DR. WAKARAL HASSAN",
+    id: "dr-waqar-ul-hassan",
+    name: "DR. WAQAR UL HASSAN",
     department: "PEDIATRIC SURGERY",
     yearMeta: "PEDIATRIC SURGERY",
     role: "Pediatric Surgeon",
@@ -76,8 +76,8 @@ export const DOCTORS: Doctor[] = [
     patientsTreated: "3,800+",
   },
   {
-    id: "dr-madia-shahid",
-    name: "DR. MADIA SHAHID",
+    id: "dr-madiha-shahid",
+    name: "DR. MADIHA SHAHID",
     department: "DERMATOLOGY",
     yearMeta: "DERMATOLOGY & AESTHETICS",
     role: "Consultant Dermatologist",
@@ -136,8 +136,8 @@ export const DOCTORS: Doctor[] = [
     patientsTreated: "7,300+",
   },
   {
-    id: "dr-huria-zanib",
-    name: "DR. HURIA ZANIB",
+    id: "dr-hooria-zanib",
+    name: "DR. HOORIA ZANIB",
     department: "GENERAL MEDICINE",
     yearMeta: "GENERAL MEDICINE • MORNING",
     role: "General Physician",
@@ -151,8 +151,8 @@ export const DOCTORS: Doctor[] = [
     patientsTreated: "3,600+",
   },
   {
-    id: "dr-usama-mehdad",
-    name: "DR. USAMA MEHDAD",
+    id: "dr-usama-mehtab",
+    name: "DR. USAMA MEHTAB",
     department: "GENERAL MEDICINE",
     yearMeta: "GENERAL MEDICINE • AFTERNOON",
     role: "General Physician",
