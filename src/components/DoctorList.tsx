@@ -42,8 +42,8 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const targetX = Math.min(window.innerWidth - 140, Math.max(16, e.clientX + 16));
-      const targetY = Math.min(window.innerHeight - 50, Math.max(16, e.clientY + 16));
+      const targetX = Math.min(window.innerWidth - 150, Math.max(16, e.clientX + 22));
+      const targetY = Math.min(window.innerHeight - 60, Math.max(16, e.clientY + 24));
 
       if (!isInitialized.current) {
         x.set(targetX);
