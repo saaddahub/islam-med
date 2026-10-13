@@ -133,7 +133,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         
         {/* Giant Oversized Section Label in Anton */}
         <div className="relative mb-6 sm:mb-12 select-none overflow-hidden">
-          <h2 data-reveal="mask" className="font-serif-bold text-6xl sm:text-8xl md:text-8xl lg:text-8xl uppercase tracking-tight text-white leading-[0.85] opacity-95">
+          <h2 data-reveal="mask" className="font-display-bold text-6xl sm:text-8xl md:text-8xl lg:text-8xl uppercase tracking-tight text-white leading-[0.85] opacity-95">
             OUR DOCTORS
           </h2>
         </div>
@@ -188,7 +188,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   {/* Doctor Full Name in Anton */}
                   <div className="flex-1 sm:text-right">
                     <h3
-                      className={`font-serif-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight transition-colors duration-150 ${
+                      className={`font-display-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight transition-colors duration-150 ${
                         isHovered ? 'text-white' : 'text-slate-200'
                       }`}
                     >
@@ -292,7 +292,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         {/* Bottom Fast Action */}
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-white/[0.04] text-white border border-white/10">
           <div className="space-y-1">
-            <h4 className="font-serif-bold text-2xl sm:text-3xl uppercase tracking-tight">
+            <h4 className="font-display-bold text-2xl sm:text-3xl uppercase tracking-tight">
               Looking for a specific specialist or second opinion?
             </h4>
             <p className="font-sans text-xs sm:text-sm text-slate-300">

@@ -104,7 +104,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                     FOUNDER &amp; MEDICAL DIRECTOR
                   </span>
                 </div>
-                <h2 className="font-serif-bold text-4xl sm:text-6xl md:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-[0.92]">
+                <h2 className="font-display-bold text-4xl sm:text-6xl md:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-[0.92]">
                   DR. IMRAN ISLAM
                 </h2>
               </div>

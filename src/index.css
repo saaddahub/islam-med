@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-.font-serif-bold {
-  font-family: var(--font-serif-display);
+.font-display-bold {
+  font-family: 'Manrope', sans-serif;
   font-weight: 700;
   line-height: 1.05;
   text-wrap: balance;

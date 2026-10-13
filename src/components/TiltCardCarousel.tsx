@@ -138,7 +138,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
                 {/* Title & 1-sentence Description */}
                 <div className="space-y-2 mb-6">
-                  <h3 className="font-serif-bold text-2xl uppercase tracking-tight text-white">
+                  <h3 className="font-display-bold text-2xl uppercase tracking-tight text-white">
                     {pkg.title}
                   </h3>
                   <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed min-h-[3rem]">

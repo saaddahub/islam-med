@@ -56,7 +56,7 @@ export const DoctorProfileModal = ({
               <div className="text-xs font-label tracking-widest text-[#93B4D4] uppercase font-bold">
                 {doctor.yearMeta}
               </div>
-              <h2 id="doctor-profile-name" className="font-serif-bold text-3xl sm:text-4xl uppercase tracking-tight text-white leading-none">
+              <h2 id="doctor-profile-name" className="font-display-bold text-3xl sm:text-4xl uppercase tracking-tight text-white leading-none">
                 {doctor.name}
               </h2>
               <div className="text-sm font-sans font-medium text-slate-300">
@@ -67,11 +67,11 @@ export const DoctorProfileModal = ({
             {/* Clinical Information Bar */}
             <div className="grid grid-cols-2 gap-2 py-2.5 px-3 rounded-2xl bg-white/5 border border-white/10 text-center">
               <div>
-                <div className="font-serif-bold text-sm text-white uppercase">{doctor.department}</div>
+                <div className="font-display-bold text-sm text-white uppercase">{doctor.department}</div>
                 <div className="text-[10px] text-slate-400 uppercase font-label">Specialty</div>
               </div>
               <div className="border-l border-white/10">
-                <div className="font-serif-bold text-sm text-[#93B4D4] uppercase">Verified Consultant</div>
+                <div className="font-display-bold text-sm text-[#93B4D4] uppercase">Verified Consultant</div>
                 <div className="text-[10px] text-slate-400 uppercase font-label">Status</div>
               </div>
             </div>

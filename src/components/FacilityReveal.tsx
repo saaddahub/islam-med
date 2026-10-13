@@ -140,7 +140,7 @@ export const FacilityReveal: React.FC = () => {
                     <span className="text-[11px] font-label tracking-widest text-[#93B4D4] uppercase">
                       {currentFeature.tag}
                     </span>
-                    <h3 className="font-serif-bold text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
+                    <h3 className="font-display-bold text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
                       {currentFeature.title}
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-lg">
@@ -203,7 +203,7 @@ export const FacilityReveal: React.FC = () => {
                   />
                 </div>
 
-                <h4 className="font-serif-bold text-xl uppercase tracking-tight text-[#1C1C1E] mb-2">
+                <h4 className="font-display-bold text-xl uppercase tracking-tight text-[#1C1C1E] mb-2">
                   {feature.title}
                 </h4>
 
