@@ -8,7 +8,6 @@ export interface Doctor {
   qualifications: string[];
   bio: string;
   image: string;
-  consultationFee: string;
   availability: string[];
   rating: number;
   patientsTreated: string;
@@ -25,7 +24,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "FCPS (Gynae & Obs)", "Senior Consultant Gynecologist", "Infertility Specialist"],
     bio: "Senior consultant with over 18 years of clinical leadership in comprehensive obstetrics, gynecological surgery, maternal wellness, and advanced infertility management.",
     image: "/doctors/dr-yasmin-sattar.jpg",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 08:00 PM – 10:00 PM"],
     rating: 4.99,
     patientsTreated: "12,000+",
@@ -40,7 +38,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "FCPS (Urology)", "Endourology Specialist"],
     bio: "Consultant urologist specializing in modern endourological procedures, laser stone treatments, kidney wellness, and reconstructive urology.",
     image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 08:00 PM – 10:00 PM"],
     rating: 4.97,
     patientsTreated: "4,500+",
@@ -55,7 +52,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "MD (Pediatrics)", "Child Health Specialist"],
     bio: "Dedicated pediatric specialist focusing on neonatal care, infant health, developmental milestones, infectious illnesses, and emergency pediatric triage.",
     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 08:00 PM – 10:00 PM"],
     rating: 4.98,
     patientsTreated: "6,200+",
@@ -70,7 +66,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "Specialist in Pediatric Surgery", "Neonatal Surgery"],
     bio: "Expert in neonatal surgical corrections, congenital anomaly reconstructions, and precision minimally invasive pediatric operative procedures.",
     image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 06:00 PM – 10:00 PM"],
     rating: 4.96,
     patientsTreated: "3,800+",
@@ -85,7 +80,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "FCPS (Dermatology)", "Certified Clinical Cosmetologist"],
     bio: "Specializing in evidence-based medical dermatology, laser treatments, acne and scar management, and comprehensive clinical cosmetology.",
     image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Friday: 06:00 PM – 08:00 PM"],
     rating: 4.98,
     patientsTreated: "5,400+",
@@ -100,7 +94,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "MD (Gastroenterology)", "Advanced Interventional Endoscopy"],
     bio: "Experienced gastroenterologist focused on digestive system disorders, liver and biliary health, diagnostic endoscopy, and therapeutic GI procedures.",
     image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 08:00 PM – 11:00 PM"],
     rating: 4.97,
     patientsTreated: "5,900+",
@@ -115,7 +108,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "MS (Orthopedic Surgery)", "Musculoskeletal Trauma Specialist"],
     bio: "Consultant orthopedic surgeon specializing in fracture fixation, joint preservation, musculoskeletal trauma, and chronic arthritis management.",
     image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 06:00 PM – 09:00 PM"],
     rating: 4.96,
     patientsTreated: "4,100+",
@@ -130,7 +122,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "MD (Internal Medicine)", "Adult Disease Specialist"],
     bio: "Comprehensive internal medicine consultant diagnosing and managing chronic adult conditions including diabetes, hypertension, cardiovascular risk, and multisystem disease.",
     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 07:30 PM – 09:30 PM"],
     rating: 4.95,
     patientsTreated: "7,300+",
@@ -145,7 +136,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "RMP (Registered Medical Practitioner)"],
     bio: "Morning primary care physician providing general medical evaluations, acute symptom management, and preventive clinical checkups.",
     image: "https://images.unsplash.com/photo-1594824813590-4824d56417fa?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Morning: 10:00 AM – 02:00 PM"],
     rating: 4.94,
     patientsTreated: "3,600+",
@@ -160,7 +150,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["MBBS", "RMP (Registered Medical Practitioner)"],
     bio: "Afternoon primary care physician offering general diagnosis, patient counseling, chronic symptom follow-ups, and outpatient clinical care.",
     image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 03:00 PM – 07:00 PM"],
     rating: 4.95,
     patientsTreated: "3,900+",
@@ -175,7 +164,6 @@ export const DOCTORS: Doctor[] = [
     qualifications: ["DPT (Doctor of Physical Therapy)", "MS (Physical Therapy)"],
     bio: "Consultant physiotherapist specializing in neuromuscular rehabilitation, post-surgical physical restoration, sports injury recovery, and pain management.",
     image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&q=80&w=800",
-    consultationFee: "Consultation Available",
     availability: ["Daily: 05:00 PM – 08:00 PM"],
     rating: 4.97,
     patientsTreated: "4,200+",

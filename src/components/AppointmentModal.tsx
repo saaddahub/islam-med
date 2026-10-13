@@ -1,34 +1,20 @@
-import React, { useState } from 'react';
-import { X, Sparkles, Phone, MapPin, Clock, Bell, ArrowRight, CheckCircle2 } from 'lucide-react';
+import Modal from './Modal';
+import { X, Sparkles, Phone, MapPin, Clock } from 'lucide-react';
 
 interface AppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedDoctorId?: string;
-  selectedDepartmentId?: string;
 }
 
-export const AppointmentModal: React.FC<AppointmentModalProps> = ({
+export const AppointmentModal = ({
   isOpen,
   onClose,
-}) => {
-  const [email, setEmail] = useState('');
-  const [isNotified, setIsNotified] = useState(false);
+}: AppointmentModalProps) => {
 
   if (!isOpen) return null;
 
-  const handleNotify = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) setIsNotified(true);
-  };
-
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-coming-soon-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} labelledBy="modal-coming-soon-title">
       <div className="relative w-full max-w-lg bg-[#191919] text-white rounded-3xl border border-white/15 overflow-hidden">
 
         {/* Close Button */}
@@ -63,48 +49,10 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
               Coming Soon
             </h2>
             <p className="font-sans text-sm text-slate-400 leading-relaxed max-w-sm">
-              We're building a seamless self-serve scheduling system. Sign up below and we'll
-              notify you the moment it goes live.
+              Online booking is not available yet. To arrange an appointment, please call reception
+              or visit the medical complex.
             </p>
           </div>
-
-          {/* Notify me form / confirmed state */}
-          {isNotified ? (
-            <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#1C3460]/10 border border-[#1C3460]/20" aria-live="polite">
-              <CheckCircle2 className="w-5 h-5 text-[#93B4D4] shrink-0" aria-hidden="true" />
-              <div>
-                <p className="text-sm font-medium text-white">You're on the list!</p>
-                <p className="text-xs text-slate-400 mt-0.5">We'll email <span className="text-[#93B4D4]">{email}</span> as soon as online booking launches.</p>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleNotify} className="space-y-3">
-              <label htmlFor="notify-email" className="text-xs font-label uppercase tracking-wider text-slate-400">
-                Notify me when it's live
-              </label>
-              <div className="flex gap-2">
-                <input
-                  id="notify-email"
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  required
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 min-w-0 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-base sm:text-sm text-white focus:border-[#1C3460] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C3460]/60 placeholder:text-slate-600 transition-colors duration-150"
-                />
-                <button
-                  type="submit"
-                  className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-sm transition-[background-color,transform] duration-150 cursor-pointer shadow-[0_2px_12px_rgba(28,52,96,0.25)]"
-                >
-                  <Bell className="w-4 h-4" aria-hidden="true" />
-                  <span className="hidden sm:inline">Notify Me</span>
-                  <ArrowRight className="w-4 h-4 sm:hidden" aria-hidden="true" />
-                </button>
-              </div>
-            </form>
-          )}
 
           {/* Divider */}
           <div className="flex items-center gap-4 text-slate-600 text-xs">
@@ -116,7 +64,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
           {/* Contact options */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <a
-              href="tel:+925111147547"
+              href="tel:+9251111475475"
               className="group flex items-center gap-3 p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/8 hover:border-white/15 transition-[background-color,border-color] duration-150"
             >
               <div className="w-9 h-9 rounded-full bg-[#DC2626]/15 border border-[#DC2626]/25 flex items-center justify-center shrink-0">
@@ -144,12 +92,12 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
           {/* Footer note */}
           <div className="flex items-center gap-2 text-[11px] text-slate-500">
             <Clock className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-            <span>Reception open SatThu, 9 AM  9 PM. 24/7 emergency line available.</span>
+            <span>Reception open Sat–Thu, 9 AM–9 PM. 24/7 emergency line available.</span>
           </div>
 
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 

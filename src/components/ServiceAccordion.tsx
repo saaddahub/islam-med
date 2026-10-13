@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { DEPARTMENTS } from '../data/departments';
 import { ArrowUpRight, ChevronDown, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { gsap, ScrollTrigger, isDesktop as checkIsDesktop } from '../lib/useScrollTrigger';
+import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface ServiceAccordionProps {
@@ -13,19 +13,8 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
   onOpenAppointment,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isDesktopState, setIsDesktopState] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const isReduced = useReducedMotion();
-
-  useEffect(() => {
-    setIsDesktopState(checkIsDesktop());
-    const handleResize = () => {
-      setIsDesktopState(checkIsDesktop());
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     if (!containerRef.current || isReduced) return;
@@ -64,10 +53,8 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
     };
   }, [isReduced]);
 
-  const handleMobileClick = (index: number) => {
-    if (!isDesktopState || isReduced) {
-      setActiveIndex((prev) => (prev === index ? -1 : index));
-    }
+  const toggleDepartment = (index: number) => {
+    setActiveIndex((prev) => (prev === index ? -1 : index));
   };
 
   const transitionConfig = isReduced
@@ -77,7 +64,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
   return (
     <section
       ref={containerRef}
-      id="services-accordion"
+      id="departments"
       className="relative z-20 w-full bg-[#191919] text-white py-14 sm:py-20 md:py-0 md:min-h-screen md:flex md:flex-col md:justify-start md:pt-[max(3.5rem,calc(50vh-270px))] selection:bg-[#1C3460] selection:text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -91,7 +78,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
             </span>
           </div>
           <div className="text-xs font-label text-slate-400">
-            <span>SCROLL TO ADVANCE PILLARS</span> • <span>0{activeIndex + 1} / 0{DEPARTMENTS.length}</span>
+            <span>SCROLL TO ADVANCE PILLARS</span> • <span>{activeIndex < 0 ? '—' : `0${activeIndex + 1}`} / 0{DEPARTMENTS.length}</span>
           </div>
         </div>
 
@@ -111,7 +98,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                 {/* Accordion Row Header */}
                 <button
                   type="button"
-                  onClick={() => handleMobileClick(index)}
+                  onClick={() => toggleDepartment(index)}
                   className="w-full text-left py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between gap-4 group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 ring-offset-[#191919] cursor-pointer"
                   aria-expanded={isActive}
                   id={`accordion-btn-${dept.id}`}

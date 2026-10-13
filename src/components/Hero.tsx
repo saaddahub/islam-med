@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, ShieldCheck, Clock, ChevronRight } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EASINGS } from '../lib/useScrollTrigger';
+import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface HeroProps {
   onOpenAppointment: () => void;
@@ -11,10 +12,8 @@ interface HeroProps {
 export interface HeroSlide {
   id: string;
   title: string;
-  category: string;
   src: string;
   thumbnail: string;
-  caption: string;
   duration?: number; // duration in seconds
 }
 
@@ -22,28 +21,22 @@ const HERO_SLIDES: HeroSlide[] = [
   {
     id: "directory",
     title: "Hospital Navigation & Departments",
-    category: "01. Complex Directory",
     src: "/directory-corridor.jpg",
     thumbnail: "/directory-corridor.jpg",
-    caption: "Direct multi-floor access to operating theaters, labour rooms, emergency bays, and consultant suites.",
     duration: 6,
   },
   {
     id: "pharmacy",
     title: "24/7 In-House Pharmacy & Lab",
-    category: "02. Pharmacy & Diagnostics",
     src: "/pharmacy.png",
     thumbnail: "/pharmacy.png",
-    caption: "Fully stocked 24/7 medicine dispensary and certified TestZone diagnostic laboratory.",
     duration: 6,
   },
   {
     id: "staff",
     title: "Multidisciplinary Surgical Team",
-    category: "03. Clinical Staff",
     src: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=85&w=2000",
     thumbnail: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=85&w=2000",
-    caption: "Board-certified consultants delivering synchronized interventional and surgical care.",
     duration: 6,
   },
 ];
@@ -51,23 +44,20 @@ const HERO_SLIDES: HeroSlide[] = [
 export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const activeSlide = HERO_SLIDES[activeSlideIndex];
-
-  const handleNextSlide = useCallback(() => {
-    setActiveSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-  }, []);
+  const reduced = useReducedMotion();
 
   // Automatic slideshow timing
   useEffect(() => {
-    const current = HERO_SLIDES[activeSlideIndex];
-    const duration = (current.duration || 6) * 1000;
+    if (reduced) return;
+    const duration = (activeSlide.duration || 6) * 1000;
     const timer = setTimeout(() => {
-      handleNextSlide();
+      setActiveSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
     }, duration);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [activeSlideIndex, handleNextSlide]);
+  }, [activeSlide, reduced]);
 
   return (
     <section id="hero" data-stack="out" className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#F5F3EF] pt-28 pb-12 sm:pt-32 sm:pb-16">
@@ -86,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               <motion.img
                 src={activeSlide.src}
                 alt=""
-                initial={{ scale: 1.03 }}
+                initial={{ scale: reduced ? 1 : 1.03 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 6, ease: 'easeOut' }}
                 className="w-full h-full object-cover object-[center_12%] filter brightness-[0.97] contrast-[1.02]"
@@ -231,7 +221,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                   </div>
 
                   {/* Active Slide Progress Line Indicator */}
-                  {isActive && (
+                  {isActive && !reduced && (
                     <motion.div
                       key={`progress-${slide.id}-${activeSlideIndex}`}
                       initial={{ scaleX: 0 }}
@@ -251,7 +241,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           
           <div className="hidden md:flex flex-col text-[11px] text-slate-500 pl-1 pr-2">
             <span className="font-semibold text-slate-800">Slideshow</span>
-            <span className="text-[10px] text-slate-500">Auto-cycling</span>
+            <span className="text-[10px] text-slate-500">{reduced ? 'Manual controls' : 'Auto-cycling'}</span>
           </div>
         </div>
 

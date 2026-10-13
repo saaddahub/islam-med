@@ -110,78 +110,10 @@
   letter-spacing: -0.011em;
 }
 
-/* 3D Perspective utils for Tilt Carousel */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.transform-style-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-/* 5. Numeric alignment stabilization */
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
-}
-
 /* Tactile button active states */
 button:active {
   transform: scale(0.975);
 }
-
-/* Subtle glassmorphism */
-.glass-pill {
-  background: rgba(240, 244, 250, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.glass-pill-dark {
-  background: rgba(15, 35, 24, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* Premium Frosted Glassmorphism */
-.glass-navbar-light {
-  background: rgba(240, 244, 250, 0.92);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(37, 99, 235, 0.1);
-  box-shadow: 
-    0 8px 24px -4px rgba(0, 0, 0, 0.06),
-    0 1px 2px 0 rgba(0, 0, 0, 0.04);
-}
-
-.glass-navbar-dark {
-  background: rgba(15, 35, 24, 0.88);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 12px 32px -6px rgba(0, 0, 0, 0.35),
-    0 2px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-.glass-inner-light {
-  background: rgba(240, 244, 250, 0.80);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(37, 99, 235, 0.1);
-}
-
-.glass-inner-dark {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-
 
 /* ==========================================================================
    Sticky Image-Pair Scroll Transition (Pure CSS position: sticky)
@@ -283,71 +215,6 @@ button:active {
 
 
 /* ==========================================================================
-   Apple-style Glass Bar
-   ========================================================================== */
-
-:root {
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.35);
-  --glass-highlight: rgba(255, 255, 255, 0.6);
-  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  --glass-solid: rgba(245, 245, 247, 0.96);
-  --glass-blur: 20px;
-  --glass-saturate: 180%;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --glass-bg: rgba(28, 28, 30, 0.55);
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-highlight: rgba(255, 255, 255, 0.10);
-    --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
-    --glass-solid: rgba(28, 28, 30, 0.96);
-  }
-}
-
-.glass-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), var(--glass-shadow);
-  transform: translateZ(0);
-}
-
-/* Smaller screens: cheaper blur */
-@media (max-width: 640px) {
-  .glass-bar { --glass-blur: 12px; }
-}
-
-/* Fallback: browser has no backdrop-filter support */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass-bar { background: var(--glass-solid); }
-}
-
-/* Accessibility: user asked for less transparency */
-@media (prefers-reduced-transparency: reduce) {
-  .glass-bar {
-    background: var(--glass-solid);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-
-/* Low-end device tiers (class set by inline JS in index.html) */
-.glass-bar.is-lite { --glass-blur: 8px; --glass-saturate: 100%; }
-.glass-bar.is-solid {
-  background: var(--glass-solid);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-/* ==========================================================================
    2026 SCROLL MOTION SYSTEM
    ========================================================================== */
 
@@ -377,7 +244,7 @@ button:active {
   border-radius: var(--curtain-radius) var(--curtain-radius) 0 0;
   box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.16);
 }
-.stack-dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 50; }
+html.sd [data-stack~="out"]::after { content: ""; position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 50; }
 
 /* Ensure anchored section targets clear the sticky floating navbar */
 section[id], div[id] {
@@ -441,7 +308,7 @@ html.sd [data-stack~="out"] {
   animation-timeline: view();
   animation-range: cover calc(100% - 100svh) cover 100%;
 }
-html.sd .stack-dim {
+html.sd [data-stack~="out"]::after {
   animation-name: stack-dim;
   animation-duration: 1ms;
   animation-timing-function: linear;
@@ -468,12 +335,10 @@ html.sd .scroll-progress {
 
 /* PATH 2: fallback for browsers without scroll-driven animations (html.fb) */
 html.fb [data-reveal] {
-  opacity: 0;
-  translate: 0 var(--reveal-distance);
   transition: opacity var(--reveal-dur) var(--ease-out), translate var(--reveal-dur) var(--ease-out);
   transition-delay: calc(var(--i, 0) * var(--stagger));
 }
-html.fb [data-reveal].is-visible { opacity: 1; translate: 0 0; }
+html.fb [data-reveal].reveal-pending { opacity: 0; translate: 0 var(--reveal-distance); }
 
 /* hero intro on load (time-based, both paths) */
 html.sd [data-intro], html.fb [data-intro] {
@@ -489,11 +354,11 @@ html[data-motion="lite"] [data-stack~="out"] { animation: none; }
 
 /* safety net */
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal], [data-drift], [data-stack], [data-intro], .stack-dim, .scroll-progress {
+  [data-reveal], [data-drift], [data-stack], [data-intro], .scroll-progress {
     animation: none !important; transition: none !important;
     opacity: 1 !important; translate: none !important; scale: none !important; clip-path: none !important;
   }
-  .stack-dim, .scroll-progress { display: none !important; }
+  [data-stack~="out"]::after, .scroll-progress { display: none !important; }
 }
 
 /* Lenis smooth scroll optimization */
@@ -519,6 +384,28 @@ html.lenis, html.lenis body {
     contain-intrinsic-size: 1px 700px;
   }
 }
+
+
+
+
+/* Native dialogs provide focus containment, Escape, and inert background content. */
+.site-modal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.site-modal[open] { display: flex; align-items: center; justify-content: center; }
+.site-modal > * { flex-shrink: 0; max-height: 100%; overflow-y: auto; }
+.site-modal::backdrop { background: rgb(0 0 0 / 0.8); backdrop-filter: blur(12px); }
 
 
 

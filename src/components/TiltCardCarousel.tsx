@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CARE_PACKAGES } from '../data/packages';
 import { ArrowUpRight, Clock, ShieldCheck, Bed, HeartHandshake } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion } from 'framer-motion';
-import { isDesktop as checkIsDesktop } from '../lib/useScrollTrigger';
 import { useReducedMotion } from '../lib/useReducedMotion';
+import { useMediaQuery } from '../lib/useMediaQuery';
 
 interface TiltCardCarouselProps {
   onOpenAppointment: () => void;
 }
 
 export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppointment }) => {
-  const [isDesktopState, setIsDesktopState] = useState(false);
+  const isDesktopState = useMediaQuery('(min-width: 768px)');
   const isReduced = useReducedMotion();
-
-  useEffect(() => {
-    setIsDesktopState(checkIsDesktop());
-    const handleResize = () => {
-      setIsDesktopState(checkIsDesktop());
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const containerVariants = {
     hidden: {},

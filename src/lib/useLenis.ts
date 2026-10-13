@@ -1,15 +1,12 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, ScrollTrigger } from './useScrollTrigger';
+import { useReducedMotion } from './useReducedMotion';
 
 export function useLenis() {
+  const reduced = useReducedMotion();
   useEffect(() => {
-    // Respect prefers-reduced-motion globally
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    if (reduced) return;
 
     const lenis = new Lenis({
       duration: 0.95,
@@ -29,11 +26,19 @@ export function useLenis() {
 
     gsap.ticker.add(tickerCallback);
 
+    const syncDialog = () => {
+      if (document.querySelector('dialog[open]')) lenis.stop();
+      else lenis.start();
+    };
+    syncDialog();
+    document.addEventListener('toggle', syncDialog, true);
+
     return () => {
+      document.removeEventListener('toggle', syncDialog, true);
       lenis.destroy();
       gsap.ticker.remove(tickerCallback);
     };
-  }, []);
+  }, [reduced]);
 }
 
 export default useLenis;

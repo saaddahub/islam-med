@@ -4,6 +4,7 @@ import type { Doctor } from '../data/doctors';
 import { ArrowUpRight, Clock, Star } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
+import { useMediaQuery } from '../lib/useMediaQuery';
 
 interface DoctorListProps {
   onSelectDoctor: (doctor: Doctor) => void;
@@ -105,21 +106,8 @@ export const DoctorList: React.FC<DoctorListProps> = ({
   onOpenAppointment,
 }) => {
   const [hoveredDoctorId, setHoveredDoctorId] = useState<string | null>(null);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(false);
+  const isTouchDevice = !useMediaQuery('(hover: hover) and (pointer: fine)');
   const isReduced = useReducedMotion();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
-      setIsTouchDevice(!mq.matches);
-
-      const handler = (e: MediaQueryListEvent) => {
-        setIsTouchDevice(!e.matches);
-      };
-      mq.addEventListener('change', handler);
-      return () => mq.removeEventListener('change', handler);
-    }
-  }, []);
 
   const handleRowClick = (doctor: Doctor) => {
     setHoveredDoctorId(null);
@@ -181,7 +169,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 onMouseEnter={() => {
                   if (!isTouchDevice) setHoveredDoctorId(doctor.id);
                 }}
-                onClick={() => handleRowClick(doctor)}
+
                 className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-150 ${
                   isHovered ? 'shadow-lg' : ''
                 }`}
@@ -214,14 +202,21 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                         isHovered ? 'text-white' : 'text-slate-200'
                       }`}
                     >
-                      {doctor.name}
+                      <button
+                        type="button"
+                        onClick={() => handleRowClick(doctor)}
+                        className="text-left sm:text-right cursor-pointer before:absolute before:inset-0 before:rounded-2xl focus-visible:outline-offset-4"
+                        aria-label={`View profile of ${doctor.name}`}
+                      >
+                        {doctor.name}
+                      </button>
                     </h3>
                   </div>
 
                   {/* Far Right: Circular Arrow Indicator */}
                   <div className="hidden sm:flex items-center justify-end shrink-0 pl-2">
                     <div
-                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all duration-200 border ${
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-[background-color,color,border-color,transform,box-shadow] duration-200 border ${
                         isHovered
                           ? 'bg-[#1C3460] text-white border-[#1C3460] rotate-45 scale-105 shadow-md'
                           : 'border-white/20 text-slate-400 group-hover:border-white/40 group-hover:text-white'
@@ -287,7 +282,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                               e.stopPropagation();
                               handleRowClick(doctor);
                             }}
-                            className="px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
+                            className="relative z-10 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
                           >
                             <span>View Full Dossier</span>
                             <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />

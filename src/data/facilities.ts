@@ -9,9 +9,6 @@ export interface FacilityFeature {
 }
 
 export const FACILITIES_DATA = {
-  heroImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1600",
-  cornerImageLeft: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=900",
-  cornerImageRight: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=900",
   
   features: [
     {

@@ -2,32 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FACILITIES_DATA } from '../data/facilities';
 import { Layers } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
-import { gsap, ScrollTrigger, isDesktop as checkIsDesktop } from '../lib/useScrollTrigger';
+import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
+import { useMediaQuery } from '../lib/useMediaQuery';
 
-interface FacilityRevealProps {
-  onOpenAppointment?: () => void;
-}
-
-export const FacilityReveal: React.FC<FacilityRevealProps> = () => {
+export const FacilityReveal: React.FC = () => {
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState(0);
-  const [isDesktopState, setIsDesktopState] = useState(false);
+  const isDesktopState = useMediaQuery('(min-width: 768px)');
   const sectionRef = useRef<HTMLDivElement>(null);
   const mainPhotoRef = useRef<HTMLDivElement>(null);
   const isReduced = useReducedMotion();
 
   const currentFeature = FACILITIES_DATA.features[selectedFeatureIndex];
-
-  useEffect(() => {
-    setIsDesktopState(checkIsDesktop());
-    const handleResize = () => {
-      setIsDesktopState(checkIsDesktop());
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // 1. Scroll-in layered reveal for the main block using GSAP ScrollTrigger
   useEffect(() => {

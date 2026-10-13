@@ -1,29 +1,22 @@
-import React from 'react';
+import Modal from './Modal';
 import type { Doctor } from '../data/doctors';
 import { X, CheckCircle, ArrowUpRight, GraduationCap, Clock } from 'lucide-react';
 
 interface DoctorProfileModalProps {
   doctor: Doctor | null;
-  isOpen: boolean;
   onClose: () => void;
-  onBookWithDoctor: (doctorId: string) => void;
+  onBookWithDoctor: () => void;
 }
 
-export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
+export const DoctorProfileModal = ({
   doctor,
-  isOpen,
   onClose,
   onBookWithDoctor,
-}) => {
-  if (!isOpen || !doctor) return null;
+}: DoctorProfileModalProps) => {
+  if (!doctor) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="doctor-profile-name"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
-    >
+    <Modal isOpen={true} onClose={onClose} labelledBy="doctor-profile-name">
       <div className="relative w-full max-w-3xl bg-[#191919] text-white rounded-3xl border border-white/15 overflow-hidden my-8">
         
         {/* Close Button */}
@@ -100,8 +93,8 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
                 <span>QUALIFICATIONS & FELLOWSHIPS</span>
               </h4>
               <div className="space-y-1.5">
-                {doctor.qualifications.map((q, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                {doctor.qualifications.map((q) => (
+                  <div key={q} className="flex items-start gap-2 text-xs text-slate-300">
                     <CheckCircle className="w-3.5 h-3.5 text-[#93B4D4] shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{q}</span>
                   </div>
@@ -139,13 +132,10 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
 
               <button
                 type="button"
-                onClick={() => {
-                  onClose();
-                  onBookWithDoctor(doctor.id);
-                }}
+                onClick={onBookWithDoctor}
                 className="px-6 py-2.5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.25)] flex items-center gap-2 cursor-pointer"
               >
-                <span>Book Direct with {doctor.name.split(' ')[1] || doctor.name}</span>
+                <span>Contact Reception to Book</span>
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
@@ -155,7 +145,7 @@ export const DoctorProfileModal: React.FC<DoctorProfileModalProps> = ({
         </div>
 
       </div>
-    </div>
+    </Modal>
   );
 };
 

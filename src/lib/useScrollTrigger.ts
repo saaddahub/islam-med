@@ -7,8 +7,6 @@ if (typeof window !== 'undefined') {
 
 // Standard easing tokens (§2)
 export const EASINGS = {
-  easeOutExpo: [0.16, 1, 0.3, 1] as const,
-  easeOutBack: [0.22, 1, 0.36, 1] as const,
   easeInOutSoft: [0.65, 0, 0.35, 1] as const,
 };
 

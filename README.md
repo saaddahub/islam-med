@@ -1,32 +1,26 @@
-# React + TypeScript + Vite
+# Islam Medical Complex
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React and TypeScript frontend built with Vite, Tailwind CSS, Framer Motion, GSAP, and Lenis.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Use Node.js 24 and `npm ci`, then:
 
-## React Compiler
+- `npm run dev`: local development server on 127.0.0.1:5173.
+- `npm run build`: type checking and production output in `dist`.
+- `npm run preview`: local production preview.
+- `npm run lint`: application lint checks.
+- `npm run test:security`: production build and security regression checks.
+- `npm audit`: current dependency advisory check.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The site has no backend, authentication, appointment submission, or email subscription service. Booking buttons show reception contact options. The site does not collect or persist patient details.
 
-## Expanding the Oxlint configuration
+## Deployment security
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Deploy the contents of `dist` over HTTPS. The build includes a content security policy in the HTML and generates `dist/_headers` for static hosts that support that format. The preview server applies the full policy as HTTP response headers.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+If the hosting service does not support `_headers`, configure the same response headers at the web server or CDN. In particular, framing protection requires HTTP headers; it cannot be enforced by a meta tag. Verify the deployed responses after publishing. Development permits Vite's inline HMR preamble; the production build permits scripts only from its own origin.
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The policy allows the existing Google Fonts and Unsplash images. Inline styles remain permitted for the motion libraries. Environment and key files are ignored by Git and denied by the development server.
+
+See [SECURITY_REVIEW.md](./SECURITY_REVIEW.md) for the review scope, findings, and checks.
