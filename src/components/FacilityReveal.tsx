@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FACILITIES_DATA } from '../data/facilities';
-import { Layers } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -88,14 +87,10 @@ export const FacilityReveal: React.FC = () => {
       className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Editorial Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-12 sm:mb-16">
           <div className="space-y-4 max-w-2xl">
-            <div data-reveal="up" className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1C3460]/10 border border-[#1C3460]/20 text-xs font-label text-[#1C3460] uppercase tracking-wider font-semibold">
-              <Layers className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>04 / ARCHITECTURAL SANCTUARY</span>
-            </div>
 
             <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
               Spaces designed for{' '}
@@ -114,13 +109,13 @@ export const FacilityReveal: React.FC = () => {
         </div>
 
         {/* Main Photo Stage */}
-        <div className="relative rounded-3xl overflow-hidden bg-slate-200/60 border border-slate-300/80 p-3 sm:p-5 shadow-sm">
-          
+        <div className="relative overflow-hidden">
+
           {/* Main Hero Photo with AnimatePresence crossfade when switching cards */}
           <div
             ref={mainPhotoRef}
             data-reveal="image"
-            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-clip shadow-2xl z-10 bg-slate-900"
+            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-clip z-10 bg-slate-900"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -138,7 +133,7 @@ export const FacilityReveal: React.FC = () => {
                   className="w-full h-full object-cover object-center filter brightness-[0.95]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-                
+
                 {/* Overlay Title Pill */}
                 <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                   <div className="space-y-1">
@@ -188,11 +183,12 @@ export const FacilityReveal: React.FC = () => {
                 type="button"
                 key={feature.id}
                 variants={cardVariants}
+                aria-pressed={isSelected}
                 onClick={() => setSelectedFeatureIndex(idx)}
-                className={`text-left p-6 rounded-2xl transition-[background-color,border-color,transform,box-shadow] duration-200 cursor-pointer active:scale-[0.98] border shadow-xs ${
+                className={`text-left p-6 rounded-xl transition-[background-color,border-color] duration-200 cursor-pointer border ${
                   isSelected
-                    ? 'bg-white border-[#1C3460] ring-2 ring-[#1C3460]/20 shadow-md'
-                    : 'bg-white/70 border-slate-200 hover:bg-white'
+                    ? 'bg-white border-[#1C3460]'
+                    : 'bg-transparent border-slate-300 hover:bg-white/60'
                 }`}
               >
                 <div className="flex items-center justify-between mb-3">
