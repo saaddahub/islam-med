@@ -28,7 +28,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F3EF] text-[#1C1C1E] flex flex-col selection:bg-[#1C3460] selection:text-white">
+    <div className="min-h-screen bg-cream text-ink flex flex-col selection:bg-forest selection:text-white">
       <Navbar onOpenAppointment={openAppointment} />
       <Hero onOpenAppointment={openAppointment} />
       <DarkPanelSlide />

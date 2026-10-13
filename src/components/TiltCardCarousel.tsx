@@ -49,7 +49,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
       case 'slot':
         return <Bed className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" />;
       case 'clock':
-        return <Clock className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />;
+        return <Clock className="w-3.5 h-3.5 text-oat" aria-hidden="true" />;
       case 'shield':
       default:
         return <ShieldCheck className="w-3.5 h-3.5 text-slate-300" aria-hidden="true" />;
@@ -60,18 +60,16 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
     <section
       id="care-plans"
       data-stack="in out"
-      className="relative z-20 w-full bg-[#191919] text-white py-24 sm:py-32 border-t border-white/10 selection:bg-[#1C3460] selection:text-white"
+      className="relative z-20 w-full bg-forest text-white py-24 sm:py-32 border-t border-white/10 selection:bg-forest selection:text-white"
     >
       {/* Background soft ambient noise/circles */}
-      <div className="absolute top-12 left-1/4 w-96 h-96 rounded-full bg-blue-900/15 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-12 right-1/4 w-96 h-96 rounded-full bg-amber-900/10 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Section Header with Instrument Serif and Squiggle */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16 sm:mb-20">
           <div data-reveal="up" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold uppercase tracking-wider text-slate-300 shadow-xs">
-            <HeartHandshake className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
+            <HeartHandshake className="w-3.5 h-3.5 text-oat" aria-hidden="true" />
             <span>05 / INDIVIDUALIZED CARE PLANS</span>
           </div>
 
@@ -79,7 +77,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
             Where care feels{' '}
             <span className="relative inline-block italic font-normal text-white">
               personal
-              <SquiggleUnderline color="#DC2626" className="w-full" />
+              <SquiggleUnderline color="var(--color-bronze)" className="w-full" />
             </span>
           </h2>
 
@@ -107,7 +105,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                 data-reveal="scale"
                 key={pkg.id}
                 variants={cardVariants}
-                className={`group relative rounded-[2rem] bg-white/[0.04] backdrop-blur-xl p-6 sm:p-7 border border-white/10 shadow-2xl transition-[transform,background-color,border-color] duration-300 hover:bg-white/[0.07] hover:border-white/20 ${
+                className={`group relative rounded-[2rem] bg-white/[0.04] backdrop-blur-xl p-6 sm:p-7 border border-white/10 shadow-sm transition-[transform,background-color,border-color] duration-300 hover:bg-white/[0.07] hover:border-white/20 ${
                   isFeatured
                     ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-1 ring-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-white/[0.06]'
                     : 'z-10'
@@ -123,8 +121,8 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                   
                   {/* Top-Left Status Pill */}
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#191919]/90 backdrop-blur-md text-[11px] font-semibold text-white shadow-xs border border-white/15 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#DC2626]" aria-hidden="true" />
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-forest/90 backdrop-blur-md text-[11px] font-semibold text-white shadow-xs border border-white/15 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-bronze" aria-hidden="true" />
                     <span>{pkg.badge}</span>
                   </div>
 
@@ -146,7 +144,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
 
                 {/* Title & 1-sentence Description */}
                 <div className="space-y-2 mb-6">
-                  <h3 className="font-anton text-2xl uppercase tracking-tight text-white">
+                  <h3 className="font-display text-2xl tracking-tight text-white">
                     {pkg.title}
                   </h3>
                   <p className="font-sans text-xs sm:text-sm text-slate-400 leading-relaxed min-h-[3rem]">
@@ -159,7 +157,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="flex-1 py-3 px-5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.30)] flex items-center justify-center gap-2 group/btn cursor-pointer"
+                    className="flex-1 py-3 px-5 rounded-full bg-forest hover:bg-forest-hover active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(48,60,53,0.30)] flex items-center justify-center gap-2 group/btn cursor-pointer"
                   >
                     <span>Explore Details</span>
                   </button>
@@ -167,7 +165,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <button
                     type="button"
                     onClick={onOpenAppointment}
-                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white hover:bg-white hover:text-[#191919] active:scale-90 transition-[background-color,color,transform] duration-150 shrink-0 cursor-pointer"
+                    className="w-11 h-11 rounded-full flex items-center justify-center bg-white/10 border border-white/20 text-white hover:bg-white hover:text-forest active:scale-90 transition-[background-color,color,transform] duration-150 shrink-0 cursor-pointer"
                     title="Book Consultation"
                     aria-label="Book Consultation"
                   >

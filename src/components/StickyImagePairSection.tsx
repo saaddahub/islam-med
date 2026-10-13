@@ -7,23 +7,23 @@ export function StickyImagePairSection() {
     <section
       id="spaces-exhibit"
       data-stack="out"
-      className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200/60"
+      className="relative z-20 w-full bg-cream text-ink py-24 sm:py-32 border-t border-slate-200/60"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-16 sm:mb-24">
           <div className="space-y-4 max-w-2xl">
-            <div data-reveal="up" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C3460]/10 border border-[#1C3460]/20 text-xs font-label text-[#1C3460] uppercase tracking-wider">
+            <div data-reveal="up" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-forest/10 border border-forest/20 text-xs font-label text-forest uppercase tracking-wider">
               <Eye className="w-3.5 h-3.5" aria-hidden="true" />
               <span>05 / ARCHITECTURAL IMMERSION</span>
             </div>
 
-            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
+            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-ink leading-[1.05]">
               A physical environment built for{' '}
-              <span className="relative inline-block italic font-normal text-[#1C1C1E]">
+              <span className="relative inline-block italic font-normal text-ink">
                 clarity
-                <SquiggleUnderline color="#DC2626" className="w-full" />
+                <SquiggleUnderline color="var(--color-bronze)" className="w-full" />
               </span>{' '}
               and ease.
             </h2>

@@ -1,61 +1,59 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif-display: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
-  --font-anton: 'Anton', 'Archivo Black', sans-serif;
-  --font-label: 'Barlow Condensed', 'Archivo Narrow', 'DIN Alternate', ui-sans-serif, sans-serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-
-  --color-ground-light: #F5F3EF;
-  --color-ground-dark: #191919;
-  --color-ground-card: #0A1128;
-  
-  --color-glacier-start: #EDF0E8;
-  --color-glacier-end: #DDE8DC;
-  --color-blue-start: #F5F3EF;
-  --color-blue-end: #E5EDDF;
-  
-  --color-accent-teal: #1C3460;
-  --color-accent-teal-hover: #152A52;
-  --color-accent-teal-deep: #0E1E3A;
-  --color-accent-red: #DC2626;
-  --color-accent-red-hover: #B91C1C;
-  --color-accent-dark: #191919;
-  
-  --color-text-dark-primary: #FFFFFF;
-  --color-text-dark-muted: #94A3B8;
-  --color-text-light-primary: #0F172A;
-  --color-text-light-muted: #475569;
+  --font-display: 'Manrope', sans-serif;
+  --font-serif-display: 'Newsreader', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-label: 'Manrope', system-ui, sans-serif;
+  --color-cream: #F6F1E7;
+  --color-paper: #FFFCF5;
+  --color-oat: #E8DECB;
+  --color-ink: #303C35;
+  --color-forest: #303C35;
+  --color-forest-hover: #253029;
+  --color-bronze: #806044;
+  --color-muted: #706A5D;
+  --color-white: #FFFCF5;
+  --color-slate-50: #F8F4EC;
+  --color-slate-100: #EEE7DA;
+  --color-slate-200: #DFD5C4;
+  --color-slate-300: #D1C7B5;
+  --color-slate-400: #B4AA98;
+  --color-slate-500: #827968;
+  --color-slate-600: #706A5D;
+  --color-slate-700: #58574B;
+  --color-slate-800: #40483D;
+  --color-slate-900: #303C35;
 }
 
 @layer base {
   :root {
-    --ground: #F5F3EF;
-    --ink-primary: #0F172A;
-    --accent-teal: #1C3460;
-    --accent-red: #DC2626;
-    --border-subtle: rgba(28,52,96,0.10);
-    caret-color: #1C3460;
+    --ground: #F6F1E7;
+    --ink-primary: #303C35;
+    --accent-teal: #303C35;
+    --accent-red: #806044;
+    --border-subtle: rgba(48,60,53,0.10);
+    caret-color: #303C35;
     color-scheme: light;
   }
 
   body {
-    background-color: #F5F3EF;
-    color: #0F172A;
-    font-family: 'Inter', sans-serif;
+    background-color: #F6F1E7;
+    color: #303C35;
+    font-family: 'Manrope', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   p {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Manrope', sans-serif;
     letter-spacing: -0.011em;
   }
 
   /* 1. Curated text selection */
   ::selection {
-    background: #0E1E3A;
-    color: #FFFFFF;
+    background: #253029;
+    color: #FFFCF5;
   }
 
   /* 2. Tactile scrollbars */
@@ -64,22 +62,23 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #191919;
+    background: #303C35;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1C3460;
+    background: #303C35;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #93B4D4;
+    background: #E8DECB;
   }
   ::-webkit-scrollbar-thumb:active {
-    background: #A8C4DC;
+    background: #D1C7B5;
   }
 
   /* 3. Keyboard focus ring */
   :focus-visible {
-    outline: 2px solid #1C3460;
+    outline: 2px solid #AA8963;
+    box-shadow: 0 0 0 4px var(--color-paper);
     outline-offset: 2px;
   }
 
@@ -92,21 +91,23 @@
 
 /* Custom font utilities */
 .font-serif-display {
-  font-family: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
+  font-family: 'Newsreader', Georgia, serif;
 }
 
-.font-anton {
-  font-family: 'Anton', 'Archivo Black', sans-serif;
-  letter-spacing: -0.01em;
+ .font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
 }
 
 .font-label {
-  font-family: 'Barlow Condensed', 'Archivo Narrow', 'DIN Alternate', ui-sans-serif, sans-serif;
+  font-family: 'Manrope', ui-sans-serif, sans-serif;
   letter-spacing: 0.04em;
 }
 
 .font-sans {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Manrope', system-ui, sans-serif;
   letter-spacing: -0.011em;
 }
 
@@ -177,7 +178,7 @@ button:active {
 }
 
 .caption-description {
-  color: #64748b;
+  color: #706A5D;
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -321,7 +322,7 @@ html.sd [data-stack~="out"]::after {
 html.sd .scroll-progress {
   display: block;
   position: fixed; top: 0; left: 0; right: 0; height: 3px;
-  background: #1C3460;
+  background: #303C35;
   transform-origin: 0 50%;
   transform: scaleX(0);
   z-index: 1100;
@@ -406,6 +407,47 @@ html.lenis, html.lenis body {
 .site-modal[open] { display: flex; align-items: center; justify-content: center; }
 .site-modal > * { flex-shrink: 0; max-height: 100%; overflow-y: auto; }
 .site-modal::backdrop { background: rgb(0 0 0 / 0.8); backdrop-filter: blur(12px); }
+
+
+
+
+/* Additional motion is tied to controls and content changes. */
+.premium-button { position: relative; overflow: hidden; }
+.premium-button::after {
+  content: ""; position: absolute; inset: 0; background: rgb(255 252 245 / 0.09);
+  transform: translateY(100%); transition: transform 240ms var(--ease-out); pointer-events: none;
+}
+.premium-button:hover::after, .premium-button:focus-visible::after { transform: translateY(0); }
+.doctor-row::after {
+  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: var(--color-oat); transform: scaleX(0); transform-origin: left;
+  transition: transform 420ms var(--ease-out); pointer-events: none;
+}
+.doctor-row:hover::after, .doctor-row:focus-within::after { transform: scaleX(1); }
+.facility-selector::before {
+  content: ""; position: absolute; top: 0; left: 1.5rem; right: 1.5rem; height: 2px;
+  background: var(--color-bronze); transform: scaleX(0); transform-origin: left;
+  transition: transform 350ms var(--ease-out);
+}
+.facility-selector[aria-pressed="true"]::before { transform: scaleX(1); }
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform 240ms var(--ease-out);
+}
+.nav-link:hover::after, .nav-link:focus-visible::after { transform: scaleX(1); }
+@keyframes dialog-arrive {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes backdrop-arrive { from { opacity: 0; } to { opacity: 1; } }
+.site-modal[open] > * { animation: dialog-arrive 320ms var(--ease-out) both; }
+.site-modal[open]::backdrop { animation: backdrop-arrive 220ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .site-modal[open] > * { animation: backdrop-arrive 120ms ease-out both; }
+  .doctor-row::after, .facility-selector::before, .nav-link::after, .premium-button::after { transition: none; }
+}
 
 
 
