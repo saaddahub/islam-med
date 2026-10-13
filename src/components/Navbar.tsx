@@ -1,76 +1,187 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Menu as MenuIcon, X } from 'lucide-react';
+import { ArrowUpRight, Menu as MenuIcon, X, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
-import Modal from './Modal';
 
 interface NavbarProps {
   onOpenAppointment: () => void;
 }
-
-const navLinks = [
-  { label: 'Departments', href: '#departments' },
-  { label: 'Our Doctors', href: '#doctors' },
-  { label: 'Facilities', href: '#facilities' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'About Us', href: '#about' },
-];
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
-    handleScroll();
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { label: "Departments", href: "#departments" },
+    { label: "Our Doctors", href: "#doctors" },
+    { label: "Facilities", href: "#facilities" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "About Us", href: "#about" },
+  ];
+
   return (
     <>
-      <header className={`refined-navigation fixed inset-x-0 top-0 z-50 border-b transition-[background-color,box-shadow] duration-300 ${isScrolled ? 'bg-[#FFFCF5]/95 border-[#E8DECB] shadow-sm backdrop-blur-lg' : 'bg-[#F6F1E7]/90 border-[#E8DECB]/60'}`}>
-        <div className="mx-auto max-w-7xl flex items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-4">
-          <a href="#hero" aria-label="Islam Medical Complex home" className="flex shrink-0 items-center gap-2.5">
-            <Logo variant="icon" isDarkBg={false} className="w-7 h-7 sm:w-9 sm:h-9" />
-            <span className="flex flex-col gap-1">
-              <span className="font-bold tracking-[-0.045em] text-lg sm:text-xl leading-none text-[#303C35]">ISLAM</span>
-              <span className="text-[8px] sm:text-[9px] tracking-[0.16em] font-semibold text-[#806044]">MEDICAL COMPLEX</span>
-            </span>
-          </a>
-          <nav aria-label="Main navigation" className="hidden xl:flex items-center gap-6">
-            {navLinks.map(link => (
-              <a key={link.href} href={link.href} className="nav-link text-xs font-semibold text-[#303C35] py-2">{link.label}</a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button type="button" onClick={onOpenAppointment} className="premium-button flex items-center gap-2 rounded-full bg-[#303C35] text-[#FFFCF5] px-4 sm:px-6 py-3 text-xs sm:text-sm font-semibold hover:bg-[#253029] transition-colors cursor-pointer">
-              <span className="sm:hidden">Book a visit</span>
-              <span className="hidden sm:inline">Book Appointment</span>
-              <ArrowUpRight className="hidden sm:block w-4 h-4" aria-hidden="true" />
-            </button>
-            <button type="button" onClick={() => setIsMenuOpen(true)} aria-label="Open navigation menu" aria-expanded={isMenuOpen} aria-haspopup="dialog" className="xl:hidden p-3 border border-[#E8DECB] rounded-full text-[#303C35] hover:bg-[#E8DECB] transition-colors cursor-pointer">
-              <MenuIcon className="w-4 h-4" aria-hidden="true" />
-            </button>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-[padding] duration-500 ease-out ${
+          isScrolled
+            ? 'py-3 sm:py-4 px-4 sm:px-6 lg:px-8'
+            : 'py-0 px-0'
+        }`}
+      >
+        <div
+          className={`relative mx-auto transition-all duration-500 ease-out ${
+            isScrolled
+              ? 'max-w-7xl rounded-full bg-white/65 backdrop-blur-xl text-[#1C1C1E] shadow-md py-2.5 px-4 sm:px-6 border border-white/50'
+              : 'w-full max-w-none rounded-none bg-white/60 backdrop-blur-xl text-[#1C1C1E] py-3 sm:py-3.5 px-4 sm:px-8 lg:px-12 border-b border-white/40 shadow-xs'
+          }`}
+        >
+          <div className="relative flex items-center justify-between w-full max-w-7xl mx-auto">
+            {/* Specular top highlight when floating */}
+            <div
+              className={`absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none transition-opacity duration-500 ${
+                isScrolled ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+
+            {/* Top-Left: Authentic Brand Logo */}
+            <a
+              href="#"
+              className="flex items-center gap-2.5 group cursor-pointer active:scale-95 transition-transform"
+            >
+              <Logo variant="icon" isDarkBg={false} className="w-8 h-8" />
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-anton uppercase tracking-wider text-xl sm:text-2xl leading-none text-[#1C3460]">
+                    ISLAM
+                  </span>
+                  <span className="font-anton uppercase tracking-wider text-xs sm:text-sm leading-tight text-[#DC2626] mt-0.5">
+                    MEDICAL COMPLEX
+                  </span>
+                </div>
+                <span className="text-[9px] tracking-widest uppercase font-label text-slate-500">
+                  Clinical Excellence & Surgery
+                </span>
+              </div>
+            </a>
+
+            {/* Center: Pill-shaped Glass Nav / Quick Menu */}
+            <div
+              className="hidden md:flex items-center gap-1 rounded-full p-1 bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-xs"
+            >
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider transition-[background-color,color,transform] duration-150 cursor-pointer active:scale-95 bg-slate-100 text-[#1C1C1E] hover:bg-slate-200/80 border border-slate-200/80"
+              >
+                <MenuIcon className="w-3.5 h-3.5 text-[#1C3460]" aria-hidden="true" />
+                <span>Menu</span>
+              </button>
+
+              <div className="h-4 w-px mx-1 bg-slate-200" />
+
+              <nav className="flex items-center space-x-1">
+                {navLinks.slice(0, 4).map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium text-slate-700 hover:text-[#1C3460] hover:bg-slate-100 transition-[color,background-color,transform] duration-150 active:scale-95"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Top-Right: Ghost Circular Arrow + Primary Appointment Pill Button */}
+            <div className="flex items-center gap-2">
+              <a
+                href="#how-it-works"
+                className="w-9 h-9 rounded-full flex items-center justify-center bg-white/85 backdrop-blur-md border border-slate-200/90 text-slate-700 hover:text-[#1C3460] hover:bg-white hover:border-slate-300 transition-[background-color,border-color,color,transform] duration-150 cursor-pointer active:scale-90 shadow-xs"
+                title="How Care Works"
+                aria-label="How Care Works"
+              >
+                <ArrowUpRight className="w-4 h-4 text-[#1C3460]" aria-hidden="true" />
+              </a>
+
+              <button
+                type="button"
+                onClick={onOpenAppointment}
+                className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-[#1C3460] text-white font-medium text-xs sm:text-sm tracking-tight hover:bg-[#152A52] active:scale-95 transition-[background-color,transform,box-shadow] duration-150 shadow-[0_2px_10px_rgba(28,52,96,0.22)] cursor-pointer"
+              >
+                <span>Book Appointment</span>
+              </button>
+
+              {/* Mobile Menu Toggle */}
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden p-2 rounded-full bg-white/85 backdrop-blur-md border border-slate-200 text-slate-800 hover:bg-white transition-[background-color,transform] duration-150 cursor-pointer active:scale-90 shadow-xs"
+                aria-label="Toggle navigation menu"
+              >
+                {isMenuOpen ? <X className="w-4 h-4" /> : <MenuIcon className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
         </div>
       </header>
-      <Modal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} labelledBy="navigation-title">
-        <div className="refined-navigation bg-[#F6F1E7] text-[#303C35] rounded-2xl p-6 sm:p-10 w-full max-w-xl mx-auto">
-          <div className="flex justify-between items-center pb-6 border-b border-[#E8DECB]">
-            <h2 id="navigation-title" className="font-bold tracking-[-0.045em] text-2xl">Explore our hospital</h2>
-            <button type="button" onClick={() => setIsMenuOpen(false)} aria-label="Close menu" className="p-3 rounded-full hover:bg-[#E8DECB] transition-colors cursor-pointer"><X className="w-5 h-5" /></button>
+
+      {/* Slide-out / Dropdown Menu Overlay */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-40 flex items-start justify-center pt-24 px-4 bg-black/40 backdrop-blur-md">
+          <div className="w-full max-w-xl bg-white/95 backdrop-blur-2xl text-[#1C1C1E] rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.15)] space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+              <span className="font-anton uppercase tracking-widest text-xs text-[#DC2626]">
+                DIRECT NAVIGATION
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsMenuOpen(false)}
+                className="p-1.5 rounded-full text-slate-400 hover:text-[#1C1C1E] hover:bg-slate-100 active:scale-90 transition-[background-color,transform] duration-150 cursor-pointer"
+                aria-label="Close menu"
+              >
+                <X className="w-5 h-5" aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {navLinks.map((link, idx) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 active:scale-[0.98] border border-slate-200/60 transition-[background-color,transform] duration-150"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-[#1C3460] font-label font-bold">0{idx + 1}</span>
+                    <span className="font-medium text-sm text-slate-800 group-hover:text-[#1C3460] group-hover:translate-x-1 transition-[color,transform]">
+                      {link.label}
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-[#1C3460] transition-colors" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+
+            <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
+                <span className="font-medium">Hotline: +92 51 111 475 475</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#1C3460]" aria-hidden="true" />
+                <span>Sector G-10 Medical Enclave</span>
+              </div>
+            </div>
           </div>
-          <nav aria-label="Mobile navigation" className="divide-y divide-[#E8DECB]">
-            {navLinks.map((link, index) => (
-              <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="group flex items-center gap-5 py-5">
-                <span className="text-xs text-[#806044]">0{index + 1}</span>
-                <span className="font-bold tracking-[-0.045em] text-xl sm:text-2xl flex-1">{link.label}</span>
-                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-              </a>
-            ))}
-          </nav>
         </div>
-      </Modal>
+      )}
     </>
   );
 };
