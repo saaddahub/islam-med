@@ -99,7 +99,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                   <div className="flex items-baseline gap-4 sm:gap-6 flex-1 min-w-0">
                     {/* Number in Anton with color transition */}
                     <span
-                      className={`font-anton text-xl sm:text-2xl md:text-3xl lg:text-4xl transition-colors duration-250 ${
+                      className={`font-serif-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl transition-colors duration-250 ${
                         isActive ? 'text-white' : 'text-slate-600'
                       }`}
                     >
@@ -108,7 +108,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
 
                     {/* Department Name in Anton with color transition */}
                     <span
-                      className={`font-anton text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight truncate transition-colors duration-250 ${
+                      className={`font-serif-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight truncate transition-colors duration-250 ${
                         isActive ? 'text-white' : 'text-slate-500'
                       }`}
                     >

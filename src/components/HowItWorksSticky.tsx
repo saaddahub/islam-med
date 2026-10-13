@@ -51,7 +51,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
                 <span className="text-[11px] font-label text-[#93B4D4] uppercase tracking-wider">
                   RAPID APPOINTMENT ACCESS
                 </span>
-                <div className="font-anton text-xl uppercase tracking-tight text-white">
+                <div className="font-serif-bold text-xl uppercase tracking-tight text-white">
                   Ready for personalized attention?
                 </div>
               </div>
@@ -96,7 +96,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
 
                   {/* Headline & Description */}
                   <div className="space-y-3">
-                    <h3 className="font-anton text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-[#1C1C1E]">
+                    <h3 className="font-serif-bold text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-[#1C1C1E]">
                       {step.title}
                     </h3>
 
