@@ -68,17 +68,10 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
       className="relative z-20 w-full bg-[#191919] text-white py-14 sm:py-20 md:py-0 md:min-h-screen md:flex md:flex-col md:justify-start md:pt-[max(3.5rem,calc(50vh-270px))] selection:bg-[#1C3460] selection:text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        
-        {/* Top Section Eyebrow on Desktop */}
         <div className="hidden md:flex items-center justify-between pb-4 mb-3 border-b border-white/10">
-          <div data-reveal="up" className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-            <span className="font-label text-xs uppercase tracking-widest text-slate-400">
-              02 / CLINICAL SPECIALTIES ACCORDION
-            </span>
-          </div>
+
           <div className="text-xs font-label text-slate-400">
-            <span>SCROLL TO ADVANCE PILLARS</span> • <span>{activeIndex < 0 ? '—' : `0${activeIndex + 1}`} / 0{DEPARTMENTS.length}</span>
+            <span>Scroll or select a department</span> • <span>{activeIndex < 0 ? '—' : `0${activeIndex + 1}`} / 0{DEPARTMENTS.length}</span>
           </div>
         </div>
 
@@ -134,7 +127,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                     >
                       {dept.stat}
                     </span>
-                    
+
                     <motion.div
                       animate={{ rotate: isActive ? 180 : 0 }}
                       transition={transitionConfig}
@@ -161,7 +154,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                       className="overflow-hidden"
                     >
                       <div className="pt-2 pb-5 sm:pb-6 pl-0 sm:pl-12 md:pl-16 max-w-5xl space-y-4">
-                        
+
                         {/* Department Description */}
                         <p className="font-sans text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-3xl font-normal">
                           {dept.shortDesc}

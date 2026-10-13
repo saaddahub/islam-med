@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
 import { gsap, isDesktop, isReducedMotion } from '../lib/useScrollTrigger';
 
 export const DarkPanelSlide: React.FC = () => {
@@ -45,20 +44,6 @@ export const DarkPanelSlide: React.FC = () => {
       className="relative z-20 w-full bg-[#191919] text-white rounded-t-[2.5rem] sm:rounded-t-[3.5rem] border-t border-white/10 pt-16 sm:pt-24 pb-12"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Top Header Tag */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8 sm:mb-12">
-          <div data-reveal="up" className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-            <span className="font-label text-xs uppercase tracking-widest text-slate-400">
-              02 / CLINICAL EXCELLENCE DIVISIONS
-            </span>
-          </div>
-          <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500 font-label">
-            <span>SCROLL TO EXPLORE DEPARTMENTS</span>
-            <ArrowDown className="w-3.5 h-3.5 text-slate-500" aria-hidden="true" />
-          </div>
-        </div>
 
         {/* Giant Anton Condensed Headline */}
         <div className="space-y-4 max-w-5xl">

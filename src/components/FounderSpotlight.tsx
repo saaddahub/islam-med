@@ -59,19 +59,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
       className="relative z-20 w-full bg-[#F5F3EF] border-t border-slate-200 py-24 sm:py-36"
     >
       {/* Ambient blobs on the light bg */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#1C3460]/5 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/4" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#DC2626]/5 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/4" />
-
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Section label — fades in normally */}
-        <div
-          data-reveal="up"
-          className="flex items-center gap-2 text-xs font-label tracking-widest text-slate-500 uppercase mb-10"
-        >
-          <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-          <span>06 / FOUNDER &amp; VISION</span>
-        </div>
 
         {/*
          * The dark card — this is the element that scales outward toward the viewer.
@@ -80,12 +68,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
          */}
         <motion.div
           style={isReduced ? {} : { scale, borderRadius }}
-          className="relative bg-[#1C1C1E] text-white overflow-hidden shadow-2xl gpu-layer"
+          className="relative bg-[#1C1C1E] text-white overflow-hidden shadow-lg gpu-layer"
         >
-          {/* Card inner ambient glow */}
-          <div className="absolute top-0 left-0 w-96 h-96 bg-[#1C3460]/20 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#DC2626]/10 rounded-full blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" />
-
           {/* All content fades in as card expands */}
           <motion.div
             style={isReduced ? {} : { opacity: contentOpacity, y: contentY }}
@@ -120,8 +104,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                     FOUNDER &amp; MEDICAL DIRECTOR
                   </span>
                 </div>
-                <h2 className="font-anton text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white leading-[0.92]">
-                  HEY — I&apos;M DR. IMRAN ISLAM
+                <h2 className="font-anton text-4xl sm:text-6xl md:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-[0.92]">
+                  DR. IMRAN ISLAM
                 </h2>
               </div>
             </div>

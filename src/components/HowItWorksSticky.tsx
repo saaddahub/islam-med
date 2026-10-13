@@ -1,6 +1,6 @@
 import React from 'react';
 import { PROCESS_STEPS } from '../data/processSteps';
-import { ArrowUpRight, CheckCircle2, UserCheck, CalendarDays, HeartPulse, MessageSquareQuote, Sparkles } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, UserCheck, CalendarDays, HeartPulse, MessageSquareQuote } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 
 interface HowItWorksStickyProps {
@@ -25,18 +25,12 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
   return (
     <section id="how-it-works" data-stack="in" className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Two Column Layout: Left Column Sticky, Right Column Scrolling Stack */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
+
           {/* Left Column (Sticky / Pinned via CSS sticky) */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
-            
-            {/* Eyebrow Label in Inter uppercase */}
-            <div data-reveal="up" className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 border border-white/30 text-xs font-semibold uppercase tracking-wider text-[#1C1C1E] backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5 text-[#1C3460]" aria-hidden="true" />
-              <span>06 / SIMPLE SCHEDULING</span>
-            </div>
 
             <h2 data-reveal="mask" className="font-serif-display text-5xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[0.95]">
               How it{' '}
@@ -47,7 +41,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
             </h2>
 
             <p data-reveal="up" className="font-sans text-base sm:text-lg text-[#374151] leading-relaxed font-normal">
-              A frictionless patient journey built from zero-wait arrivals to 
+              A frictionless patient journey built from zero-wait arrivals to
               post-consultation digital physician connectivity.
             </p>
 
@@ -105,7 +99,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
                     <h3 className="font-anton text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-[#1C1C1E]">
                       {step.title}
                     </h3>
-                    
+
                     <p className="font-sans text-sm sm:text-base text-[#374151] leading-relaxed font-normal">
                       {step.description}
                     </p>

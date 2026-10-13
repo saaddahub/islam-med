@@ -133,17 +133,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         
         {/* Giant Oversized Section Label in Anton */}
         <div className="relative mb-6 sm:mb-12 select-none overflow-hidden">
-          <div data-reveal="up" className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-            <div className="flex items-center gap-2 text-xs font-label tracking-widest text-slate-400 uppercase">
-              <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-              <span>03 / CONSULTANT ROSTER</span>
-            </div>
-            <span className="text-xs font-sans text-slate-400 hidden sm:inline-block">
-              Hover to reveal credentials &amp; timings • Click to view full dossier
-            </span>
-          </div>
-
-          <h2 data-reveal="mask" className="font-anton text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] uppercase tracking-tight text-white leading-[0.85] opacity-95">
+          <h2 data-reveal="mask" className="font-anton text-6xl sm:text-8xl md:text-8xl lg:text-8xl uppercase tracking-tight text-white leading-[0.85] opacity-95">
             OUR DOCTORS
           </h2>
         </div>
@@ -284,7 +274,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                             }}
                             className="relative z-10 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
                           >
-                            <span>View Full Dossier</span>
+                            <span>View profile</span>
                             <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
                           </button>
                         </div>
@@ -314,7 +304,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
             onClick={onOpenAppointment}
             className="shrink-0 px-6 py-3 rounded-full bg-[#1C3460] text-white font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-[#152A52] active:scale-95 transition-[background-color,transform] duration-150 shadow-md cursor-pointer"
           >
-            Direct Specialist Triage
+            Contact reception
           </button>
         </div>
 

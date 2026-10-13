@@ -14,14 +14,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
   return (
     <footer data-stack="in" className="relative z-20 w-full bg-[#191919] text-white border-t border-white/10 pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Giant Anton Closing CTA Line */}
         <div className="border-b border-white/10 pb-16 mb-16">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="space-y-4 max-w-4xl">
-              <span data-reveal="up" className="font-label text-xs uppercase tracking-widest text-[#93B4D4]">
-                SPECIALIST REFERRALS & ADMISSIONS
-              </span>
+
               <h2 data-reveal="mask" className="font-anton text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.88]">
                 EXCEPTIONAL CARE STARTS HERE
               </h2>
@@ -32,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               onClick={onOpenAppointment}
               className="shrink-0 px-8 py-5 rounded-full bg-[#1C3460] text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-[#152A52] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_20px_rgba(28,52,96,0.30)] flex items-center gap-3 cursor-pointer"
             >
-              <span>Book Priority Consult</span>
+              <span>Contact reception</span>
               <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
@@ -40,12 +38,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
 
         {/* Multi-Column Directory in Clean Inter Sans */}
         <div data-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10 text-xs text-slate-300">
-          
+
           {/* Col 1: Brand & Accreditation */}
           <div data-reveal="up" className="lg:col-span-2 space-y-4">
             <Logo variant="full" isDarkBg={true} />
             <p className="font-sans text-sm text-slate-300 max-w-sm leading-relaxed">
-              A modern quaternary care medical center combining robotic surgical precision 
+              A modern quaternary care medical center combining robotic surgical precision
               with peaceful, recovery-oriented inpatient architecture.
             </p>
             <div className="flex items-center gap-2 text-white font-medium">
@@ -123,7 +121,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             <span className="text-slate-400">JCI Accredited Facility</span>
             <span className="text-slate-600" aria-hidden="true">•</span>
             <span className="text-slate-400">Islamabad Healthcare Commission Registered</span>
-            
+
             <button
               type="button"
               onClick={scrollToTop}
