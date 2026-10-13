@@ -29,7 +29,9 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#F5F3EF] text-[#1C1C1E] flex flex-col selection:bg-[#1C3460] selection:text-white">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar onOpenAppointment={openAppointment} />
+      <main id="main-content" tabIndex={-1}>
       <Hero onOpenAppointment={openAppointment} />
       <DarkPanelSlide />
       <ServiceAccordion onOpenAppointment={openAppointment} />
@@ -39,6 +41,7 @@ export function App() {
       <TiltCardCarousel onOpenAppointment={openAppointment} />
       <HowItWorksSticky onOpenAppointment={openAppointment} />
       <FounderSpotlight onOpenAppointment={openAppointment} />
+      </main>
       <Footer onOpenAppointment={openAppointment} />
       <AppointmentModal isOpen={isAppointmentOpen} onClose={() => setIsAppointmentOpen(false)} />
       <DoctorProfileModal

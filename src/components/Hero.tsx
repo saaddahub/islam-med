@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, ShieldCheck, Clock, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, Clock, ChevronRight, Pause, Play } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EASINGS } from '../lib/useScrollTrigger';
@@ -43,12 +43,13 @@ const HERO_SLIDES: HeroSlide[] = [
 
 export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const activeSlide = HERO_SLIDES[activeSlideIndex];
   const reduced = useReducedMotion();
 
   // Automatic slideshow timing
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || isPaused) return;
     const duration = (activeSlide.duration || 6) * 1000;
     const timer = setTimeout(() => {
       setActiveSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -57,7 +58,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [activeSlide, reduced]);
+  }, [activeSlide, reduced, isPaused]);
 
   return (
     <section id="hero" data-stack="out" className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#F5F3EF] pt-28 pb-12 sm:pt-32 sm:pb-16">
@@ -98,14 +99,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
         <div className="max-w-2xl lg:max-w-3xl space-y-6">
-          
-          {/* Eyebrow badge */}
-          <div data-intro style={{"--i": 0} as React.CSSProperties} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-            <span className="text-[11px] font-semibold tracking-wider uppercase text-[#1C1C1E] font-sans">
-              Islam Medical Complex • Islamabad
-            </span>
-          </div>
 
           {/* Headline in Display Serif with Squiggle */}
           <h1 data-intro style={{"--i": 1} as React.CSSProperties} className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1C1C1E] leading-[0.95]">
@@ -119,8 +112,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
           {/* Subcopy in Inter */}
           <p data-intro style={{"--i": 2} as React.CSSProperties} className="font-sans text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed font-normal">
-            Islam Medical Complex harmonizes sub-millimeter surgical robotics with calm, 
-            thoughtfully designed healing suites. A boutique hospital where high technology 
+            Islam Medical Complex harmonizes sub-millimeter surgical robotics with calm,
+            thoughtfully designed healing suites. A boutique hospital where high technology
             meets human warmth.
           </p>
 
@@ -145,7 +138,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               </a>
             </div>
 
-
           </div>
 
           {/* Authentic hospital services indicators */}
@@ -169,7 +161,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
       {/* Bottom Row: Active Caption on Left + Interactive Thumbnail Strip on Bottom-Right */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-6 flex flex-col sm:flex-row items-end justify-between gap-4">
-        
+
         {/* Active image caption tag with smooth animated label */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -193,7 +185,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                 <button
                   type="button"
                   key={slide.id}
-                  onClick={() => setActiveSlideIndex(idx)}
+                  onClick={() => { setActiveSlideIndex(idx); setIsPaused(true); }}
+                  aria-pressed={isActive}
                   className={`group relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden transition-[transform,opacity,box-shadow] duration-200 cursor-pointer active:scale-95 ${
                     isActive
                       ? 'ring-2 ring-[#1C3460] scale-105 shadow-sm opacity-100'
@@ -207,21 +200,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                     alt=""
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  
+
                   {/* Subtle dark tint for non-active thumbnails */}
                   <div
                     className={`absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors ${
                       isActive ? 'bg-transparent' : ''
                     }`}
                   />
-                  
+
                   {/* Slide number tag */}
                   <div className="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-black/70 text-[9px] font-label text-white">
                     0{idx + 1}
                   </div>
 
                   {/* Active Slide Progress Line Indicator */}
-                  {isActive && !reduced && (
+                  {isActive && !reduced && !isPaused && (
                     <motion.div
                       key={`progress-${slide.id}-${activeSlideIndex}`}
                       initial={{ scaleX: 0 }}
@@ -238,10 +231,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               );
             })}
           </div>
-          
+
+          {!reduced && (
+            <button type="button" onClick={() => setIsPaused(paused => !paused)} aria-label={isPaused ? "Resume slideshow" : "Pause slideshow"} className="flex items-center justify-center w-11 h-11 text-[#1C3460] rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
+              {isPaused ? <Play className="w-4 h-4" aria-hidden="true" /> : <Pause className="w-4 h-4" aria-hidden="true" />}
+            </button>
+          )}
           <div className="hidden md:flex flex-col text-[11px] text-slate-500 pl-1 pr-2">
             <span className="font-semibold text-slate-800">Slideshow</span>
-            <span className="text-[10px] text-slate-500">{reduced ? 'Manual controls' : 'Auto-cycling'}</span>
+            <span className="text-[10px] text-slate-500">{reduced || isPaused ? 'Manual controls' : 'Auto-cycling'}</span>
           </div>
         </div>
 
@@ -251,5 +249,4 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 };
 
 export default Hero;
-
 
