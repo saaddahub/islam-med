@@ -44,7 +44,7 @@ export const AppointmentModal = ({
             </span>
             <h2
               id="modal-coming-soon-title"
-              className="font-display-bold text-4xl sm:text-5xl uppercase tracking-tight text-white leading-[0.95]"
+              className="font-editorial text-4xl sm:text-5xl uppercase tracking-tight text-white leading-[0.95]"
             >
               Coming Soon
             </h2>

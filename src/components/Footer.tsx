@@ -20,8 +20,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="space-y-4 max-w-4xl">
 
-              <h2 data-reveal="mask" className="font-display-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.88]">
-                EXCEPTIONAL CARE STARTS HERE
+              <h2 data-reveal="mask" className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.88]">
+                Exceptional <em className="font-normal">care</em> starts here
               </h2>
             </div>
 

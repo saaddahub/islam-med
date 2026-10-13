@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-.font-display-bold {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 700;
+.font-editorial {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  text-transform: none;
   line-height: 1.05;
   text-wrap: balance;
 }
@@ -17,7 +19,7 @@
 #main-content { scroll-margin-top: 5.5rem; }
 
 @theme {
-  --font-serif-display: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
+  --font-serif-display: 'Newsreader', Georgia, serif;
   --font-anton: 'Anton', 'Archivo Black', sans-serif;
   --font-label: 'Barlow Condensed', 'Archivo Narrow', 'DIN Alternate', ui-sans-serif, sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -108,7 +110,7 @@
 
 /* Custom font utilities */
 .font-serif-display {
-  font-family: 'Freight Text', 'Freight Text Pro', 'FreightBig Pro', 'FreightDispPro', 'Freight Serif', 'Instrument Serif', 'Playfair Display', 'Merriweather', Georgia, serif;
+  font-family: var(--font-serif-display);
 }
 
 .font-anton {

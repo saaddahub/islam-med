@@ -50,9 +50,9 @@ export const DarkPanelSlide: React.FC = () => {
           <h2
             ref={headlineRef}
             data-reveal="mask"
-            className="font-display-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.9]"
+            className="font-editorial text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.9]"
           >
-            HOW WE CARE FOR YOU
+            How we <em className="font-normal">care</em> for you
           </h2>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4">
             <p data-reveal="up" className="font-sans text-slate-300 text-base sm:text-xl max-w-2xl leading-relaxed font-normal">
@@ -61,12 +61,12 @@ export const DarkPanelSlide: React.FC = () => {
             </p>
             <div className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-3 self-start md:self-auto">
               <div className="text-right">
-                <div className="font-display-bold text-xl text-[#DC2626] uppercase leading-none">24 / 7</div>
+                <div className="font-editorial text-xl text-[#DC2626] uppercase leading-none">24 / 7</div>
                 <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Emergency &amp; Trauma</div>
               </div>
               <div className="h-8 w-px bg-white/10" aria-hidden="true" />
               <div>
-                <div className="font-display-bold text-xl text-white uppercase leading-none">IN-HOUSE</div>
+                <div className="font-editorial text-xl text-white uppercase leading-none">IN-HOUSE</div>
                 <div className="text-[10px] text-slate-400 tracking-wider uppercase font-sans">Pharmacy &amp; Diagnostics</div>
               </div>
             </div>
