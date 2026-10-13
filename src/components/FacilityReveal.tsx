@@ -85,23 +85,23 @@ export const FacilityReveal: React.FC = () => {
       id="facilities"
       ref={sectionRef}
       data-stack="in out"
-      className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200"
+      className="relative z-20 w-full bg-cream text-ink py-24 sm:py-32 border-t border-slate-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Editorial Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-12 sm:mb-16">
           <div className="space-y-4 max-w-2xl">
-            <div data-reveal="up" className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1C3460]/10 border border-[#1C3460]/20 text-xs font-label text-[#1C3460] uppercase tracking-wider font-semibold">
+            <div data-reveal="up" className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-forest/10 border border-forest/20 text-xs font-label text-forest uppercase tracking-wider font-semibold">
               <Layers className="w-3.5 h-3.5" aria-hidden="true" />
               <span>04 / ARCHITECTURAL SANCTUARY</span>
             </div>
 
-            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
+            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-ink leading-[1.05]">
               Spaces designed for{' '}
-              <span className="relative inline-block italic font-normal text-[#1C1C1E]">
+              <span className="relative inline-block italic font-normal text-ink">
                 healing
-                <SquiggleUnderline color="#DC2626" className="w-full" />
+                <SquiggleUnderline color="var(--color-bronze)" className="w-full" />
               </span>{' '}
               and quiet.
             </h2>
@@ -120,15 +120,15 @@ export const FacilityReveal: React.FC = () => {
           <div
             ref={mainPhotoRef}
             data-reveal="image"
-            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-clip shadow-2xl z-10 bg-slate-900"
+            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-clip shadow-sm z-10 bg-slate-900"
           >
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFeature.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, scale: isReduced ? 1 : 1.035 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                transition={isReduced ? { duration: 0 } : { duration: 0.4, ease: 'easeInOut' }}
+                transition={isReduced ? { duration: 0 } : { duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                 className="absolute inset-0"
               >
                 <img
@@ -142,10 +142,10 @@ export const FacilityReveal: React.FC = () => {
                 {/* Overlay Title Pill */}
                 <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                   <div className="space-y-1">
-                    <span className="text-[11px] font-label tracking-widest text-[#93B4D4] uppercase">
+                    <span className="text-[11px] font-label tracking-widest text-oat uppercase">
                       {currentFeature.tag}
                     </span>
-                    <h3 className="font-anton text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
+                    <h3 className="font-display text-2xl sm:text-4xl md:text-5xl text-white tracking-tight">
                       {currentFeature.title}
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-lg">
@@ -189,9 +189,10 @@ export const FacilityReveal: React.FC = () => {
                 key={feature.id}
                 variants={cardVariants}
                 onClick={() => setSelectedFeatureIndex(idx)}
-                className={`text-left p-6 rounded-2xl transition-[background-color,border-color,transform,box-shadow] duration-200 cursor-pointer active:scale-[0.98] border shadow-xs ${
+                aria-pressed={isSelected}
+                className={`facility-selector relative text-left p-6 rounded-2xl transition-[background-color,border-color,transform,box-shadow] duration-200 cursor-pointer active:scale-[0.98] border shadow-xs ${
                   isSelected
-                    ? 'bg-white border-[#1C3460] ring-2 ring-[#1C3460]/20 shadow-md'
+                    ? 'bg-white border-forest ring-2 ring-forest/20 shadow-md'
                     : 'bg-white/70 border-slate-200 hover:bg-white'
                 }`}
               >
@@ -201,13 +202,13 @@ export const FacilityReveal: React.FC = () => {
                   </span>
                   <div
                     className={`w-2.5 h-2.5 rounded-full transition-[background-color,transform] duration-200 ${
-                      isSelected ? 'bg-[#DC2626] scale-110' : 'bg-slate-300'
+                      isSelected ? 'bg-bronze scale-110' : 'bg-slate-300'
                     }`}
                     aria-hidden="true"
                   />
                 </div>
 
-                <h4 className="font-anton text-xl uppercase tracking-tight text-[#1C1C1E] mb-2">
+                <h4 className="font-display text-xl tracking-tight text-ink mb-2">
                   {feature.title}
                 </h4>
 
