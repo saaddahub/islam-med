@@ -1,6 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface SquiggleUnderlineProps {
   className?: string;
@@ -9,9 +7,8 @@ interface SquiggleUnderlineProps {
 
 export const SquiggleUnderline: React.FC<SquiggleUnderlineProps> = ({
   className = "",
-  color = "var(--color-bronze)",
+  color = "#7A52B3",
 }) => {
-  const reduced = useReducedMotion();
   return (
     <svg
       className={`inline-block absolute -bottom-2.5 left-0 w-full overflow-visible pointer-events-none ${className}`}
@@ -22,14 +19,10 @@ export const SquiggleUnderline: React.FC<SquiggleUnderlineProps> = ({
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <motion.path
-        initial={{ pathLength: reduced ? 1 : 0 }}
-        whileInView={{ pathLength: 1 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: reduced ? 0 : 0.85, ease: [0.16, 1, 0.3, 1] }}
-        d="M2 10C60 3 132 3 198 7"
+      <path
+        d="M2 10.5C28 3.5 54 13.5 80 7.5C106 1.5 132 12.5 158 6.5C174 2.5 188 8 198 6"
         stroke={color}
-        strokeWidth="1.6"
+        strokeWidth="3.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         className="opacity-85"

@@ -60,10 +60,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   }, [activeSlide, reduced]);
 
   return (
-    <section id="hero" data-stack="out" className="relative min-h-[920px] lg:min-h-[100dvh] w-full flex flex-col justify-between bg-cream pt-28 pb-12 sm:pt-32 sm:pb-16">
+    <section id="hero" data-stack="out" className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#F5F3EF] pt-28 pb-12 sm:pt-32 sm:pb-16">
       {/* Background Slideshow Layer positioned on the right half */}
       <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
-        <div className="hero-image-stage absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
+        <div className="absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
           <AnimatePresence initial={false} mode="wait">
             <motion.div
               key={activeSlide.id}
@@ -84,12 +84,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               />
 
               {/* Seamless feathering gradient for desktop */}
-              <div className="hidden lg:block absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-cream via-cream/60 to-transparent" />
+              <div className="hidden lg:block absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#F5F3EF] via-[#F5F3EF]/60 to-transparent" />
               {/* Mobile overlay to ensure text readability */}
-              <div className="lg:hidden absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/85 to-cream/40" />
+              <div className="lg:hidden absolute inset-0 bg-gradient-to-r from-[#F5F3EF]/95 via-[#F5F3EF]/85 to-[#F5F3EF]/40" />
               {/* Top & bottom blending */}
-              <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-cream/80 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-cream to-transparent" />
+              <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F5F3EF]/80 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F5F3EF] to-transparent" />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -97,22 +97,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
-        <div className="max-w-xl lg:max-w-[660px] space-y-7">
+        <div className="max-w-2xl lg:max-w-3xl space-y-6">
           
           {/* Eyebrow badge */}
-          <div data-intro style={{"--i": 0} as React.CSSProperties} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-transparent border-l-2 border-bronze !rounded-none !pl-4">
-            <span className="w-2 h-2 rounded-full bg-bronze" aria-hidden="true" />
-            <span className="text-[11px] font-semibold tracking-wider uppercase text-ink font-sans">
+          <div data-intro style={{"--i": 0} as React.CSSProperties} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
+            <span className="text-[11px] font-semibold tracking-wider uppercase text-[#1C1C1E] font-sans">
               Islam Medical Complex • Islamabad
             </span>
           </div>
 
           {/* Headline in Display Serif with Squiggle */}
-          <h1 data-intro style={{"--i": 1} as React.CSSProperties} className="font-display text-[3.15rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] text-ink leading-[1.04]">
+          <h1 data-intro style={{"--i": 1} as React.CSSProperties} className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1C1C1E] leading-[0.95]">
             Care that feels{' '}
-            <span className="relative inline-block font-serif-display italic font-normal text-bronze mr-[0.12em] tracking-[-0.025em]">
+            <span className="relative inline-block italic font-normal text-[#1C1C1E]">
               closer
-              <SquiggleUnderline color="var(--color-bronze)" className="w-full" />
+              <SquiggleUnderline color="#DC2626" className="w-full" />
             </span>{' '}
             than you think.
           </h1>
@@ -130,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               <button
                 type="button"
                 onClick={onOpenAppointment}
-                className="flex items-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full premium-button bg-forest text-white font-semibold text-sm sm:text-base tracking-tight hover:bg-forest-hover active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_16px_rgba(48,60,53,0.20)] group cursor-pointer"
+                className="flex items-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full bg-[#1C3460] text-white font-medium text-sm sm:text-base tracking-tight hover:bg-[#152A52] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_16px_rgba(28,52,96,0.20)] group cursor-pointer"
               >
                 <span>Book Appointment</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
@@ -138,7 +138,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
               <a
                 href="#departments"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/90 backdrop-blur-md text-ink font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer shadow-xs"
+                className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/90 backdrop-blur-md text-[#1C1C1E] font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer shadow-xs"
               >
                 <span>Explore Departments</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" aria-hidden="true" />
@@ -151,15 +151,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           {/* Authentic hospital services indicators */}
           <div data-intro style={{"--i": 4} as React.CSSProperties} className="pt-6 flex flex-wrap items-center gap-6 text-xs text-slate-600 border-t border-slate-200">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-forest" aria-hidden="true" />
+              <ShieldCheck className="w-4 h-4 text-[#1C3460]" aria-hidden="true" />
               <span className="font-medium">24/7 Emergency &amp; Trauma Care</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-forest" aria-hidden="true" />
+              <Clock className="w-3.5 h-3.5 text-[#1C3460]" aria-hidden="true" />
               <span className="font-medium">24/7 In-House Pharmacy &amp; Lab</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-bronze" aria-hidden="true" />
+              <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
               <span className="font-medium">Operation Theaters &amp; Private Wards</span>
             </div>
           </div>
@@ -196,7 +196,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                   onClick={() => setActiveSlideIndex(idx)}
                   className={`group relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden transition-[transform,opacity,box-shadow] duration-200 cursor-pointer active:scale-95 ${
                     isActive
-                      ? 'ring-2 ring-forest scale-105 shadow-sm opacity-100'
+                      ? 'ring-2 ring-[#1C3460] scale-105 shadow-sm opacity-100'
                       : 'opacity-70 hover:opacity-100'
                   }`}
                   title={slide.title}
@@ -231,7 +231,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                         ease: 'linear',
                       }}
                       style={{ originX: 0 }}
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-forest"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1C3460]"
                     />
                   )}
                 </button>

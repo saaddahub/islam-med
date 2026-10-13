@@ -16,7 +16,7 @@ export interface Doctor {
 export const DOCTORS: Doctor[] = [
   {
     id: "dr-yasmin-sattar",
-    name: "Dr. Yasmin Sattar",
+    name: "DR. YASMIN SATTAR",
     department: "GYNAECOLOGY & OBSTETRICS",
     yearMeta: "GYNAE & OBS • INFERTILITY",
     role: "Senior Consultant Gynecologist & Infertility Specialist",
@@ -30,7 +30,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-asif-shahzad",
-    name: "Dr. Asif Shahzad",
+    name: "DR. ASIF SHAHZAD",
     department: "UROLOGY",
     yearMeta: "UROLOGY SURGERY",
     role: "Consultant Urologist",
@@ -44,7 +44,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-mehra-athar",
-    name: "Dr. Mehra Athar",
+    name: "DR. MEHRA ATHAR",
     department: "PEDIATRICS",
     yearMeta: "PEDIATRIC MEDICINE",
     role: "Consultant Pediatrician",
@@ -58,7 +58,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-waqar-ul-hassan",
-    name: "Dr. Waqar Ul Hassan",
+    name: "DR. WAQAR UL HASSAN",
     department: "PEDIATRIC SURGERY",
     yearMeta: "PEDIATRIC SURGERY",
     role: "Pediatric Surgeon",
@@ -72,7 +72,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-madiha-shahid",
-    name: "Dr. Madiha Shahid",
+    name: "DR. MADIHA SHAHID",
     department: "DERMATOLOGY",
     yearMeta: "DERMATOLOGY & AESTHETICS",
     role: "Consultant Dermatologist",
@@ -86,7 +86,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-ali-hassan",
-    name: "Dr. Ali Hassan",
+    name: "DR. ALI HASSAN",
     department: "GASTROENTEROLOGY",
     yearMeta: "GASTROENTEROLOGY & HEPATOLOGY",
     role: "Consultant Gastroenterologist",
@@ -100,7 +100,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-tabish",
-    name: "Dr. Tabish",
+    name: "DR. TABISH",
     department: "ORTHOPEDICS",
     yearMeta: "ORTHOPEDIC SURGERY",
     role: "Consultant Orthopedic Surgeon",
@@ -114,7 +114,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-shahrukh",
-    name: "Dr. Shahrukh",
+    name: "DR. SHAHRUKH",
     department: "INTERNAL MEDICINE",
     yearMeta: "INTERNAL MEDICINE",
     role: "General Physician & Medical Specialist",
@@ -128,7 +128,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-hooria-zanib",
-    name: "Dr. Hooria Zanib",
+    name: "DR. HOORIA ZANIB",
     department: "GENERAL MEDICINE",
     yearMeta: "GENERAL MEDICINE • MORNING",
     role: "General Physician",
@@ -142,7 +142,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-usama-mehtab",
-    name: "Dr. Usama Mehtab",
+    name: "DR. USAMA MEHTAB",
     department: "GENERAL MEDICINE",
     yearMeta: "GENERAL MEDICINE • AFTERNOON",
     role: "General Physician",
@@ -156,7 +156,7 @@ export const DOCTORS: Doctor[] = [
   },
   {
     id: "dr-sehar-atif",
-    name: "Dr. Sehar Atif",
+    name: "DR. SEHAR ATIF",
     department: "PHYSIOTHERAPY",
     yearMeta: "PHYSIOTHERAPY & REHAB",
     role: "Consultant Physiotherapist",

@@ -17,13 +17,13 @@ export const DoctorProfileModal = ({
 
   return (
     <Modal isOpen={true} onClose={onClose} labelledBy="doctor-profile-name">
-      <div className="relative w-full max-w-3xl bg-forest text-white rounded-3xl border border-white/15 overflow-hidden my-8">
+      <div className="relative w-full max-w-3xl bg-[#191919] text-white rounded-3xl border border-white/15 overflow-hidden my-8">
         
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest transition-[background-color,transform] duration-150 cursor-pointer"
+          className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C3460] transition-[background-color,transform] duration-150 cursor-pointer"
           aria-label="Close profile"
         >
           <X className="w-5 h-5" aria-hidden="true" />
@@ -38,11 +38,11 @@ export const DoctorProfileModal = ({
               alt=""
               className="w-full h-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent md:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-transparent to-transparent md:hidden" />
             
             <div className="absolute bottom-4 left-4 right-4 space-y-2">
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-xs font-label text-oat border border-white/10 w-max">
-                <span className="w-2 h-2 rounded-full bg-bronze" aria-hidden="true" />
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-xs font-label text-[#93B4D4] border border-white/10 w-max">
+                <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
                 <span>ACCEPTING PATIENTS</span>
               </div>
             </div>
@@ -53,10 +53,10 @@ export const DoctorProfileModal = ({
             
             {/* Header / Department */}
             <div className="space-y-1">
-              <div className="text-xs font-label tracking-widest text-oat uppercase font-bold">
+              <div className="text-xs font-label tracking-widest text-[#93B4D4] uppercase font-bold">
                 {doctor.yearMeta}
               </div>
-              <h2 id="doctor-profile-name" className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-none">
+              <h2 id="doctor-profile-name" className="font-anton text-3xl sm:text-4xl uppercase tracking-tight text-white leading-none">
                 {doctor.name}
               </h2>
               <div className="text-sm font-sans font-medium text-slate-300">
@@ -67,11 +67,11 @@ export const DoctorProfileModal = ({
             {/* Clinical Information Bar */}
             <div className="grid grid-cols-2 gap-2 py-2.5 px-3 rounded-2xl bg-white/5 border border-white/10 text-center">
               <div>
-                <div className="font-display text-sm text-white ">{doctor.department}</div>
+                <div className="font-anton text-sm text-white uppercase">{doctor.department}</div>
                 <div className="text-[10px] text-slate-400 uppercase font-label">Specialty</div>
               </div>
               <div className="border-l border-white/10">
-                <div className="font-display text-sm text-oat ">Verified Consultant</div>
+                <div className="font-anton text-sm text-[#93B4D4] uppercase">Verified Consultant</div>
                 <div className="text-[10px] text-slate-400 uppercase font-label">Status</div>
               </div>
             </div>
@@ -89,13 +89,13 @@ export const DoctorProfileModal = ({
             {/* Credentials / Education */}
             <div className="space-y-2">
               <h4 className="text-xs font-label uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                <GraduationCap className="w-3.5 h-3.5 text-oat" aria-hidden="true" />
+                <GraduationCap className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
                 <span>QUALIFICATIONS & FELLOWSHIPS</span>
               </h4>
               <div className="space-y-1.5">
                 {doctor.qualifications.map((q) => (
                   <div key={q} className="flex items-start gap-2 text-xs text-slate-300">
-                    <CheckCircle className="w-3.5 h-3.5 text-oat shrink-0 mt-0.5" aria-hidden="true" />
+                    <CheckCircle className="w-3.5 h-3.5 text-[#93B4D4] shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{q}</span>
                   </div>
                 ))}
@@ -105,14 +105,14 @@ export const DoctorProfileModal = ({
             {/* Upcoming Consultation Slots */}
             <div className="space-y-2 pt-2 border-t border-white/10">
               <h4 className="text-xs font-label uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-oat" aria-hidden="true" />
+                <Clock className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
                 <span>UPCOMING CONSULTATION SLOTS</span>
               </h4>
               <div className="flex flex-wrap gap-2">
                 {doctor.availability.map((slot) => (
                   <span
                     key={slot}
-                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-label text-paper"
+                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-label text-[#EDEDED]"
                   >
                     {slot}
                   </span>
@@ -133,7 +133,7 @@ export const DoctorProfileModal = ({
               <button
                 type="button"
                 onClick={onBookWithDoctor}
-                className="px-6 py-2.5 rounded-full bg-forest hover:bg-forest-hover active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(48,60,53,0.25)] flex items-center gap-2 cursor-pointer"
+                className="px-6 py-2.5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.25)] flex items-center gap-2 cursor-pointer"
               >
                 <span>Contact Reception to Book</span>
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />

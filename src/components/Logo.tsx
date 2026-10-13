@@ -146,13 +146,13 @@ export const Logo: React.FC<LogoProps> = ({
 
       <div className="flex flex-col">
         <span
-          className={`font-display tracking-wider text-xl sm:text-2xl leading-none ${
+          className={`font-anton uppercase tracking-wider text-xl sm:text-2xl leading-none ${
             isDarkBg ? 'text-white' : 'text-[#2563EB]'
           }`}
         >
           ISLAM
         </span>
-        <span className="font-display tracking-wider text-xs sm:text-sm leading-tight text-[#E11D2A]">
+        <span className="font-anton uppercase tracking-wider text-xs sm:text-sm leading-tight text-[#E11D2A]">
           MEDICAL COMPLEX
         </span>
       </div>

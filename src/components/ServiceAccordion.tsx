@@ -65,14 +65,14 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
     <section
       ref={containerRef}
       id="departments"
-      className="relative z-20 w-full bg-forest text-white py-14 sm:py-20 md:py-0 md:min-h-screen md:flex md:flex-col md:justify-start md:pt-[max(3.5rem,calc(50vh-270px))] selection:bg-forest selection:text-white"
+      className="relative z-20 w-full bg-[#191919] text-white py-14 sm:py-20 md:py-0 md:min-h-screen md:flex md:flex-col md:justify-start md:pt-[max(3.5rem,calc(50vh-270px))] selection:bg-[#1C3460] selection:text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
         {/* Top Section Eyebrow on Desktop */}
         <div className="hidden md:flex items-center justify-between pb-4 mb-3 border-b border-white/10">
           <div data-reveal="up" className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-bronze" aria-hidden="true" />
+            <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
             <span className="font-label text-xs uppercase tracking-widest text-slate-400">
               02 / CLINICAL SPECIALTIES ACCORDION
             </span>
@@ -99,14 +99,14 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleDepartment(index)}
-                  className="w-full text-left py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between gap-4 group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 ring-offset-forest cursor-pointer"
+                  className="w-full text-left py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between gap-4 group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 ring-offset-[#191919] cursor-pointer"
                   aria-expanded={isActive}
                   id={`accordion-btn-${dept.id}`}
                 >
                   <div className="flex items-baseline gap-4 sm:gap-6 flex-1 min-w-0">
                     {/* Number in Anton with color transition */}
                     <span
-                      className={`font-display text-lg sm:text-xl md:text-2xl lg:text-[1.8rem] transition-colors duration-250 ${
+                      className={`font-anton text-xl sm:text-2xl md:text-3xl lg:text-4xl transition-colors duration-250 ${
                         isActive ? 'text-white' : 'text-slate-600'
                       }`}
                     >
@@ -115,7 +115,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
 
                     {/* Department Name in Anton with color transition */}
                     <span
-                      className={`font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight truncate transition-colors duration-250 ${
+                      className={`font-anton text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight truncate transition-colors duration-250 ${
                         isActive ? 'text-white' : 'text-slate-500'
                       }`}
                     >
@@ -140,7 +140,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                       transition={transitionConfig}
                       className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border transition-colors duration-200 ${
                         isActive
-                          ? 'bg-forest text-white border-forest'
+                          ? 'bg-[#1C3460] text-white border-[#1C3460]'
                           : 'border-white/20 text-slate-400'
                       }`}
                     >
@@ -193,14 +193,14 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                         {/* Action Bar */}
                         <div className="flex flex-wrap items-center justify-between gap-4 pt-2.5 border-t border-white/10">
                           <div className="flex items-center gap-2 text-xs text-slate-400">
-                            <Stethoscope className="w-3.5 h-3.5 text-bronze" aria-hidden="true" />
+                            <Stethoscope className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
                             <span>Department Lead: <strong className="text-white">{dept.leadDoctor}</strong></span>
                           </div>
 
                           <button
                             type="button"
                             onClick={onOpenAppointment}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-forest hover:bg-forest-hover active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-sm cursor-pointer"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-sm cursor-pointer"
                           >
                             <span>Consult Department Team</span>
                             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
