@@ -21,7 +21,8 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
 
     const mm = gsap.matchMedia();
 
-    mm.add('(min-width: 768px)', () => {
+    // Pin only where all department controls fit below the floating header.
+    mm.add('(min-width: 1024px) and (min-height: 900px)', () => {
       const rowCount = DEPARTMENTS.length;
 
       ScrollTrigger.create({
@@ -65,7 +66,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
     <section
       ref={containerRef}
       id="departments"
-      className="relative z-20 w-full bg-[#191919] text-white py-14 sm:py-20 md:py-0 md:min-h-screen md:flex md:flex-col md:justify-start md:pt-[max(3.5rem,calc(50vh-270px))] selection:bg-[#1C3460] selection:text-white"
+      className="department-section relative z-20 w-full bg-[#191919] text-white py-14 sm:py-20 selection:bg-[#1C3460] selection:text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="hidden md:flex items-center justify-between pb-4 mb-3 border-b border-white/10">
@@ -92,15 +93,16 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleDepartment(index)}
-                  className="w-full text-left py-3.5 sm:py-4 md:py-4.5 flex items-center justify-between gap-4 group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 ring-offset-[#191919] cursor-pointer"
+                  className="w-full text-left py-4 sm:py-4 md:py-4.5 flex items-center justify-between gap-3 sm:gap-4 group focus-visible:outline-2 focus-visible:outline-[#93B4D4] focus-visible:-outline-offset-2 cursor-pointer"
                   aria-expanded={isActive}
+                  aria-controls={`accordion-panel-${dept.id}`}
                   id={`accordion-btn-${dept.id}`}
                 >
-                  <div className="flex items-baseline gap-4 sm:gap-6 flex-1 min-w-0">
+                  <div className="flex items-baseline gap-3 sm:gap-6 flex-1 min-w-0">
                     {/* Number in Anton with color transition */}
                     <span
                       className={`font-editorial text-xl sm:text-2xl md:text-3xl lg:text-4xl transition-colors duration-250 ${
-                        isActive ? 'text-white' : 'text-slate-600'
+                        isActive ? 'text-white' : 'text-slate-400'
                       }`}
                     >
                       {dept.number}
@@ -108,8 +110,8 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
 
                     {/* Department Name in Anton with color transition */}
                     <span
-                      className={`font-editorial text-xl sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight truncate transition-colors duration-250 ${
-                        isActive ? 'text-white' : 'text-slate-500'
+                      className={`font-editorial min-w-0 text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[1.15] uppercase tracking-tight transition-colors duration-250 ${
+                        isActive ? 'text-white' : 'text-slate-400'
                       }`}
                     >
                       {dept.name}
@@ -122,7 +124,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                       className={`hidden sm:inline-block text-xs font-label uppercase tracking-wider px-3 py-1 rounded-full border transition-[border-color,color,background-color] duration-200 ${
                         isActive
                           ? 'border-white/20 text-slate-200 bg-white/10'
-                          : 'border-white/10 text-slate-500'
+                          : 'border-white/10 text-slate-400'
                       }`}
                     >
                       {dept.stat}
@@ -147,6 +149,9 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                   {isActive && (
                     <motion.div
                       key={`content-${dept.id}`}
+                      id={`accordion-panel-${dept.id}`}
+                      role="region"
+                      aria-labelledby={`accordion-btn-${dept.id}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -156,7 +161,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                       <div className="pt-2 pb-5 sm:pb-6 pl-0 sm:pl-12 md:pl-16 max-w-5xl space-y-4">
 
                         {/* Department Description */}
-                        <p className="font-sans text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-3xl font-normal">
+                        <p className="font-sans text-sm md:text-base text-slate-300 leading-relaxed max-w-3xl font-normal">
                           {dept.shortDesc}
                         </p>
 
@@ -171,12 +176,12 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                                 <span className="font-label text-xs text-slate-400 font-semibold">
                                   {sub.number}
                                 </span>
-                                <span className="font-sans font-semibold text-xs sm:text-sm text-white">
+                                <span className="font-sans font-semibold text-sm text-white">
                                   {sub.name}
                                 </span>
                               </div>
 
-                              <p className="font-sans text-xs text-slate-400 max-w-md pl-6 sm:pl-0 font-normal">
+                              <p className="font-sans text-sm leading-relaxed text-slate-400 max-w-md pl-6 sm:pl-0 font-normal">
                                 {sub.detail}
                               </p>
                             </div>
@@ -193,7 +198,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                           <button
                             type="button"
                             onClick={onOpenAppointment}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-sm cursor-pointer"
+                            className="flex items-center min-h-11 gap-2 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-sm cursor-pointer"
                           >
                             <span>Consult Department Team</span>
                             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />

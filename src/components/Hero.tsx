@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               {/* Seamless feathering gradient for desktop */}
               <div className="hidden lg:block absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#F5F3EF] via-[#F5F3EF]/60 to-transparent" />
               {/* Mobile overlay to ensure text readability */}
-              <div className="lg:hidden absolute inset-0 bg-gradient-to-r from-[#F5F3EF]/95 via-[#F5F3EF]/85 to-[#F5F3EF]/40" />
+              <div className="lg:hidden absolute inset-0 bg-gradient-to-r from-[#F5F3EF]/95 via-[#F5F3EF]/85 to-[#F5F3EF]/75" />
               {/* Top & bottom blending */}
               <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F5F3EF]/80 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F5F3EF] to-transparent" />
@@ -98,10 +98,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
-        <div className="max-w-2xl lg:max-w-3xl space-y-6">
+        <div className="max-w-2xl space-y-6">
 
           {/* Headline in Display Serif with Squiggle */}
-          <h1 data-intro style={{"--i": 1} as React.CSSProperties} className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1C1C1E] leading-[0.95]">
+          <h1 data-intro style={{"--i": 1} as React.CSSProperties} className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1C1C1E] leading-[1.02]">
             Care that feels{' '}
             <span className="relative inline-block italic font-normal text-[#1C1C1E]">
               closer
@@ -141,7 +141,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           </div>
 
           {/* Authentic hospital services indicators */}
-          <div data-intro style={{"--i": 4} as React.CSSProperties} className="pt-6 flex flex-wrap items-center gap-6 text-xs text-slate-600 border-t border-slate-200">
+          <div data-intro style={{"--i": 4} as React.CSSProperties} className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-600 border-t border-slate-300/70">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#1C3460]" aria-hidden="true" />
               <span className="font-medium">24/7 Emergency &amp; Trauma Care</span>
@@ -198,6 +198,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                   <img
                     src={slide.thumbnail}
                     alt=""
+                    width={80}
+                    height={64}
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
 

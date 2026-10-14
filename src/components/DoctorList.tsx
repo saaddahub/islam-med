@@ -132,8 +132,8 @@ export const DoctorList: React.FC<DoctorListProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Giant Oversized Section Label in Anton */}
-        <div className="relative mb-6 sm:mb-12 select-none overflow-hidden">
-          <h2 data-reveal="mask" className="font-editorial text-6xl sm:text-8xl md:text-8xl lg:text-8xl uppercase tracking-tight text-white leading-[0.85] opacity-95">
+        <div className="relative mb-8 sm:mb-12 select-none">
+          <h2 data-reveal="mask" className="font-editorial text-6xl sm:text-8xl uppercase tracking-tight text-white leading-[1.05] opacity-95">
             Our <em className="font-normal">doctors</em>
           </h2>
         </div>
@@ -159,16 +159,20 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 onMouseEnter={() => {
                   if (!isTouchDevice) setHoveredDoctorId(doctor.id);
                 }}
+                onFocus={() => setHoveredDoctorId(doctor.id)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) setHoveredDoctorId(null);
+                }}
 
                 className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-150 ${
                   isHovered ? 'shadow-lg' : ''
                 }`}
               >
                 {/* Main Row Header (Stable layout that never wraps on hover) */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-6">
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)_auto] items-center gap-x-4 gap-y-3 lg:gap-x-6">
                   
                   {/* Left: Department & Role */}
-                  <div className="space-y-0.5 shrink-0">
+                  <div className="col-span-2 lg:col-span-1 min-w-0 space-y-1">
                     <div
                       className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-150 ${
                         isHovered ? 'text-[#93B4D4]' : 'text-slate-400'
@@ -186,16 +190,16 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   </div>
 
                   {/* Doctor Full Name in Anton */}
-                  <div className="flex-1 sm:text-right">
+                  <div className="min-w-0 lg:text-right">
                     <h3
-                      className={`font-editorial text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight transition-colors duration-150 ${
+                      className={`font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase tracking-tight transition-colors duration-150 ${
                         isHovered ? 'text-white' : 'text-slate-200'
                       }`}
                     >
                       <button
                         type="button"
                         onClick={() => handleRowClick(doctor)}
-                        className="text-left sm:text-right cursor-pointer before:absolute before:inset-0 before:rounded-2xl focus-visible:outline-offset-4"
+                        className="doctor-profile-trigger text-left lg:text-right cursor-pointer before:absolute before:inset-0 before:rounded-2xl"
                         aria-label={`View profile of ${doctor.name}`}
                       >
                         {doctor.name}
@@ -204,7 +208,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   </div>
 
                   {/* Far Right: Circular Arrow Indicator */}
-                  <div className="hidden sm:flex items-center justify-end shrink-0 pl-2">
+                  <div className="flex items-center justify-end shrink-0">
                     <div
                       className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-[background-color,color,border-color,transform,box-shadow] duration-200 border ${
                         isHovered
@@ -225,7 +229,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      transition={rowTransition}
                       className="overflow-hidden"
                     >
                       <div className="pt-5 mt-5 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-slate-300">

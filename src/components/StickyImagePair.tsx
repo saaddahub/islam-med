@@ -23,7 +23,7 @@ export function StickyImagePair({
     <div className={`sticky-pair-wrapper ${reverse ? 'reverse' : ''} ${className}`}>
       <div className="sticky-pair-caption-col">
         <div className="sticky-pair-caption-inner">
-          <img data-reveal="up" src={caption.thumbnail} alt={caption.label} className="caption-thumb" />
+          <img data-reveal="up" src={caption.thumbnail} alt={caption.label} loading="lazy" decoding="async" width={600} height={450} className="caption-thumb" />
           <div data-reveal="up">
             {heading && (
               <span className="text-xs font-label uppercase tracking-widest text-[#1C3460] font-semibold mb-1 block">
@@ -39,7 +39,7 @@ export function StickyImagePair({
       </div>
       <div className="sticky-pair-image-col">
         <div data-reveal="image" style={{ borderRadius: '16px', overflow: 'clip' }}>
-          <img data-drift src={image} alt={caption.label || 'Feature scroll exhibit'} className="scroll-image" />
+          <img data-drift src={image} alt={caption.label || 'Feature scroll exhibit'} loading="lazy" decoding="async" className="scroll-image" />
         </div>
       </div>
     </div>

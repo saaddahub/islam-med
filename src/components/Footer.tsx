@@ -1,14 +1,16 @@
 import React from 'react';
 import { ArrowUp, ArrowUpRight, Phone, Mail, MapPin, ShieldCheck, Clock, Heart } from 'lucide-react';
 import Logo from './Logo';
+import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface FooterProps {
   onOpenAppointment: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
+  const reduced = useReducedMotion();
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
   };
 
   return (
@@ -88,20 +90,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               EMERGENCY & VISITING
             </h4>
             <div className="space-y-2.5 font-sans">
-              <div className="flex items-center gap-2 text-white">
-                <Phone className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
-                <span className="font-bold">Hotline: +92 51 111 475 475</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
-                <span>care@islammedical.org</span>
-              </div>
+              <a href="tel:+9251111475475" className="flex items-center gap-2 min-h-11 text-white hover:text-[#93B4D4] transition-colors duration-150">
+                <Phone className="w-3.5 h-3.5 text-[#DC2626] shrink-0" aria-hidden="true" />
+                <span className="font-bold tabular-nums">Hotline: +92 51 111 475 475</span>
+              </a>
+              <a href="mailto:care@islammedical.org" className="flex items-center gap-2 min-h-11 hover:text-white transition-colors duration-150">
+                <Mail className="w-3.5 h-3.5 text-[#93B4D4] shrink-0" aria-hidden="true" />
+                <span className="break-all">care@islammedical.org</span>
+              </a>
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#93B4D4] shrink-0 mt-0.5" aria-hidden="true" />
                 <span>Sector G-10 Medical Enclave, Islamabad, Pakistan</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
+                <Clock className="w-3.5 h-3.5 text-[#93B4D4] shrink-0" aria-hidden="true" />
                 <span>OPD: 08:00 AM – 10:00 PM (Mon-Sat)</span>
               </div>
             </div>
@@ -111,13 +113,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
 
         {/* Bottom Baseline Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 text-center sm:text-left">
             <span>© {new Date().getFullYear()} Islam Medical Complex. All rights reserved.</span>
             <span aria-hidden="true">•</span>
             <span className="flex items-center gap-1">Crafted for healing <Heart className="w-3 h-3 text-[#DC2626] inline fill-[#DC2626]" aria-hidden="true" /></span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-2 text-center sm:text-right">
             <span className="text-slate-400">JCI Accredited Facility</span>
             <span className="text-slate-600" aria-hidden="true">•</span>
             <span className="text-slate-400">Islamabad Healthcare Commission Registered</span>
@@ -125,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             <button
               type="button"
               onClick={scrollToTop}
-              className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 active:scale-90 transition-[background-color,transform] duration-150 cursor-pointer"
+              className="w-11 h-11 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 active:scale-90 transition-[background-color,transform] duration-150 cursor-pointer"
               title="Back to top"
               aria-label="Back to top"
             >

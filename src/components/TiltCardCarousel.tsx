@@ -88,7 +88,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
           style={{ perspective: isDesktopState && !isReduced ? 1000 : undefined }}
         >
           {CARE_PACKAGES.map((pkg) => {
@@ -99,7 +99,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                 data-reveal="scale"
                 key={pkg.id}
                 variants={cardVariants}
-                className={`group relative rounded-2xl bg-white/[0.04] p-6 sm:p-7 border border-white/15 transition-[transform,background-color,border-color] duration-300 hover:bg-white/[0.07] hover:border-white/20 ${
+                className={`group relative flex flex-col rounded-2xl bg-white/[0.04] p-6 sm:p-7 border border-white/15 transition-[transform,background-color,border-color] duration-300 hover:bg-white/[0.07] hover:border-white/20 ${
                   isFeatured
                     ? 'lg:scale-[1.05] lg:-translate-y-4 z-20 ring-1 ring-white/30 bg-white/[0.06]'
                     : 'z-10'
@@ -110,6 +110,8 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                   <img
                     src={pkg.image}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -137,7 +139,7 @@ export const TiltCardCarousel: React.FC<TiltCardCarouselProps> = ({ onOpenAppoin
                 </div>
 
                 {/* Title & 1-sentence Description */}
-                <div className="space-y-2 mb-6">
+                <div className="flex-1 space-y-2 mb-6">
                   <h3 className="font-editorial text-2xl uppercase tracking-tight text-white">
                     {pkg.title}
                   </h3>

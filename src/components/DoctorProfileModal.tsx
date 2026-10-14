@@ -17,13 +17,13 @@ export const DoctorProfileModal = ({
 
   return (
     <Modal isOpen={true} onClose={onClose} labelledBy="doctor-profile-name">
-      <div className="relative w-full max-w-3xl bg-[#191919] text-white rounded-3xl border border-white/15 overflow-hidden my-8">
+      <div className="relative w-full max-w-3xl bg-[#191919] text-white rounded-3xl border border-white/15 overflow-hidden">
         
         {/* Close Button */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C3460] transition-[background-color,transform] duration-150 cursor-pointer"
+          className="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-[background-color,color,transform] duration-150 cursor-pointer"
           aria-label="Close profile"
         >
           <X className="w-5 h-5" aria-hidden="true" />
@@ -32,11 +32,11 @@ export const DoctorProfileModal = ({
         <div className="grid grid-cols-1 md:grid-cols-12">
           
           {/* Left Column: Doctor Portrait & Quick Badges */}
-          <div className="md:col-span-5 relative bg-slate-900 min-h-[280px] md:min-h-full">
+          <div className="md:col-span-5 relative bg-slate-900 h-60 md:h-auto md:min-h-full">
             <img
               src={doctor.image}
               alt=""
-              className="w-full h-full object-cover object-center"
+              className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-transparent to-transparent md:hidden" />
             
@@ -67,11 +67,11 @@ export const DoctorProfileModal = ({
             {/* Clinical Information Bar */}
             <div className="grid grid-cols-2 gap-2 py-2.5 px-3 rounded-2xl bg-white/5 border border-white/10 text-center">
               <div>
-                <div className="font-editorial text-sm text-white uppercase">{doctor.department}</div>
+                <div className="font-sans text-xs leading-relaxed text-white">{doctor.department}</div>
                 <div className="text-[10px] text-slate-400 uppercase font-label">Specialty</div>
               </div>
               <div className="border-l border-white/10">
-                <div className="font-editorial text-sm text-[#93B4D4] uppercase">Verified Consultant</div>
+                <div className="font-sans text-xs leading-relaxed text-[#93B4D4]">Verified Consultant</div>
                 <div className="text-[10px] text-slate-400 uppercase font-label">Status</div>
               </div>
             </div>
@@ -81,7 +81,7 @@ export const DoctorProfileModal = ({
               <h4 className="text-xs font-label uppercase tracking-widest text-slate-400">
                 CLINICAL FOCUS & BIOGRAPHY
               </h4>
-              <p className="font-sans text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="font-sans text-sm text-slate-300 leading-relaxed">
                 {doctor.bio}
               </p>
             </div>
@@ -121,11 +121,11 @@ export const DoctorProfileModal = ({
             </div>
 
             {/* Action Bar */}
-            <div className="pt-4 flex items-center justify-between gap-4 border-t border-white/10">
+            <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-full border border-white/20 active:scale-95 text-xs uppercase tracking-wider text-slate-300 hover:text-white transition-[background-color,color,transform] duration-150 cursor-pointer"
+                className="min-h-11 px-4 py-2.5 rounded-full border border-white/20 hover:bg-white/10 active:scale-95 text-xs uppercase tracking-wider text-slate-300 hover:text-white transition-[background-color,color,transform] duration-150 cursor-pointer"
               >
                 Close
               </button>
@@ -133,10 +133,10 @@ export const DoctorProfileModal = ({
               <button
                 type="button"
                 onClick={onBookWithDoctor}
-                className="px-6 py-2.5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.25)] flex items-center gap-2 cursor-pointer"
+                className="min-h-11 flex-1 min-w-0 px-4 py-2.5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs tracking-wide transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.25)] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Contact Reception to Book</span>
-                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
               </button>
             </div>
 

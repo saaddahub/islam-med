@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "files": [
+          "src/index.css"
+        ],
+        "createdAt": "2026-10-14T03:58:47.543Z",
+        "reason": "Agent: Inter is the incumbent body and interface font in src/index.css. The requested polish preserves this visual system, with Newsreader providing the display identity."
+      }
+    ]
+  }
+}
