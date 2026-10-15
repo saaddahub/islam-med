@@ -1,6 +1,6 @@
 import Modal from './Modal';
 import type { Doctor } from '../data/doctors';
-import { X, CheckCircle, ArrowUpRight, GraduationCap, Clock } from 'lucide-react';
+import { X, ArrowUpRight, Clock, ArrowLeft } from 'lucide-react';
 
 interface DoctorProfileModalProps {
   doctor: Doctor | null;
@@ -8,143 +8,70 @@ interface DoctorProfileModalProps {
   onBookWithDoctor: () => void;
 }
 
-export const DoctorProfileModal = ({
-  doctor,
-  onClose,
-  onBookWithDoctor,
-}: DoctorProfileModalProps) => {
+export const DoctorProfileModal = ({ doctor, onClose, onBookWithDoctor }: DoctorProfileModalProps) => {
   if (!doctor) return null;
 
   return (
-    <Modal isOpen={true} onClose={onClose} labelledBy="doctor-profile-name">
-      <div className="relative w-full max-w-3xl bg-[#191919] text-white rounded-3xl border border-white/15 overflow-hidden">
-        
-        {/* Close Button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-black/90 active:scale-90 border border-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-[background-color,color,transform] duration-150 cursor-pointer"
-          aria-label="Close profile"
-        >
-          <X className="w-5 h-5" aria-hidden="true" />
-        </button>
-
-        <div className="grid grid-cols-1 md:grid-cols-12">
-          
-          {/* Left Column: Doctor Portrait & Quick Badges */}
-          <div className="md:col-span-5 relative bg-slate-900 h-60 md:h-auto md:min-h-full">
-            <img
-              src={doctor.image}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover object-[center_25%]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#191919] via-transparent to-transparent md:hidden" />
-            
-            <div className="absolute bottom-4 left-4 right-4 space-y-2">
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-xs font-label text-[#93B4D4] border border-white/10 w-max">
-                <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-                <span>ACCEPTING PATIENTS</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Full Dossier Details */}
-          <div className="md:col-span-7 p-6 sm:p-8 space-y-6">
-            
-            {/* Header / Department */}
-            <div className="space-y-1">
-              <div className="text-xs font-label tracking-widest text-[#93B4D4] uppercase font-bold">
-                {doctor.yearMeta}
-              </div>
-              <h2 id="doctor-profile-name" className="font-editorial text-3xl sm:text-4xl uppercase tracking-tight text-white leading-none">
-                {doctor.name}
-              </h2>
-              <div className="text-sm font-sans font-medium text-slate-300">
-                {doctor.role}
-              </div>
-            </div>
-
-            {/* Clinical Information Bar */}
-            <div className="grid grid-cols-2 gap-2 py-2.5 px-3 rounded-2xl bg-white/5 border border-white/10 text-center">
-              <div>
-                <div className="font-sans text-xs leading-relaxed text-white">{doctor.department}</div>
-                <div className="text-[10px] text-slate-400 uppercase font-label">Specialty</div>
-              </div>
-              <div className="border-l border-white/10">
-                <div className="font-sans text-xs leading-relaxed text-[#93B4D4]">Verified Consultant</div>
-                <div className="text-[10px] text-slate-400 uppercase font-label">Status</div>
-              </div>
-            </div>
-
-            {/* Bio */}
-            <div className="space-y-1.5">
-              <h4 className="text-xs font-label uppercase tracking-widest text-slate-400">
-                CLINICAL FOCUS & BIOGRAPHY
-              </h4>
-              <p className="font-sans text-sm text-slate-300 leading-relaxed">
-                {doctor.bio}
-              </p>
-            </div>
-
-            {/* Credentials / Education */}
-            <div className="space-y-2">
-              <h4 className="text-xs font-label uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                <GraduationCap className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
-                <span>QUALIFICATIONS & FELLOWSHIPS</span>
-              </h4>
-              <div className="space-y-1.5">
-                {doctor.qualifications.map((q) => (
-                  <div key={q} className="flex items-start gap-2 text-xs text-slate-300">
-                    <CheckCircle className="w-3.5 h-3.5 text-[#93B4D4] shrink-0 mt-0.5" aria-hidden="true" />
-                    <span>{q}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Upcoming Consultation Slots */}
-            <div className="space-y-2 pt-2 border-t border-white/10">
-              <h4 className="text-xs font-label uppercase tracking-widest text-slate-400 flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
-                <span>UPCOMING CONSULTATION SLOTS</span>
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {doctor.availability.map((slot) => (
-                  <span
-                    key={slot}
-                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-label text-[#EDEDED]"
-                  >
-                    {slot}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Action Bar */}
-            <div className="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10">
-              <button
-                type="button"
-                onClick={onClose}
-                className="min-h-11 px-4 py-2.5 rounded-full border border-white/20 hover:bg-white/10 active:scale-95 text-xs uppercase tracking-wider text-slate-300 hover:text-white transition-[background-color,color,transform] duration-150 cursor-pointer"
-              >
-                Close
-              </button>
-
-              <button
-                type="button"
-                onClick={onBookWithDoctor}
-                className="min-h-11 flex-1 min-w-0 px-4 py-2.5 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs tracking-wide transition-[background-color,transform] duration-150 shadow-[0_2px_12px_rgba(28,52,96,0.25)] flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Contact Reception to Book</span>
-                <ArrowUpRight className="w-4 h-4 shrink-0" aria-hidden="true" />
-              </button>
-            </div>
-
-          </div>
-
+    <Modal isOpen={true} onClose={onClose} labelledBy="doctor-profile-name" className="doctor-profile-modal">
+      <article className="doctor-profile-sheet">
+        <div className="doctor-profile-toolbar">
+          <button type="button" onClick={onClose} className="doctor-profile-back">
+            <ArrowLeft size={17} aria-hidden="true" />
+            <span>Our doctors</span>
+          </button>
+          <button type="button" onClick={onClose} className="doctor-profile-close" aria-label="Close profile">
+            <X size={20} aria-hidden="true" />
+          </button>
         </div>
 
-      </div>
+        <div className="doctor-profile-layout">
+          <aside className="doctor-profile-portrait-column">
+            <div className="doctor-portrait-outline">
+              <div className="doctor-portrait-crop">
+                <img src={doctor.image} alt={doctor.name} width={480} height={600} />
+              </div>
+            </div>
+            <p className="doctor-profile-experience">{doctor.experience}</p>
+            <p className="doctor-profile-place">Islam Medical Complex <span>Islamabad</span></p>
+          </aside>
+
+          <div className="doctor-profile-details">
+            <header className="doctor-profile-heading">
+              <h2 id="doctor-profile-name" className="font-editorial">{doctor.name}</h2>
+              <p className="doctor-profile-role">{doctor.role}</p>
+              <p className="doctor-profile-specialty">{doctor.department.toLowerCase()}</p>
+            </header>
+
+            <div className="doctor-profile-bio">
+              <h3>Clinical focus</h3>
+              <p>{doctor.bio}</p>
+            </div>
+
+            <div className="doctor-profile-qualifications">
+              <h3>Qualifications &amp; fellowships</h3>
+              <ul>
+                {doctor.qualifications.map((qualification) => <li key={qualification}>{qualification}</li>)}
+              </ul>
+            </div>
+
+            <div className="doctor-profile-hours">
+              <Clock size={21} aria-hidden="true" />
+              <div>
+                <h3>Consultation hours</h3>
+                {doctor.availability.map((slot) => <p key={slot}>{slot}</p>)}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="doctor-profile-actions">
+          <p>Plan your visit with our reception team.</p>
+          <button type="button" onClick={onBookWithDoctor} className="doctor-profile-book transition-[background-color,transform] duration-150 active:scale-95">
+            <span>Contact reception to book</span>
+            <ArrowUpRight size={19} aria-hidden="true" />
+          </button>
+        </div>
+      </article>
     </Modal>
   );
 };

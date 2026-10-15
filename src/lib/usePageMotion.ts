@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useReducedMotion } from './useReducedMotion';
 
 // Observe after React mounts so fallback reveals can find the page content.
 export function usePageMotion() {
   const reduced = useReducedMotion();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
     const device = navigator as Navigator & {
       deviceMemory?: number;

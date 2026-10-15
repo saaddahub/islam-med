@@ -236,7 +236,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                         
                         {/* Left: Doctor photo thumbnail + credentials + timings */}
                         <div className="flex items-center gap-4 sm:gap-5">
-                          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shrink-0 ring-2 ring-[#1C3460] shadow-md bg-white/5">
+                          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0 ring-2 ring-[#1C3460] bg-white/5">
                             <img
                               src={doctor.image}
                               alt={doctor.name}

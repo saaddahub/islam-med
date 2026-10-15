@@ -38,8 +38,8 @@ export function StickyImagePair({
         </div>
       </div>
       <div className="sticky-pair-image-col">
-        <div data-reveal="image" style={{ borderRadius: '16px', overflow: 'clip' }}>
-          <img data-drift src={image} alt={caption.label || 'Feature scroll exhibit'} loading="lazy" decoding="async" className="scroll-image" />
+        <div data-gallery-frame className="gallery-frame">
+          <img src={image} alt={caption.label || 'Feature scroll exhibit'} loading="lazy" decoding="async" className="scroll-image" />
         </div>
       </div>
     </div>

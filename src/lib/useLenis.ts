@@ -16,6 +16,7 @@ export function useLenis() {
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
+      anchors: true,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -26,15 +27,24 @@ export function useLenis() {
 
     gsap.ticker.add(tickerCallback);
 
+    let dialogWasOpen = false;
     const syncDialog = () => {
-      if (document.querySelector('dialog[open]')) lenis.stop();
+      const dialogIsOpen = Boolean(document.querySelector('dialog[open]'));
+      if (dialogIsOpen === dialogWasOpen) return;
+      dialogWasOpen = dialogIsOpen;
+      if (dialogIsOpen) lenis.stop();
       else lenis.start();
     };
     syncDialog();
-    document.addEventListener('toggle', syncDialog, true);
+    // A conditionally rendered dialog can disappear before its queued close/toggle event fires.
+    // Observe removal as well as the open attribute so page scrolling always resumes.
+    const dialogObserver = new MutationObserver(syncDialog);
+    dialogObserver.observe(document.body, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['open'],
+    });
 
     return () => {
-      document.removeEventListener('toggle', syncDialog, true);
+      dialogObserver.disconnect();
       lenis.destroy();
       gsap.ticker.remove(tickerCallback);
     };

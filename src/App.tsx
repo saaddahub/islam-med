@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useLenis from './lib/useLenis';
 import { usePageMotion } from './lib/usePageMotion';
+import { useCinematicScrollMotion } from './lib/useCinematicScrollMotion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import DarkPanelSlide from './components/DarkPanelSlide';
@@ -8,7 +9,6 @@ import ServiceAccordion from './components/ServiceAccordion';
 import DoctorList from './components/DoctorList';
 import FacilityReveal from './components/FacilityReveal';
 import { StickyImagePairSection } from './components/StickyImagePairSection';
-import TiltCardCarousel from './components/TiltCardCarousel';
 import HowItWorksSticky from './components/HowItWorksSticky';
 import FounderSpotlight from './components/FounderSpotlight';
 import Footer from './components/Footer';
@@ -17,8 +17,10 @@ import DoctorProfileModal from './components/DoctorProfileModal';
 import type { Doctor } from './data/doctors';
 
 export function App() {
+  const rootRef = useRef<HTMLDivElement>(null);
   useLenis();
   usePageMotion();
+  useCinematicScrollMotion(rootRef);
   const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
 
@@ -28,7 +30,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F3EF] text-[#1C1C1E] flex flex-col selection:bg-[#1C3460] selection:text-white">
+    <div id="top" ref={rootRef} className="min-h-screen bg-[#F5F3EF] text-[#1C1C1E] flex flex-col selection:bg-[#1C3460] selection:text-white">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar onOpenAppointment={openAppointment} />
       <main id="main-content" tabIndex={-1}>
@@ -38,7 +40,6 @@ export function App() {
       <FacilityReveal />
       <DoctorList onSelectDoctor={setSelectedDoctor} onOpenAppointment={openAppointment} />
       <StickyImagePairSection />
-      <TiltCardCarousel onOpenAppointment={openAppointment} />
       <HowItWorksSticky onOpenAppointment={openAppointment} />
       <FounderSpotlight onOpenAppointment={openAppointment} />
       </main>

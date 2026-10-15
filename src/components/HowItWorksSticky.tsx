@@ -69,20 +69,25 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
           </div>
 
           {/* Right Column: Stack of Full-Color Pastel Blocks */}
-          <div data-stagger className="lg:col-span-7 space-y-6">
+          <div data-care-route className="care-route lg:col-span-7 space-y-6">
+            <div className="care-route-track" aria-hidden="true">
+              <div data-care-progress className="care-route-progress" />
+            </div>
             {PROCESS_STEPS.map((step, idx) => {
               const isBlue = step.bgVariant === 'lavender';
 
               return (
                 <div
                   data-reveal="up"
+                  data-care-step
                   key={step.step}
-                  className={`relative p-8 sm:p-10 rounded-[2rem] border transition-shadow duration-200 hover:shadow-md ${
+                  className={`care-route-step relative p-6 sm:p-10 rounded-[2rem] border transition-shadow duration-200 hover:shadow-md ${
                     isBlue
-                      ? 'bg-gradient-to-br from-[#D8D4CE] to-[#CECAC3] border-[#C8C2B8]'
-                      : 'bg-gradient-to-br from-[#DEDAD5] to-[#D6D1CA] border-[#CECAC3]'
+                      ? 'bg-[#D8D4CE] border-[#C8C2B8]'
+                      : 'bg-[#DEDAD5] border-[#CECAC3]'
                   }`}
                 >
+                  <span className="care-route-marker" aria-hidden="true" />
                   {/* Top-Right Line Icon & Step Number */}
                   <div className="flex items-center justify-between mb-6">
                     <span className="font-label text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-white/25 backdrop-blur-md text-[#1C1C1E] border border-black/10">

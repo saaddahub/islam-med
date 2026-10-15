@@ -1,18 +1,12 @@
 import React from 'react';
 import { ArrowUp, ArrowUpRight, Phone, Mail, MapPin, ShieldCheck, Clock, Heart } from 'lucide-react';
 import Logo from './Logo';
-import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface FooterProps {
   onOpenAppointment: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
-  const reduced = useReducedMotion();
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
-  };
-
   return (
     <footer data-stack="in" className="relative z-20 w-full bg-[#191919] text-white border-t border-white/10 pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,11 +69,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               PATIENTS & VISITORS
             </h4>
             <ul className="space-y-2 font-sans">
-              <li><a href="#care-plans" className="hover:text-white transition-colors duration-150">Individualized Care Plans</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Departments &amp; Services</a></li>
               <li><a href="#how-it-works" className="hover:text-white transition-colors duration-150">Digital Portal Check-in</a></li>
               <li><a href="#facilities" className="hover:text-white transition-colors duration-150">Private Suite Accommodations</a></li>
               <li><a href="#doctors" className="hover:text-white transition-colors duration-150">Consultant Doctor Roster</a></li>
-              <li><a href="#care-plans" className="hover:text-white transition-colors duration-150">Insurance Coverage & Billing</a></li>
+              <li><a href="#how-it-works" className="hover:text-white transition-colors duration-150">Appointments &amp; Reception</a></li>
               <li><a href="#about" className="hover:text-white transition-colors duration-150">Second Opinion Tele-Triage</a></li>
             </ul>
           </div>
@@ -124,15 +118,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             <span className="text-slate-600" aria-hidden="true">•</span>
             <span className="text-slate-400">Islamabad Healthcare Commission Registered</span>
 
-            <button
-              type="button"
-              onClick={scrollToTop}
+            <a
+              href="#top"
               className="w-11 h-11 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 active:scale-90 transition-[background-color,transform] duration-150 cursor-pointer"
               title="Back to top"
               aria-label="Back to top"
             >
               <ArrowUp className="w-3.5 h-3.5" aria-hidden="true" />
-            </button>
+            </a>
           </div>
         </div>
 

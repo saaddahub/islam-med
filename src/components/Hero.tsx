@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, ShieldCheck, Clock, ChevronRight, Pause, Play } from 'lucide-react';
+import { ArrowUpRight, ArrowDown, ShieldCheck, Clock, ChevronRight, Pause, Play } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EASINGS } from '../lib/useScrollTrigger';
@@ -51,20 +51,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   useEffect(() => {
     if (reduced || isPaused) return;
     const duration = (activeSlide.duration || 6) * 1000;
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
+      // Keep the photograph steady while the viewer scrubs the cinematic sequence.
+      if (Number(document.getElementById('hero')?.dataset.sceneProgress || 0) > 0.01) return;
       setActiveSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
     }, duration);
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
   }, [activeSlide, reduced, isPaused]);
 
   return (
-    <section id="hero" data-stack="out" className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#F5F3EF] pt-28 pb-12 sm:pt-32 sm:pb-16">
+    <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#F5F3EF] pt-28 pb-12 sm:pt-32 sm:pb-16">
       {/* Background Slideshow Layer positioned on the right half */}
-      <div className="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
-        <div className="absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
+      <div className="hero-photo-shell absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
+        <div className="hero-photo-window absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
+          <div data-hero-photo className="absolute inset-0">
           <AnimatePresence initial={false} mode="wait">
             <motion.div
               key={activeSlide.id}
@@ -84,41 +87,37 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                 aria-hidden="true"
               />
 
-              {/* Seamless feathering gradient for desktop */}
-              <div className="hidden lg:block absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#F5F3EF] via-[#F5F3EF]/60 to-transparent" />
-              {/* Mobile overlay to ensure text readability */}
-              <div className="lg:hidden absolute inset-0 bg-gradient-to-r from-[#F5F3EF]/95 via-[#F5F3EF]/85 to-[#F5F3EF]/75" />
-              {/* Top & bottom blending */}
-              <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F5F3EF]/80 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F5F3EF] to-transparent" />
+              <div className="hero-photo-wash absolute inset-0 bg-[#F5F3EF]/90 lg:bg-transparent" />
             </motion.div>
           </AnimatePresence>
+          </div>
+          <div data-hero-shade className="hero-photo-shade absolute inset-0" aria-hidden="true" />
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
-        <div className="max-w-2xl space-y-6">
+      <div className="hero-copy relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
+        <div className="hero-copy-inner max-w-2xl space-y-6">
 
           {/* Headline in Display Serif with Squiggle */}
-          <h1 data-intro style={{"--i": 1} as React.CSSProperties} className="font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1C1C1E] leading-[1.02]">
-            Care that feels{' '}
-            <span className="relative inline-block italic font-normal text-[#1C1C1E]">
+          <h1 className="hero-headline font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#1C1C1E] leading-[1.02]">
+            <span data-hero-line className="hero-line">Care that feels</span>{' '}
+            <span data-hero-line className="hero-line relative inline-block italic font-normal text-[#1C1C1E]">
               closer
               <SquiggleUnderline color="#DC2626" className="w-full" />
             </span>{' '}
-            than you think.
+            <span data-hero-line className="hero-line">than you think.</span>
           </h1>
 
           {/* Subcopy in Inter */}
-          <p data-intro style={{"--i": 2} as React.CSSProperties} className="font-sans text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed font-normal">
+          <p data-hero-support className="font-sans text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed font-normal">
             Islam Medical Complex harmonizes sub-millimeter surgical robotics with calm,
             thoughtfully designed healing suites. A boutique hospital where high technology
             meets human warmth.
           </p>
 
           {/* Action CTAs */}
-          <div data-intro style={{"--i": 3} as React.CSSProperties} className="space-y-3 pt-2">
+          <div data-hero-support className="space-y-3 pt-2">
             <div className="flex flex-wrap items-center gap-4">
               <button
                 type="button"
@@ -141,7 +140,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           </div>
 
           {/* Authentic hospital services indicators */}
-          <div data-intro style={{"--i": 4} as React.CSSProperties} className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-600 border-t border-slate-300/70">
+          <div data-hero-support className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-600 border-t border-slate-300/70">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#1C3460]" aria-hidden="true" />
               <span className="font-medium">24/7 Emergency &amp; Trauma Care</span>
@@ -160,7 +159,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
       </div>
 
       {/* Bottom Row: Active Caption on Left + Interactive Thumbnail Strip on Bottom-Right */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-6 flex flex-col sm:flex-row items-end justify-between gap-4">
+      <div data-hero-controls className="hero-controls relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-6 flex flex-col sm:flex-row items-end justify-between gap-4">
 
         {/* Active image caption tag with smooth animated label */}
         <AnimatePresence mode="wait">
@@ -246,6 +245,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           </div>
         </div>
 
+      </div>
+      <div className="hero-film-caption cinema-only" aria-hidden="true">
+        <span data-hero-finale className="font-serif-display">Closer.</span>
+        <span className="cinema-eyebrow">Care that feels closer than you think.</span>
+      </div>
+      <div className="cinema-hud cinema-only" aria-hidden="true">
+        <span>Care, closer</span><span className="cinema-scroll-cue">Scroll to explore <ArrowDown className="cinema-scroll-arrow" /></span>
       </div>
     </section>
   );

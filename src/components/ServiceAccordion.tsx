@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { DEPARTMENTS } from '../data/departments';
 import { ArrowUpRight, ChevronDown, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
 interface ServiceAccordionProps {
@@ -13,49 +12,20 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
   onOpenAppointment,
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const isReduced = useReducedMotion();
 
-  useEffect(() => {
-    if (!containerRef.current || isReduced) return;
-
-    const mm = gsap.matchMedia();
-
-    // Pin only where all department controls fit below the floating header.
-    mm.add('(min-width: 1024px) and (min-height: 900px)', () => {
-      const rowCount = DEPARTMENTS.length;
-
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top top',
-        end: () => '+=' + window.innerHeight * rowCount,
-        pin: true,
-        pinSpacing: true,
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const idx = Math.min(
-            rowCount - 1,
-            Math.floor(self.progress * rowCount)
-          );
-          setActiveIndex((prev) => (prev === idx ? prev : idx));
-        },
-      });
-    });
-
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 150);
-
-    return () => {
-      clearTimeout(timer);
-      mm.revert();
-    };
-  }, [isReduced]);
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const selectFromScroll = (event: Event) => setActiveIndex((event as CustomEvent<number>).detail);
+    container.addEventListener('departmentchange', selectFromScroll);
+    return () => container.removeEventListener('departmentchange', selectFromScroll);
+  }, []);
 
   const toggleDepartment = (index: number) => {
-    setActiveIndex((prev) => (prev === index ? -1 : index));
+    const cinematic = containerRef.current?.closest('.cinema-active');
+    setActiveIndex((prev) => cinematic ? index : prev === index ? -1 : index);
   };
 
   const transitionConfig = isReduced
@@ -72,17 +42,19 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
         <div className="hidden md:flex items-center justify-between pb-4 mb-3 border-b border-white/10">
 
           <div className="text-xs font-label text-slate-400">
-            <span>Scroll or select a department</span> • <span>{activeIndex < 0 ? '—' : `0${activeIndex + 1}`} / 0{DEPARTMENTS.length}</span>
+            <span className="department-manual-hint">Select a department</span><span className="department-scroll-hint">Scroll or select a department</span> • <span>{activeIndex < 0 ? '—' : `0${activeIndex + 1}`} / 0{DEPARTMENTS.length}</span>
           </div>
         </div>
 
         {/* Accordion Rows Container */}
-        <div data-stagger className="border-t border-white/10 divide-y divide-white/10">
+        <div data-stagger className="department-grid border-t border-white/10 divide-y divide-white/10">
           {DEPARTMENTS.map((dept, index) => {
             const isActive = index === activeIndex;
 
             return (
               <div
+                data-department-row
+                style={{ '--department-row': index + 1 } as React.CSSProperties}
                 data-reveal="up"
                 key={dept.id}
                 className={`accordion-row transition-colors duration-300 gpu-layer ${
@@ -121,7 +93,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                   {/* Right Status Pill & Chevron Icon */}
                   <div className="flex items-center gap-3 shrink-0">
                     <span
-                      className={`hidden sm:inline-block text-xs font-label uppercase tracking-wider px-3 py-1 rounded-full border transition-[border-color,color,background-color] duration-200 ${
+                      className={`department-stat hidden sm:inline-block text-xs font-label uppercase tracking-wider px-3 py-1 rounded-full border transition-[border-color,color,background-color] duration-200 ${
                         isActive
                           ? 'border-white/20 text-slate-200 bg-white/10'
                           : 'border-white/10 text-slate-400'
@@ -154,11 +126,11 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                       aria-labelledby={`accordion-btn-${dept.id}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
+                      exit={{ height: 0, opacity: 0, transition: { duration: 0 } }}
                       transition={transitionConfig}
-                      className="overflow-hidden"
+                      className="department-panel overflow-hidden"
                     >
-                      <div className="pt-2 pb-5 sm:pb-6 pl-0 sm:pl-12 md:pl-16 max-w-5xl space-y-4">
+                      <div className="department-details pt-2 pb-5 sm:pb-6 pl-0 sm:pl-12 md:pl-16 max-w-5xl space-y-4">
 
                         {/* Department Description */}
                         <p className="font-sans text-sm md:text-base text-slate-300 leading-relaxed max-w-3xl font-normal">

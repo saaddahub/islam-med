@@ -54,9 +54,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
 
             {/* Top-Left: Authentic Brand Logo */}
             <a
-              href="#hero"
+              href="#top"
               aria-label="Islam Medical Complex home"
-              className="flex items-center gap-2 sm:gap-2.5 min-w-0 group cursor-pointer active:scale-95 transition-transform"
+              className="flex items-center gap-2 sm:gap-2.5 min-h-11 min-w-0 group cursor-pointer active:scale-95 transition-transform"
             >
               <Logo variant="icon" isDarkBg={false} className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
               <div className="flex flex-col min-w-0">

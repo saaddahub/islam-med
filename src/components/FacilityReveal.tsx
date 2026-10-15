@@ -1,224 +1,70 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { FACILITIES_DATA } from '../data/facilities';
 import SquiggleUnderline from './SquiggleUnderline';
-import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
-import { useMediaQuery } from '../lib/useMediaQuery';
 
 export const FacilityReveal: React.FC = () => {
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState(0);
-  const isDesktopState = useMediaQuery('(min-width: 768px)');
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const mainPhotoRef = useRef<HTMLDivElement>(null);
   const isReduced = useReducedMotion();
-
   const currentFeature = FACILITIES_DATA.features[selectedFeatureIndex];
 
-  // 1. Scroll-in layered reveal for the main block using GSAP ScrollTrigger
-  useEffect(() => {
-    if (!sectionRef.current || !mainPhotoRef.current || isReduced) {
-      return;
-    }
-
-    const mm = gsap.matchMedia();
-
-    mm.add('(min-width: 768px)', () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 20%',
-          scrub: 1,
-        },
-      });
-
-      // Background main photo: zoom-out into place (scale: 1.1 -> 1, opacity: 0 -> 1)
-      tl.fromTo(
-        mainPhotoRef.current,
-        { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 1, ease: 'none', duration: 0.6 },
-        0
-      );
-    });
-
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 150);
-
-    return () => {
-      clearTimeout(timer);
-      mm.revert();
-    };
-  }, [isReduced]);
-
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      rotateX: isDesktopState && !isReduced ? 15 : 0,
-      y: 40,
-      scale: 0.92,
-    },
-    visible: {
-      opacity: 1,
-      rotateX: 0,
-      y: 0,
-      scale: 1,
-      transition: isReduced
-        ? { duration: 0 }
-        : { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
-    },
-  };
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: isReduced ? 0 : 0.15,
-      },
-    },
-  };
-
   return (
-    <section
-      id="facilities"
-      ref={sectionRef}
-      data-stack="in out"
-      className="relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] py-24 sm:py-32 border-t border-slate-200"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Editorial Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 mb-12 sm:mb-16">
-          <div className="space-y-4 max-w-2xl">
-
-            <h2 data-reveal="mask" className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
-              Spaces designed for{' '}
-              <span className="relative inline-block italic font-normal text-[#1C1C1E]">
-                healing
-                <SquiggleUnderline color="#DC2626" className="w-full" />
-              </span>{' '}
-              and quiet.
-            </h2>
-          </div>
-
-          <p className="font-sans text-sm sm:text-base text-slate-600 max-w-md">
+    <section id="facilities" className="facility-cinema relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] border-t border-slate-200">
+      <div className="facility-cinema-stage">
+        <div className="cinema-hud cinema-only" aria-hidden="true">
+          <span>Spaces for healing</span><span>Designed around you</span>
+        </div>
+        <div data-facility-heading className="facility-cinema-heading">
+          <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
+            Spaces designed for{' '}
+            <span className="relative inline-block italic font-normal">
+              healing<SquiggleUnderline color="#DC2626" className="w-full" />
+            </span>{' '}and quiet.
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-slate-600">
             Every square meter at Islam Medical Complex integrates HEPA-filtered clean air,
             acoustic isolation, and circadian light therapies to elevate restorative recovery.
           </p>
         </div>
-
-        {/* Main Photo Stage */}
-        <div className="relative overflow-hidden">
-
-          {/* Main Hero Photo with AnimatePresence crossfade when switching cards */}
-          <div
-            ref={mainPhotoRef}
-            data-reveal="image"
-            className="relative w-full h-[420px] sm:h-[520px] md:h-[560px] rounded-2xl overflow-clip z-10 bg-slate-900"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentFeature.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={isReduced ? { duration: 0 } : { duration: 0.4, ease: 'easeInOut' }}
-                className="absolute inset-0"
-              >
-                <img
-                  data-drift
-                  src={currentFeature.image}
-                  alt={currentFeature.title}
-                  className="w-full h-full object-cover object-center filter brightness-[0.95]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
-
-                {/* Overlay Title Pill */}
-                <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-label tracking-widest text-[#93B4D4] uppercase">
-                      {currentFeature.tag}
-                    </span>
-                    <h3 className="font-editorial text-2xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight">
-                      {currentFeature.title}
-                    </h3>
-                    <p className="font-sans text-xs sm:text-sm text-slate-300 max-w-lg">
-                      {currentFeature.subtitle}
-                    </p>
-                  </div>
-
-                  {/* Specs Pills */}
-                  <div className="flex flex-wrap gap-2">
-                    {currentFeature.specs.map((spec) => (
-                      <span
-                        key={spec}
-                        className="px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[11px] font-sans text-white border border-white/10"
-                      >
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+        <div className="facility-photo-space">
+          {[FACILITIES_DATA.features[1], FACILITIES_DATA.features[2]].map((feature, index) => (
+            <div key={feature.id} data-facility-wing={index === 0 ? 'left' : 'right'} className="facility-photo-wing cinema-only" aria-hidden="true">
+              <img src={feature.image} alt="" loading="lazy" decoding="async" />
+              <span className="cinema-eyebrow">{feature.title}</span>
+            </div>
+          ))}
+          <div data-facility-main className="facility-photo-main">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div key={currentFeature.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                transition={{ duration: isReduced ? 0 : 0.25 }} className="absolute inset-0">
+                <img src={currentFeature.image} alt={currentFeature.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <div className="facility-photo-shade absolute inset-0" />
               </motion.div>
             </AnimatePresence>
+            <div data-facility-caption className="facility-photo-caption">
+              <span className="cinema-eyebrow">{currentFeature.tag}</span>
+              <h3 className="font-editorial">{currentFeature.title}</h3>
+              <p>{currentFeature.subtitle}</p>
+              <div className="facility-specs">{currentFeature.specs.map(spec => <span key={spec}>{spec}</span>)}</div>
+            </div>
           </div>
-
         </div>
-
-        {/* 3 Selector Cards with Staggered 3D Perspective Tilt Entrance */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          style={{ perspective: isDesktopState && !isReduced ? 1000 : undefined }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8"
-        >
-          {FACILITIES_DATA.features.map((feature, idx) => {
-            const isSelected = idx === selectedFeatureIndex;
-
-            return (
-              <motion.button
-                type="button"
-                key={feature.id}
-                variants={cardVariants}
-                aria-pressed={isSelected}
-                onClick={() => setSelectedFeatureIndex(idx)}
-                className={`text-left p-6 rounded-xl transition-[background-color,border-color] duration-200 cursor-pointer border ${
-                  isSelected
-                    ? 'bg-white border-[#1C3460]'
-                    : 'bg-transparent border-slate-300 hover:bg-white/60'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-label text-xs text-slate-500 font-semibold">
-                    0{idx + 1}
-                  </span>
-                  <div
-                    className={`w-2.5 h-2.5 rounded-full transition-[background-color,transform] duration-200 ${
-                      isSelected ? 'bg-[#DC2626] scale-110' : 'bg-slate-300'
-                    }`}
-                    aria-hidden="true"
-                  />
-                </div>
-
-                <h4 className="font-editorial text-xl uppercase tracking-tight text-[#1C1C1E] mb-2">
-                  {feature.title}
-                </h4>
-
-                <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  {feature.description}
-                </p>
-              </motion.button>
-            );
-          })}
-        </motion.div>
-
+      </div>
+      <div className="facility-feature-picker max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-slate-300">
+          {FACILITIES_DATA.features.map((feature, index) => (
+            <button type="button" key={feature.id} onClick={() => setSelectedFeatureIndex(index)} aria-pressed={index === selectedFeatureIndex}
+              className={`facility-feature-button text-left cursor-pointer ${index === selectedFeatureIndex ? 'is-selected' : ''}`}>
+              <span className="font-label text-xs text-slate-500">0{index + 1} / {feature.tag}</span>
+              <span className="font-editorial text-2xl sm:text-3xl">{feature.title}</span>
+              <span className="text-sm text-slate-600 leading-relaxed">{feature.description}</span>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
 export default FacilityReveal;
-
