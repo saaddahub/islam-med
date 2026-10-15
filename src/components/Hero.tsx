@@ -122,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
               <button
                 type="button"
                 onClick={onOpenAppointment}
-                className="flex items-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full bg-imc-blue text-white font-medium text-sm sm:text-base tracking-tight hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_16px_rgba(28,52,96,0.20)] group cursor-pointer"
+                className="flex items-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full bg-imc-blue text-white font-medium text-sm sm:text-base tracking-tight hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 group cursor-pointer"
               >
                 <span>Book Appointment</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
@@ -130,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
               <a
                 href="#departments"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-white/90 backdrop-blur-md text-imc-ink font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer shadow-xs"
+                className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-imc-paper text-imc-ink font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer"
               >
                 <span>Explore Departments</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" aria-hidden="true" />
@@ -169,14 +169,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.3 }}
-            className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/85 backdrop-blur-md border border-slate-200 text-xs text-slate-700 shadow-xs"
+            className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-2xl bg-imc-paper border border-slate-200 text-xs text-slate-700"
           >
             <span className="font-medium">{activeSlide.title}</span>
           </motion.div>
         </AnimatePresence>
 
         {/* Bottom-Right Thumbnail Carousel Strip */}
-        <div className="flex items-center gap-3 p-2 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200 shadow-md">
+        <div className="flex items-center gap-3 p-2 rounded-2xl bg-imc-paper border border-slate-200">
           <div className="flex items-center gap-2 sm:gap-2.5">
             {HERO_SLIDES.map((slide, idx) => {
               const isActive = idx === activeSlideIndex;
@@ -188,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
                   aria-pressed={isActive}
                   className={`group relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden transition-[transform,opacity,box-shadow] duration-200 cursor-pointer active:scale-95 ${
                     isActive
-                      ? 'ring-2 ring-imc-blue scale-105 shadow-sm opacity-100'
+                      ? 'ring-2 ring-imc-blue scale-105 opacity-100'
                       : 'opacity-70 hover:opacity-100'
                   }`}
                   title={slide.title}

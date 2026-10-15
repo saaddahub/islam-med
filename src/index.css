@@ -29,7 +29,7 @@
   --color-imc-blue-hover: #203B49;
   --color-imc-night: #1C303B;
   --color-imc-mist: #B5C6CC;
-  --color-imc-blue-soft: #748F9B;
+  --color-imc-blue-soft: #6F8995;
 
   /* Legacy utility roles resolve to the same warm / cool family. */
   --color-white: var(--color-imc-paper);
@@ -39,7 +39,7 @@
   --color-slate-200: #DDD4C7;
   --color-slate-300: #D4DEE0;
   --color-slate-400: var(--color-imc-mist);
-  --color-slate-500: #6C7E86;
+  --color-slate-500: #5B6F78;
   --color-slate-600: var(--color-imc-muted);
   --color-slate-700: var(--color-imc-body);
   --color-slate-800: #2B4653;

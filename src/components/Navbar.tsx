@@ -40,18 +40,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
         <div
           className={`relative mx-auto transition-[background-color,border-color,box-shadow,border-radius] duration-300 ease-out ${
             isScrolled
-              ? 'max-w-7xl rounded-full bg-white/65 backdrop-blur-xl text-imc-ink shadow-md py-2.5 px-3 sm:px-6 border border-white/50'
-              : 'w-full max-w-none rounded-none bg-white/60 backdrop-blur-xl text-imc-ink py-3 sm:py-3.5 px-4 sm:px-8 lg:px-12 border-b border-white/40 shadow-xs'
+              ? 'max-w-7xl rounded-full bg-imc-paper text-imc-ink py-2.5 px-3 sm:px-6 border border-imc-blue/15'
+              : 'w-full max-w-none rounded-none bg-imc-paper text-imc-ink py-3 sm:py-3.5 px-4 sm:px-8 lg:px-12 border-b border-imc-blue/10'
           }`}
         >
           <div className="relative flex items-center justify-between gap-3 w-full max-w-7xl mx-auto">
-            {/* Specular top highlight when floating */}
-            <div
-              className={`absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none transition-opacity duration-500 ${
-                isScrolled ? 'opacity-100' : 'opacity-0'
-              }`}
-            />
-
             {/* Top-Left: Authentic Brand Logo */}
             <a
               href="#top"
@@ -74,9 +67,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               </div>
             </a>
 
-            {/* Center: Pill-shaped Glass Nav / Quick Menu */}
+            {/* Plain navigation keeps the cream surface and wordmark in focus. */}
             <div
-              className="hidden xl:flex items-center gap-1 rounded-full p-1 bg-white/85 backdrop-blur-md border border-slate-200/90 shadow-xs"
+              className="hidden xl:flex items-center gap-1"
             >
               <button
                 type="button"
@@ -88,8 +81,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                 <MenuIcon className="w-3.5 h-3.5 text-imc-blue" aria-hidden="true" />
                 <span>Menu</span>
               </button>
-
-              <div className="h-4 w-px mx-1 bg-slate-200" />
 
               <nav aria-label="Main navigation" className="flex items-center space-x-1">
                 {navLinks.slice(0, 4).map((link) => (
@@ -108,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
             <div className="flex items-center gap-2 shrink-0">
               <a
                 href="#how-it-works"
-                className="hidden sm:flex w-11 h-11 rounded-full items-center justify-center bg-white/85 backdrop-blur-md border border-slate-200/90 text-slate-700 hover:text-imc-blue hover:bg-white hover:border-slate-300 transition-[background-color,border-color,color,transform] duration-150 cursor-pointer active:scale-90 shadow-xs"
+                className="hidden sm:flex w-11 h-11 rounded-full items-center justify-center border border-imc-blue/20 text-imc-blue hover:bg-imc-linen transition-[background-color,border-color,color,transform] duration-150 cursor-pointer active:scale-90"
                 title="How Care Works"
                 aria-label="How Care Works"
               >
@@ -119,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                 type="button"
                 onClick={onOpenAppointment}
                 aria-label="Book Appointment"
-                className="flex items-center justify-center min-h-11 gap-2 px-4 sm:px-5 py-2 rounded-full bg-imc-blue text-white font-medium text-xs sm:text-sm whitespace-nowrap tracking-tight hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform,box-shadow] duration-150 shadow-[0_2px_10px_rgba(28,52,96,0.22)] cursor-pointer"
+                className="flex items-center justify-center min-h-11 gap-2 px-4 sm:px-5 py-2 rounded-full bg-imc-blue text-white font-medium text-xs sm:text-sm whitespace-nowrap tracking-tight hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform,box-shadow] duration-150 cursor-pointer"
               >
                 <span className="sm:hidden">Book</span>
                 <span className="hidden sm:inline">Book Appointment</span>
@@ -129,7 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               <button
                 type="button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="xl:hidden w-11 h-11 flex items-center justify-center rounded-full bg-white/85 backdrop-blur-md border border-slate-200 text-slate-800 hover:bg-white transition-[background-color,transform] duration-150 cursor-pointer active:scale-90 shadow-xs"
+                className="xl:hidden w-11 h-11 flex items-center justify-center rounded-full border border-imc-blue/20 text-imc-blue hover:bg-imc-linen transition-[background-color,transform] duration-150 cursor-pointer active:scale-90"
                 aria-label="Toggle navigation menu"
                 aria-expanded={isMenuOpen}
                 aria-controls="site-navigation"
@@ -144,10 +135,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
       {/* Slide-out / Dropdown Menu Overlay */}
       {isMenuOpen && (
         <Modal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} id="site-navigation" labelledBy="site-navigation-title" className="navigation-modal">
-          <div className="w-full max-w-xl bg-white/95 backdrop-blur-2xl text-imc-ink rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.15)] space-y-6">
+          <div className="w-full max-w-xl bg-imc-paper text-imc-ink rounded-2xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] space-y-6">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <h2 id="site-navigation-title" className="font-anton uppercase tracking-widest text-xs text-[#DC2626]">
-                DIRECT NAVIGATION
+              <h2 id="site-navigation-title" className="font-editorial text-3xl text-imc-ink">
+                Explore the complex
               </h2>
               <button
                 type="button"
@@ -160,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
             </div>
 
             <nav aria-label="All sections" className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {navLinks.map((link, idx) => (
+              {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -168,7 +159,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                   className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 active:scale-[0.98] border border-slate-200/60 transition-[background-color,transform] duration-150"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-imc-blue font-label font-bold">0{idx + 1}</span>
                     <span className="font-medium text-sm text-slate-800 group-hover:text-imc-blue group-hover:translate-x-1 transition-[color,transform]">
                       {link.label}
                     </span>

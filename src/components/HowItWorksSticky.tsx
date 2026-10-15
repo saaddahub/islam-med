@@ -59,7 +59,7 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
               <button
                 type="button"
                 onClick={onOpenAppointment}
-                className="w-full py-3 px-5 rounded-full bg-imc-blue text-white font-medium text-xs uppercase tracking-wider hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 flex items-center justify-center gap-2 shadow-[0_2px_12px_rgba(28,52,96,0.20)] cursor-pointer"
+                className="w-full py-3 px-5 rounded-full bg-imc-blue text-white font-medium text-xs uppercase tracking-wider hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
                 <span>Book Visit Now</span>
@@ -90,11 +90,11 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
                   <span className="care-route-marker" aria-hidden="true" />
                   {/* Top-Right Line Icon & Step Number */}
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-label text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-white/25 backdrop-blur-md text-imc-ink border border-black/10">
+                    <span className="font-label text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-white/25 text-imc-ink border border-black/10">
                       Step {step.step}
                     </span>
 
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/25 backdrop-blur-md border border-black/10">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/25 border border-black/10">
                       {getStepIcon(idx)}
                     </div>
                   </div>

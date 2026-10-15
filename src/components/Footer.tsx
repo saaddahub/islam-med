@@ -24,7 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             <button
               type="button"
               onClick={onOpenAppointment}
-              className="shrink-0 px-8 py-5 rounded-full bg-imc-blue text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_20px_rgba(28,52,96,0.30)] flex items-center gap-3 cursor-pointer"
+              className="shrink-0 px-8 py-5 rounded-full bg-imc-blue text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 flex items-center gap-3 cursor-pointer"
             >
               <span>Contact reception</span>
               <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
