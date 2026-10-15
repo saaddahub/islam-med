@@ -25,7 +25,7 @@ export function StickyImagePairSection() {
           </div>
 
           <p data-reveal="up" className="font-sans text-sm sm:text-base text-slate-600 max-w-md">
-            Explore the rooms, surgical suites, diagnostic spaces, and terraces throughout the medical complex.
+            A closer look at reception, clinical care and patient comfort. Healthcare photography in this section is illustrative.
           </p>
         </div>
 
@@ -34,48 +34,48 @@ export function StickyImagePairSection() {
 
           {/* Pair 1: Caption LEFT, Image RIGHT */}
           <StickyImagePair
-            heading="01 / Private Recovery"
-            image="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1400"
+            heading="01 / Reception & Wayfinding"
+            image="/directory-corridor.jpg"
             caption={{
               thumbnail: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=600",
-              label: "Private Inpatient Sanctuary",
-              description: "Acoustically isolated ensuite rooms with dynamic circadian lighting and ergonomic guest rest accommodations.",
+              label: "A Clear Start to Your Visit",
+              description: "Reception staff provide clinic information and help patients reach the appropriate medical or surgical service.",
             }}
             reverse={false}
           />
 
           {/* Pair 2: Image LEFT, Caption RIGHT */}
           <StickyImagePair
-            heading="02 / Precision Surgery"
+            heading="02 / Women’s Health"
             image="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1400"
             caption={{
               thumbnail: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600",
-              label: "Robotic Surgical Suites",
-              description: "Sub-millimeter 3D robotic tele-navigation integrated with ISO-5 laminar sterile airflow.",
+              label: "Gynecological & Obstetric Care",
+              description: "Pregnancy care, delivery services, gynecological procedures and minimally invasive laparoscopic surgery.",
             }}
             reverse={true}
           />
 
           {/* Pair 3: Caption LEFT, Image RIGHT */}
           <StickyImagePair
-            heading="03 / Molecular Diagnostics"
+            heading="03 / Clinical Care"
             image="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1400"
             caption={{
               thumbnail: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=600",
-              label: "Molecular Diagnostic Lounge",
-              description: "Wide-bore 3T MRI systems with ambient visual projections engineered to eliminate claustrophobia.",
+              label: "Assessment & Treatment",
+              description: "Outpatient and internal medicine consultations support assessment, treatment and referral, with laboratory testing when required.",
             }}
             reverse={false}
           />
 
           {/* Pair 4: Image LEFT, Caption RIGHT */}
           <StickyImagePair
-            heading="04 / Restorative Pavilion"
+            heading="04 / Patient Comfort"
             image="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1400"
             caption={{
               thumbnail: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=600",
-              label: "Biophilic Healing Terraces",
-              description: "Sunlit botanical courtyards and serene recovery lounges accelerating patient restoration.",
+              label: "Personal Attention & Dignity",
+              description: "Privacy, clear communication, cleanliness and comfort are central to the patient experience described by IMC.",
             }}
             reverse={true}
           />

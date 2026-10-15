@@ -27,14 +27,14 @@ const HERO_SLIDES: HeroSlide[] = [
   },
   {
     id: "pharmacy",
-    title: "24/7 In-House Pharmacy & Lab",
+    title: "Patient Services at IMC",
     src: "/pharmacy.png",
     thumbnail: "/pharmacy.png",
     duration: 6,
   },
   {
     id: "staff",
-    title: "Multidisciplinary Surgical Team",
+    title: "Medical & Surgical Care",
     src: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=85&w=2000",
     thumbnail: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=85&w=2000",
     duration: 6,
@@ -111,9 +111,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
           {/* Subcopy in Inter */}
           <p data-hero-support className="font-sans text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed font-normal">
-            Islam Medical Complex harmonizes sub-millimeter surgical robotics with calm,
-            thoughtfully designed healing suites. A boutique hospital where high technology
-            meets human warmth.
+            Care for women, children and adults in Sabzazar, Lahore. Islam Medical Complex
+            brings together maternity and pediatric care, outpatient consultations,
+            internal medicine and laboratory testing.
           </p>
 
           {/* Action CTAs */}
@@ -143,15 +143,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           <div data-hero-support className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-600 border-t border-slate-300/70">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-imc-blue" aria-hidden="true" />
-              <span className="font-medium">24/7 Emergency &amp; Trauma Care</span>
+              <span className="font-medium">24/7 Gynecological Emergency</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-3.5 h-3.5 text-imc-blue" aria-hidden="true" />
-              <span className="font-medium">24/7 In-House Pharmacy &amp; Lab</span>
+              <span className="font-medium">On-site Laboratory Testing</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#DC2626]" aria-hidden="true" />
-              <span className="font-medium">Operation Theaters &amp; Private Wards</span>
+              <span className="font-medium">Outpatient &amp; Inpatient Care</span>
             </div>
           </div>
 

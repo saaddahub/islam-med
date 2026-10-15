@@ -164,7 +164,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                         <div className="flex flex-wrap items-center justify-between gap-4 pt-2.5 border-t border-white/10">
                           <div className="flex items-center gap-2 text-xs text-slate-400">
                             <Stethoscope className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
-                            <span>Department Lead: <strong className="text-white">{dept.leadDoctor}</strong></span>
+                            <span>{dept.careTeam}</span>
                           </div>
 
                           <button

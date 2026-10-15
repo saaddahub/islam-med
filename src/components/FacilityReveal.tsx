@@ -23,8 +23,8 @@ export const FacilityReveal: React.FC = () => {
             </span>{' '}and quiet.
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-600">
-            Every square meter at Islam Medical Complex integrates HEPA-filtered clean air,
-            acoustic isolation, and circadian light therapies to elevate restorative recovery.
+            Privacy, dignity, clear communication and personal attention guide the
+            patient experience, from reception to your clinical consultation.
           </p>
         </div>
         <div className="facility-photo-space">

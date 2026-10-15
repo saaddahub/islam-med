@@ -13,12 +13,12 @@ export const DarkPanelSlide: React.FC = () => (
       </div>
       <div data-care-detail className="care-cinema-detail">
         <p className="font-sans text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
-          Four specialized clinical pillars engineered to guide you from precision diagnostics
-          through minimally invasive treatment and tranquil post-operative recovery.
+          Women's health, children's care, outpatient and internal medicine, and laboratory
+          services come together at Islam Medical Complex in Sabzazar, Lahore.
         </p>
         <div className="care-cinema-facts">
-          <div><span className="font-editorial">24 / 7</span><span>Emergency &amp; Trauma</span></div>
-          <div><span className="font-editorial">In-house</span><span>Pharmacy &amp; Diagnostics</span></div>
+          <div><span className="font-editorial">24 / 7</span><span>Gynecological Emergency</span></div>
+          <div><span className="font-editorial">On-site</span><span>Laboratory Testing</span></div>
         </div>
         <a href="#departments" className="care-departments-link">Explore our departments <ArrowUpRight size={20} aria-hidden="true" /></a>
       </div>

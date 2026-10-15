@@ -41,15 +41,15 @@ export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppoin
             </h2>
 
             <p data-reveal="up" className="font-sans text-base sm:text-lg text-imc-body leading-relaxed font-normal">
-              A frictionless patient journey built from zero-wait arrivals to
-              post-consultation digital physician connectivity.
+              From choosing a department to planning your next visit, our reception
+              and clinical teams help you understand each step of your care.
             </p>
 
             {/* Persistent CTA block (pill button + circular arrow icon) */}
             <div className="p-6 rounded-3xl bg-imc-night text-white space-y-4 border border-white/10">
               <div className="space-y-1">
                 <span className="text-[11px] font-label text-imc-mist uppercase tracking-wider">
-                  RAPID APPOINTMENT ACCESS
+                  RECEPTION &amp; APPOINTMENTS
                 </span>
                 <div className="font-editorial text-xl uppercase tracking-tight text-white">
                   Ready for personalized attention?

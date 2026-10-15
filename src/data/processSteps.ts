@@ -2,37 +2,37 @@ export interface ProcessStep {
   step: string;
   title: string;
   description: string;
-  bgVariant: "lavender" | "pink";
+  bgVariant: 'lavender' | 'pink';
   highlight: string;
 }
 
 export const PROCESS_STEPS: ProcessStep[] = [
   {
-    step: "01",
-    title: "Find your doctor",
-    description: "Browse certified departmental specialists by clinical focus, credentials, patient ratings, and available same-day calendar slots.",
-    bgVariant: "lavender",
-    highlight: "Direct access to 24+ top consultants with verified credentials.",
+    step: '01',
+    title: 'Find your care',
+    description: "Explore women's health, pediatrics, outpatient and internal medicine, or laboratory services to find the care you need.",
+    bgVariant: 'lavender',
+    highlight: 'Reception can help you choose the appropriate department.',
   },
   {
-    step: "02",
-    title: "Book your visit",
-    description: "Choose an in-person acoustic suite consult or secure digital video triage with instant SMS and calendar sync.",
-    bgVariant: "pink",
-    highlight: "Guaranteed on-time entry with pre-arrival digital check-in.",
+    step: '02',
+    title: 'Arrange your visit',
+    description: 'Call reception to confirm your consultant, clinic timings and any information to bring to your appointment.',
+    bgVariant: 'pink',
+    highlight: 'Visit Islam Medical Complex in Sabzazar, Lahore.',
   },
   {
-    step: "03",
-    title: "Get personalized care",
-    description: "Experience thorough 30–45 minute clinical examinations with on-site high-field imaging and bespoke recovery roadmaps.",
-    bgVariant: "lavender",
-    highlight: "Integrated multidisciplinary consults under one roof.",
+    step: '03',
+    title: 'Meet your clinician',
+    description: 'Your clinician will assess your concerns and discuss treatment, relevant tests or referral to another specialist.',
+    bgVariant: 'lavender',
+    highlight: 'Care with attention to privacy, dignity and clear communication.',
   },
   {
-    step: "04",
-    title: "Follow-up made easy",
-    description: "Access lab reports, prescription refills, and continuous physician direct-messaging on your patient portal anytime.",
-    bgVariant: "pink",
-    highlight: "Proactive health monitoring with automated status check-ins.",
+    step: '04',
+    title: 'Plan the next step',
+    description: 'Discuss your treatment plan, recommended investigations and any follow-up arrangements with your clinical team.',
+    bgVariant: 'pink',
+    highlight: 'Contact reception for help arranging a return visit.',
   },
 ];
