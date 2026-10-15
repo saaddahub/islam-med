@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DOCTORS } from '../data/doctors';
 import type { Doctor } from '../data/doctors';
-import { ArrowUpRight, Clock, Star } from 'lucide-react';
+import { ArrowUpRight, Clock } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
 import { useMediaQuery } from '../lib/useMediaQuery';
@@ -262,13 +262,8 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                           </div>
                         </div>
 
-                        {/* Right: Quick action buttons & stats */}
+                        {/* Right: Profile action */}
                         <div className="flex items-center gap-3 self-end md:self-auto">
-                          <div className="hidden sm:flex items-center gap-1.5 text-amber-400 pr-2">
-                            <Star className="w-3.5 h-3.5 fill-amber-400" aria-hidden="true" />
-                            <span className="font-semibold text-white">{doctor.rating}</span>
-                            <span className="text-slate-400">({doctor.patientsTreated} patients)</span>
-                          </div>
 
                           <button
                             type="button"
@@ -300,7 +295,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
               Looking for a specific specialist or second opinion?
             </h4>
             <p className="font-sans text-xs sm:text-sm text-slate-300">
-              Our concierge triage coordinator matches you with the ideal department chair within 2 hours.
+              Contact reception for help finding the right department and confirming your consultation timings.
             </p>
           </div>
           <button
