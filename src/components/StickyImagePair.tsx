@@ -26,12 +26,12 @@ export function StickyImagePair({
           <img data-reveal="up" src={caption.thumbnail} alt={caption.label} loading="lazy" decoding="async" width={600} height={450} className="caption-thumb" />
           <div data-reveal="up">
             {heading && (
-              <span className="text-xs font-label uppercase tracking-widest text-[#1C3460] font-semibold mb-1 block">
+              <span className="text-xs font-label uppercase tracking-widest text-imc-blue font-semibold mb-1 block">
                 {heading}
               </span>
             )}
             <p className="caption-label text-slate-900">
-              <span className="dot text-[#1C3460]" /> {caption.label}
+              <span className="dot text-imc-blue" /> {caption.label}
             </p>
             <p className="caption-description">{caption.description}</p>
           </div>

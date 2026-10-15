@@ -10,16 +10,16 @@ export const FacilityReveal: React.FC = () => {
   const currentFeature = FACILITIES_DATA.features[selectedFeatureIndex];
 
   return (
-    <section id="facilities" className="facility-cinema relative z-20 w-full bg-[#F5F3EF] text-[#1C1C1E] border-t border-slate-200">
+    <section id="facilities" className="facility-cinema relative z-20 w-full bg-imc-paper text-imc-ink border-t border-slate-200">
       <div className="facility-cinema-stage">
         <div className="cinema-hud cinema-only" aria-hidden="true">
           <span>Spaces for healing</span><span>Designed around you</span>
         </div>
         <div data-facility-heading className="facility-cinema-heading">
-          <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-[#1C1C1E] leading-[1.05]">
+          <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-imc-ink leading-[1.05]">
             Spaces designed for{' '}
             <span className="relative inline-block italic font-normal">
-              healing<SquiggleUnderline color="#DC2626" className="w-full" />
+              healing<SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
             </span>{' '}and quiet.
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-600">

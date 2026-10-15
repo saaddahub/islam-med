@@ -7,7 +7,7 @@ interface SquiggleUnderlineProps {
 
 export const SquiggleUnderline: React.FC<SquiggleUnderlineProps> = ({
   className = "",
-  color = "#7A52B3",
+  color = "var(--color-imc-blue-soft)",
 }) => {
   return (
     <svg

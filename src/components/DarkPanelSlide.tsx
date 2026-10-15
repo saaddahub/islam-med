@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 export const DarkPanelSlide: React.FC = () => (
-  <section id="care-story" className="care-cinema relative z-20 w-full bg-[#191919] text-white">
+  <section id="care-story" className="care-cinema relative z-20 w-full bg-imc-night text-white">
     <div className="care-cinema-stage">
       <div className="care-heading-block">
         <h2 className="care-cinema-title font-editorial">

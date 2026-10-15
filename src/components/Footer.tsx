@@ -8,7 +8,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
   return (
-    <footer data-stack="in" className="relative z-20 w-full bg-[#191919] text-white border-t border-white/10 pt-20 pb-12">
+    <footer data-stack="in" className="relative z-20 w-full bg-imc-night text-white border-t border-white/10 pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Giant Anton Closing CTA Line */}
@@ -24,7 +24,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             <button
               type="button"
               onClick={onOpenAppointment}
-              className="shrink-0 px-8 py-5 rounded-full bg-[#1C3460] text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-[#152A52] active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_20px_rgba(28,52,96,0.30)] flex items-center gap-3 cursor-pointer"
+              className="shrink-0 px-8 py-5 rounded-full bg-imc-blue text-white font-medium text-sm sm:text-base tracking-tight uppercase hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 shadow-[0_4px_20px_rgba(28,52,96,0.30)] flex items-center gap-3 cursor-pointer"
             >
               <span>Contact reception</span>
               <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               with peaceful, recovery-oriented inpatient architecture.
             </p>
             <div className="flex items-center gap-2 text-white font-medium">
-              <ShieldCheck className="w-4 h-4 text-[#93B4D4]" aria-hidden="true" />
+              <ShieldCheck className="w-4 h-4 text-imc-mist" aria-hidden="true" />
               <span>Dedicated to Clinical Quality &amp; Patient Safety</span>
             </div>
           </div>
@@ -84,20 +84,20 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               EMERGENCY & VISITING
             </h4>
             <div className="space-y-2.5 font-sans">
-              <a href="tel:+9251111475475" className="flex items-center gap-2 min-h-11 text-white hover:text-[#93B4D4] transition-colors duration-150">
+              <a href="tel:+9251111475475" className="flex items-center gap-2 min-h-11 text-white hover:text-imc-mist transition-colors duration-150">
                 <Phone className="w-3.5 h-3.5 text-[#DC2626] shrink-0" aria-hidden="true" />
                 <span className="font-bold tabular-nums">Hotline: +92 51 111 475 475</span>
               </a>
               <a href="mailto:care@islammedical.org" className="flex items-center gap-2 min-h-11 hover:text-white transition-colors duration-150">
-                <Mail className="w-3.5 h-3.5 text-[#93B4D4] shrink-0" aria-hidden="true" />
+                <Mail className="w-3.5 h-3.5 text-imc-mist shrink-0" aria-hidden="true" />
                 <span className="break-all">care@islammedical.org</span>
               </a>
               <div className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#93B4D4] shrink-0 mt-0.5" aria-hidden="true" />
+                <MapPin className="w-3.5 h-3.5 text-imc-mist shrink-0 mt-0.5" aria-hidden="true" />
                 <span>Sector G-10 Medical Enclave, Islamabad, Pakistan</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-[#93B4D4] shrink-0" aria-hidden="true" />
+                <Clock className="w-3.5 h-3.5 text-imc-mist shrink-0" aria-hidden="true" />
                 <span>OPD: 08:00 AM – 10:00 PM (Mon-Sat)</span>
               </div>
             </div>
@@ -110,7 +110,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1 text-center sm:text-left">
             <span>© {new Date().getFullYear()} Islam Medical Complex. All rights reserved.</span>
             <span aria-hidden="true">•</span>
-            <span className="flex items-center gap-1">Crafted for healing <Heart className="w-3 h-3 text-[#DC2626] inline fill-[#DC2626]" aria-hidden="true" /></span>
+            <span className="flex items-center gap-1">Crafted for healing <Heart className="w-3 h-3 text-imc-mist inline fill-imc-mist" aria-hidden="true" /></span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-2 text-center sm:text-right">

@@ -30,7 +30,7 @@ export function App() {
   };
 
   return (
-    <div id="top" ref={rootRef} className="min-h-screen bg-[#F5F3EF] text-[#1C1C1E] flex flex-col selection:bg-[#1C3460] selection:text-white">
+    <div id="top" ref={rootRef} className="min-h-screen bg-imc-paper text-imc-ink flex flex-col selection:bg-imc-blue selection:text-white">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar onOpenAppointment={openAppointment} />
       <main id="main-content" tabIndex={-1}>

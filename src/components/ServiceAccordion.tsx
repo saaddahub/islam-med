@@ -36,7 +36,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
     <section
       ref={containerRef}
       id="departments"
-      className="department-section relative z-20 w-full bg-[#191919] text-white py-14 sm:py-20 selection:bg-[#1C3460] selection:text-white"
+      className="department-section relative z-20 w-full bg-imc-night text-white py-14 sm:py-20 selection:bg-imc-blue selection:text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="hidden md:flex items-center justify-between pb-4 mb-3 border-b border-white/10">
@@ -65,7 +65,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                 <button
                   type="button"
                   onClick={() => toggleDepartment(index)}
-                  className="w-full text-left py-4 sm:py-4 md:py-4.5 flex items-center justify-between gap-3 sm:gap-4 group focus-visible:outline-2 focus-visible:outline-[#93B4D4] focus-visible:-outline-offset-2 cursor-pointer"
+                  className="w-full text-left py-4 sm:py-4 md:py-4.5 flex items-center justify-between gap-3 sm:gap-4 group focus-visible:outline-2 focus-visible:outline-imc-mist focus-visible:-outline-offset-2 cursor-pointer"
                   aria-expanded={isActive}
                   aria-controls={`accordion-panel-${dept.id}`}
                   id={`accordion-btn-${dept.id}`}
@@ -107,7 +107,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                       transition={transitionConfig}
                       className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border transition-colors duration-200 ${
                         isActive
-                          ? 'bg-[#1C3460] text-white border-[#1C3460]'
+                          ? 'bg-imc-blue text-white border-imc-blue'
                           : 'border-white/20 text-slate-400'
                       }`}
                     >
@@ -163,14 +163,14 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                         {/* Action Bar */}
                         <div className="flex flex-wrap items-center justify-between gap-4 pt-2.5 border-t border-white/10">
                           <div className="flex items-center gap-2 text-xs text-slate-400">
-                            <Stethoscope className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
+                            <Stethoscope className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
                             <span>Department Lead: <strong className="text-white">{dept.leadDoctor}</strong></span>
                           </div>
 
                           <button
                             type="button"
                             onClick={onOpenAppointment}
-                            className="flex items-center min-h-11 gap-2 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-sm cursor-pointer"
+                            className="flex items-center min-h-11 gap-2 px-4 py-2 rounded-full bg-imc-blue hover:bg-imc-blue-hover active:scale-95 text-white font-medium text-xs uppercase tracking-wider transition-[background-color,transform] duration-150 shadow-sm cursor-pointer"
                           >
                             <span>Consult Department Team</span>
                             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />

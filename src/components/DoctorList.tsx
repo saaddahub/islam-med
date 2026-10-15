@@ -91,9 +91,9 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
           transition={{ duration: 0.12, ease: 'easeOut' }}
           className="hidden md:block select-none pointer-events-none"
         >
-          <span className="rounded-full bg-[#1C3460] text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
+          <span className="rounded-full bg-imc-blue text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
             <span>View Profile</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
           </span>
         </motion.div>
       )}
@@ -122,7 +122,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
     <section
       id="doctors"
       data-stack="in out"
-      className="relative z-20 w-full bg-[#191919] text-white py-20 sm:py-28 border-t border-white/10"
+      className="relative z-20 w-full bg-imc-night text-white py-20 sm:py-28 border-t border-white/10"
     >
       {/* Signature Cursor-Following Pill Button (suppressed on touch & reduced motion) */}
       {!isTouchDevice && !isReduced && (
@@ -153,7 +153,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 key={doctor.id}
                 initial={false}
                 animate={{
-                  backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.05)' : 'rgba(25, 25, 25, 0)',
+                  backgroundColor: isHovered ? 'rgba(244, 239, 230, 0.05)' : 'rgba(28, 48, 59, 0)',
                 }}
                 transition={rowTransition}
                 onMouseEnter={() => {
@@ -175,7 +175,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   <div className="col-span-2 lg:col-span-1 min-w-0 space-y-1">
                     <div
                       className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-150 ${
-                        isHovered ? 'text-[#93B4D4]' : 'text-slate-400'
+                        isHovered ? 'text-imc-mist' : 'text-slate-400'
                       }`}
                     >
                       {doctor.yearMeta}
@@ -212,7 +212,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                     <div
                       className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-[background-color,color,border-color,transform,box-shadow] duration-200 border ${
                         isHovered
-                          ? 'bg-[#1C3460] text-white border-[#1C3460] rotate-45 scale-105 shadow-md'
+                          ? 'bg-imc-blue text-white border-imc-blue rotate-45 scale-105 shadow-md'
                           : 'border-white/20 text-slate-400 group-hover:border-white/40 group-hover:text-white'
                       }`}
                     >
@@ -236,7 +236,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                         
                         {/* Left: Doctor photo thumbnail + credentials + timings */}
                         <div className="flex items-center gap-4 sm:gap-5">
-                          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0 ring-2 ring-[#1C3460] bg-white/5">
+                          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0 ring-2 ring-imc-blue bg-white/5">
                             <img
                               src={doctor.image}
                               alt={doctor.name}
@@ -250,13 +250,13 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                               <span className="font-semibold text-white px-2.5 py-0.5 rounded-full bg-white/10 border border-white/10 text-[11px] font-label">
                                 {doctor.qualifications.slice(0, 2).join(' • ')}
                               </span>
-                              <span className="text-[#93B4D4] font-medium text-xs">
+                              <span className="text-imc-mist font-medium text-xs">
                                 {doctor.experience}
                               </span>
                             </div>
                             
                             <div className="text-slate-300 flex items-center gap-2 text-xs">
-                              <Clock className="w-3.5 h-3.5 text-[#DC2626] shrink-0" aria-hidden="true" />
+                              <Clock className="w-3.5 h-3.5 text-imc-mist shrink-0" aria-hidden="true" />
                               <span>Timings: <strong className="text-white">{doctor.availability[0]}</strong></span>
                             </div>
                           </div>
@@ -276,10 +276,10 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                               e.stopPropagation();
                               handleRowClick(doctor);
                             }}
-                            className="relative z-10 px-4 py-2 rounded-full bg-[#1C3460] hover:bg-[#152A52] text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
+                            className="relative z-10 px-4 py-2 rounded-full bg-imc-blue hover:bg-imc-blue-hover text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
                           >
                             <span>View profile</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-[#93B4D4]" aria-hidden="true" />
+                            <ArrowUpRight className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
                           </button>
                         </div>
 
@@ -306,7 +306,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
           <button
             type="button"
             onClick={onOpenAppointment}
-            className="shrink-0 px-6 py-3 rounded-full bg-[#1C3460] text-white font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-[#152A52] active:scale-95 transition-[background-color,transform] duration-150 shadow-md cursor-pointer"
+            className="shrink-0 px-6 py-3 rounded-full bg-imc-blue text-white font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 shadow-md cursor-pointer"
           >
             Contact reception
           </button>
