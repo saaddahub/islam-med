@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUp, ArrowUpRight, Phone, Mail, MapPin, ShieldCheck, Clock, Heart } from 'lucide-react';
 import Logo from './Logo';
+import { CLINIC, CLINIC_MAP_URL } from '../data/clinic';
 
 interface FooterProps {
   onOpenAppointment: () => void;
@@ -35,16 +36,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
         {/* Multi-Column Directory in Clean Inter Sans */}
         <div data-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10 text-xs text-slate-300">
 
-          {/* Col 1: Brand & Accreditation */}
+          {/* Col 1: Brand & Patient Care */}
           <div data-reveal="up" className="lg:col-span-2 space-y-4">
             <Logo variant="full" isDarkBg={true} />
             <p className="font-sans text-sm text-slate-300 max-w-sm leading-relaxed">
-              A modern quaternary care medical center combining robotic surgical precision
-              with peaceful, recovery-oriented inpatient architecture.
+              Care for women, children and adults in Sabzazar, Lahore, with outpatient
+              consultations, inpatient services and laboratory testing.
             </p>
             <div className="flex items-center gap-2 text-white font-medium">
               <ShieldCheck className="w-4 h-4 text-imc-mist" aria-hidden="true" />
-              <span>Dedicated to Clinical Quality &amp; Patient Safety</span>
+              <span>Privacy, Dignity &amp; Personal Attention</span>
             </div>
           </div>
 
@@ -54,12 +55,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               DIVISIONS
             </h4>
             <ul className="space-y-2 font-sans">
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Cardiovascular Center</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Robotic Surgery & Urology</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Orthopedics & Joint Spine</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">High-Field 3T Radiology</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Precision Oncology</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Trauma & Acute Resuscitation</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Gynecology &amp; Obstetrics</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Pediatrics</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Outpatient Consultations</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Internal Medicine</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Laboratory Testing</a></li>
+              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Gynecological Emergency</a></li>
             </ul>
           </div>
 
@@ -70,35 +71,35 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
             </h4>
             <ul className="space-y-2 font-sans">
               <li><a href="#departments" className="hover:text-white transition-colors duration-150">Departments &amp; Services</a></li>
-              <li><a href="#how-it-works" className="hover:text-white transition-colors duration-150">Digital Portal Check-in</a></li>
-              <li><a href="#facilities" className="hover:text-white transition-colors duration-150">Private Suite Accommodations</a></li>
+              <li><a href="#how-it-works" className="hover:text-white transition-colors duration-150">Planning Your Visit</a></li>
+              <li><a href="#facilities" className="hover:text-white transition-colors duration-150">Patient Reception</a></li>
               <li><a href="#doctors" className="hover:text-white transition-colors duration-150">Consultant Doctor Roster</a></li>
               <li><a href="#how-it-works" className="hover:text-white transition-colors duration-150">Appointments &amp; Reception</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors duration-150">Second Opinion Tele-Triage</a></li>
+              <li><a href="#about" className="hover:text-white transition-colors duration-150">About Islam Medical Complex</a></li>
             </ul>
           </div>
 
           {/* Col 4: Contact & Emergency */}
           <div data-reveal="up" className="space-y-3">
             <h4 className="font-label text-xs uppercase tracking-widest text-white">
-              EMERGENCY & VISITING
+              CONTACT &amp; VISITING
             </h4>
             <div className="space-y-2.5 font-sans">
-              <a href="tel:+9251111475475" className="flex items-center gap-2 min-h-11 text-white hover:text-imc-mist transition-colors duration-150">
+              <a href={CLINIC.phoneHref} className="flex items-center gap-2 min-h-11 text-white hover:text-imc-mist transition-colors duration-150">
                 <Phone className="w-3.5 h-3.5 text-[#DC2626] shrink-0" aria-hidden="true" />
-                <span className="font-bold tabular-nums">Hotline: +92 51 111 475 475</span>
+                <span className="font-bold tabular-nums">{CLINIC.phone}</span>
               </a>
-              <a href="mailto:care@islammedical.org" className="flex items-center gap-2 min-h-11 hover:text-white transition-colors duration-150">
+              <a href={CLINIC.emailHref} className="flex items-center gap-2 min-h-11 hover:text-white transition-colors duration-150">
                 <Mail className="w-3.5 h-3.5 text-imc-mist shrink-0" aria-hidden="true" />
-                <span className="break-all">care@islammedical.org</span>
+                <span className="break-all">{CLINIC.email}</span>
               </a>
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-imc-mist shrink-0 mt-0.5" aria-hidden="true" />
-                <span>Sector G-10 Medical Enclave, Islamabad, Pakistan</span>
+                <a href={CLINIC_MAP_URL} target="_blank" rel="noopener noreferrer" className="min-h-11 hover:text-white underline">{CLINIC.address}</a>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-3.5 h-3.5 text-imc-mist shrink-0" aria-hidden="true" />
-                <span>OPD: 08:00 AM – 10:00 PM (Mon-Sat)</span>
+                <span>{CLINIC.clinicHours}</span>
               </div>
             </div>
           </div>
@@ -114,9 +115,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
           </div>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-2 text-center sm:text-right">
-            <span className="text-slate-400">JCI Accredited Facility</span>
+            <span className="text-slate-400">{CLINIC.location}</span>
             <span className="text-slate-600" aria-hidden="true">•</span>
-            <span className="text-slate-400">Islamabad Healthcare Commission Registered</span>
+            <span className="text-slate-400">{CLINIC.emergencyCare}</span>
 
             <a
               href="#top"

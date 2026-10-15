@@ -1,5 +1,6 @@
 import Modal from './Modal';
 import { X, ArrowUpRight } from 'lucide-react';
+import { CLINIC, CLINIC_MAP_URL } from '../data/clinic';
 
 interface AppointmentModalProps {
   isOpen: boolean;
@@ -36,11 +37,11 @@ export const AppointmentModal = ({
         <div className="mt-8 pb-7 border-b border-imc-blue/15">
           <p className="text-sm font-medium">Call reception</p>
           <a
-            href="tel:+9251111475475"
-            aria-label="Call reception at +92 51 111 475 475"
+            href={CLINIC.phoneHref}
+            aria-label={`Call reception at ${CLINIC.phone}`}
             className="group inline-flex items-center gap-2 sm:gap-3 min-h-11 mt-1 rounded-sm text-[22px] sm:text-[28px] font-medium tabular-nums text-imc-blue hover:text-imc-blue-hover transition-colors duration-150"
           >
-            <span className="whitespace-nowrap underline decoration-imc-blue/30 underline-offset-[6px] group-hover:decoration-imc-blue transition-colors duration-150">+92 51 111 475 475</span>
+            <span className="whitespace-nowrap underline decoration-imc-blue/30 underline-offset-[6px] group-hover:decoration-imc-blue transition-colors duration-150">{CLINIC.phone}</span>
             <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" aria-hidden="true" />
           </a>
         </div>
@@ -48,15 +49,24 @@ export const AppointmentModal = ({
         <dl className="mt-6 space-y-5 text-sm leading-relaxed">
           <div className="sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
             <dt className="font-medium">Visit us</dt>
-            <dd className="mt-1 sm:mt-0 text-imc-muted">Sector G-10, Islamabad</dd>
+            <dd className="mt-1 sm:mt-0 text-imc-muted">
+              {CLINIC.address}
+              <a href={CLINIC_MAP_URL} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-11 items-center gap-1 text-imc-blue underline">
+                Get directions <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </dd>
           </div>
           <div className="sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
-            <dt className="font-medium">Reception hours</dt>
-            <dd className="mt-1 sm:mt-0 text-imc-muted">Sat–Thu, 9 AM–9 PM</dd>
+            <dt className="font-medium">Clinic timings</dt>
+            <dd className="mt-1 sm:mt-0 text-imc-muted">{CLINIC.clinicHours}</dd>
+          </div>
+          <div className="sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
+            <dt className="font-medium">Email us</dt>
+            <dd><a href={CLINIC.emailHref} className="inline-flex min-h-11 items-center break-all text-imc-blue underline">{CLINIC.email}</a></dd>
           </div>
         </dl>
 
-        <p className="mt-7 text-xs leading-relaxed text-imc-muted">24/7 emergency line available.</p>
+        <p className="mt-7 text-xs leading-relaxed text-imc-muted">{CLINIC.emergencyCare}.</p>
       </div>
     </Modal>
   );

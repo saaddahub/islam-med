@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { CLINIC } from '../data/clinic';
 
 interface FounderSpotlightProps {
   onOpenAppointment: () => void;
@@ -26,7 +27,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
             </div>
             <figcaption data-founder-copy className="founder-caption">
               <p>Leadership &amp; vision</p>
-              <span>Islam Medical Complex · Islamabad</span>
+              <span>Islam Medical Complex · {CLINIC.location}</span>
             </figcaption>
           </figure>
 
@@ -37,24 +38,24 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
             </div>
 
             <div data-founder-copy>
-              <blockquote className="founder-quote">
+              <div className="founder-quote">
                 <p className="font-editorial">
-                  &ldquo;Islam Medical Complex was founded on a simple belief: world-class clinical precision
-                  and genuine human warmth aren&apos;t a trade-off.
+                  Care with attention to your privacy, dignity and individual needs.
                 </p>
                 <p className="founder-quote-detail">
-                  Every space here — from our sub-millimeter robotic theaters to light-filled circadian
-                  recovery suites — is designed around patient dignity, safety, and tranquil restoration.&rdquo;
+                  The patient experience at Islam Medical Complex begins with clear communication,
+                  helpful reception staff and access to women's health, pediatric, outpatient
+                  and internal medicine services.
                 </p>
-              </blockquote>
+              </div>
 
               <div className="founder-practice">
-                <h3>Founder &amp; Chief Surgeon</h3>
-                <p>Dedicated to pioneering robotic precision while protecting the warmth of bedside care.</p>
+                <h3>Our approach to care</h3>
+                <p>Personal attention, cleanliness and comfort are central to how patients are welcomed and cared for.</p>
                 <ul aria-label="Clinical approach">
-                  <li>Consultant Surgical Leadership</li>
-                  <li>Evidence-Based Clinical Standards</li>
-                  <li>Patient-Centered Bedside Care</li>
+                  <li>Women's &amp; Children's Health</li>
+                  <li>Adult &amp; Preventive Care</li>
+                  <li>Clear Communication &amp; Personal Attention</li>
                 </ul>
               </div>
 

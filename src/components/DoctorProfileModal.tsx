@@ -1,6 +1,7 @@
 import Modal from './Modal';
 import type { Doctor } from '../data/doctors';
 import { X, ArrowUpRight, Clock, ArrowLeft } from 'lucide-react';
+import { CLINIC } from '../data/clinic';
 
 interface DoctorProfileModalProps {
   doctor: Doctor | null;
@@ -32,7 +33,7 @@ export const DoctorProfileModal = ({ doctor, onClose, onBookWithDoctor }: Doctor
               </div>
             </div>
             <p className="doctor-profile-experience">{doctor.experience}</p>
-            <p className="doctor-profile-place">Islam Medical Complex <span>Islamabad</span></p>
+            <p className="doctor-profile-place">Islam Medical Complex <span>{CLINIC.location}</span></p>
           </aside>
 
           <div className="doctor-profile-details">

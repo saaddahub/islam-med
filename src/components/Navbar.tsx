@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Menu as MenuIcon, X, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
 import Modal from './Modal';
+import { CLINIC } from '../data/clinic';
 
 interface NavbarProps {
   onOpenAppointment: () => void;
@@ -171,11 +172,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
             <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
-                <span className="font-medium">Hotline: +92 51 111 475 475</span>
+                <a href={CLINIC.phoneHref} className="inline-flex min-h-11 items-center font-medium">{CLINIC.phone}</a>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-imc-blue" aria-hidden="true" />
-                <span>Sector G-10 Medical Enclave</span>
+                <span>{CLINIC.shortAddress}</span>
               </div>
             </div>
           </div>
