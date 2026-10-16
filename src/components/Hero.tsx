@@ -45,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const activeSlide = HERO_SLIDES[activeSlideIndex];
-  const scrollSlides = [1, 2].map(offset => HERO_SLIDES[(activeSlideIndex + offset) % HERO_SLIDES.length]);
+  const gallerySlides = [1, 2].map(offset => HERO_SLIDES[(activeSlideIndex + offset) % HERO_SLIDES.length]);
   const reduced = useReducedMotion();
 
   // Automatic slideshow timing
@@ -70,7 +70,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
     <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-imc-paper pt-28 pb-12 sm:pt-32 sm:pb-16">
       {/* Background Slideshow Layer positioned on the right half */}
       <div className="hero-photo-shell absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
-        <div className="hero-photo-window absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
+        <div className="hero-gallery-rig absolute inset-0">
+        <div data-hero-orbit-card className="hero-photo-window absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
           <div data-hero-photo className="absolute inset-0">
           <AnimatePresence initial={false}>
             <motion.div
@@ -95,14 +96,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
             </motion.div>
           </AnimatePresence>
           </div>
-          <div className="hero-scroll-reel cinema-only absolute inset-0" aria-hidden="true">
-            {scrollSlides.map((slide, index) => (
-              <div key={index} data-hero-reel className="hero-reel-panel absolute inset-0">
-                <img data-hero-reel-image src={slide.src} alt="" decoding="async" className="w-full h-full object-cover object-[center_12%]" />
-                <span className="hero-reel-caption">{slide.title}</span>
-              </div>
-            ))}
+          <div data-hero-orbit-shade className="hero-orbit-shade cinema-only absolute inset-0" aria-hidden="true" />
+          <span data-hero-orbit-caption className="hero-orbit-caption cinema-only" aria-hidden="true">{activeSlide.title}</span>
+        </div>
+        {gallerySlides.map((slide, index) => (
+          <div key={index} data-hero-orbit-card className="hero-orbit-card cinema-only" aria-hidden="true">
+            <img src={slide.src} alt="" decoding="async" className="w-full h-full object-cover object-[center_12%]" />
+            <div data-hero-orbit-shade className="hero-orbit-shade absolute inset-0" />
+            <span data-hero-orbit-caption className="hero-orbit-caption">{slide.title}</span>
           </div>
+        ))}
         </div>
       </div>
 

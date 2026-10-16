@@ -657,11 +657,11 @@ html.lenis, html.lenis body {
   .cinema-active .hero-headline .hero-line:nth-child(2) { margin: 0.1em 0; }
   .cinema-active .hero-copy-inner > p { font-size: clamp(0.875rem, 1.25vw, 1.125rem); max-width: 470px; }
   .cinema-active .hero-copy-inner > [data-hero-support]:last-child { gap: 0.65rem 1rem; padding-top: 1rem; }
-  .cinema-active .hero-photo-window { inset: 17% 2.5% 18% auto; width: 47%; height: auto; transform-origin: 50% 50%; box-shadow: 12px 24px 48px rgb(28 48 59 / 0.12); }
   .cinema-active .hero-photo-shell { perspective: 1600px; overflow: visible; }
-  .cinema-active .hero-scroll-reel { overflow: hidden; }
-  .cinema-active .hero-reel-panel { overflow: hidden; }
-  .cinema-active .hero-reel-caption { position: absolute; left: 1.25rem; bottom: 1.25rem; max-width: calc(100% - 2.5rem); padding: 0.65rem 0.9rem; background: var(--color-imc-ink); color: var(--color-imc-paper); font-size: 0.75rem; }
+  .cinema-active .hero-gallery-rig { transform-style: preserve-3d; }
+  .cinema-active [data-hero-orbit-card] { position: absolute; left: 50%; top: 50%; right: auto; bottom: auto; width: 43vw; height: 62vh; overflow: hidden; backface-visibility: hidden; }
+  .cinema-active .hero-orbit-shade { background: var(--color-imc-ink); }
+  .cinema-active .hero-orbit-caption { position: absolute; left: 1.25rem; bottom: 1.25rem; max-width: calc(100% - 2.5rem); padding: 0.65rem 0.9rem; background: var(--color-imc-ink); color: var(--color-imc-paper); font-size: 0.75rem; }
   .cinema-active .cinema-hud { display: flex; position: absolute; z-index: 5; left: 2rem; right: 2rem; bottom: 1.5rem; justify-content: space-between; align-items: center; gap: 2rem; font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; pointer-events: none; }
   .cinema-active .hero-cinema .cinema-hud { color: var(--color-imc-ink); }
   .cinema-scroll-cue { display: inline-flex; align-items: center; gap: 1rem; }

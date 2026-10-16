@@ -24,8 +24,9 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
         const hero = root.querySelector<HTMLElement>('#hero')!;
         const departments = root.querySelector<HTMLElement>('#departments')!;
         const facility = root.querySelector<HTMLElement>('.facility-cinema-stage')!;
-        const heroReel = hero.querySelectorAll('[data-hero-reel]');
-        const heroReelImages = hero.querySelectorAll('[data-hero-reel-image]');
+        const heroCards = hero.querySelectorAll<HTMLElement>('[data-hero-orbit-card]');
+        const heroRig = hero.querySelector<HTMLElement>('.hero-gallery-rig')!;
+        const heroShades = hero.querySelectorAll('[data-hero-orbit-shade]');
         const updateChapter = (element: HTMLElement) => (self: ScrollTrigger) => {
           element.dataset.sceneProgress = self.progress.toFixed(3);
         };
@@ -34,27 +35,38 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
           scrub: 0.4, invalidateOnRefresh: true,
         };
 
-        // A contained photographic sequence: wayfinding, patient services and clinical care.
-        // The heading and booking actions stay anchored; the images move behind a shared aperture.
+        // The photographs share one cylindrical track: a single camera turn brings care into view.
+        // Layout is recalculated only on refresh; the scroll itself transforms the common rig.
+        const layoutHeroGallery = () => {
+          // A pinned element still has its old width during refreshInit after a viewport resize.
+          const radius = document.documentElement.clientWidth * 0.5;
+          gsap.set(heroCards, {
+            xPercent: -50, yPercent: -50,
+            x: index => Math.sin(index * 55 * Math.PI / 180) * radius,
+            z: index => (Math.cos(index * 55 * Math.PI / 180) - 1) * radius,
+            rotationY: index => index * 55,
+          });
+          gsap.set(heroRig, { transformOrigin: `50% 50% ${-radius}px` });
+        };
+        layoutHeroGallery();
         const heroTimeline = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
           ...pinOptions, id: 'cinema-hero', trigger: hero, refreshPriority: 3,
-          end: () => `+=${window.innerHeight * 0.85}`, onUpdate: updateChapter(hero),
+          end: () => `+=${window.innerHeight * 0.95}`,
+          onRefreshInit: layoutHeroGallery, onUpdate: updateChapter(hero),
         } });
         heroTimeline
-          .fromTo('.hero-photo-window', { rotationY: -12, yPercent: 3 },
-            { rotationY: 0, yPercent: -2, duration: 0.92 }, 0)
+          .fromTo(heroRig, { xPercent: 30, rotationY: -8 },
+            { xPercent: 0, rotationY: -55, duration: 0.8 }, 0.08)
+          .to('.hero-headline', { y: -28, opacity: 0, duration: 0.14 }, 0)
+          .to('[data-hero-support]', { y: -28, autoAlpha: 0, duration: 0.14 }, 0)
           .to('[data-hero-controls]', { autoAlpha: 0, y: 12, duration: 0.1 }, 0)
-          .fromTo('[data-hero-photo]', { yPercent: 0 }, { yPercent: -12, duration: 0.4 }, 0.06)
-          .fromTo(heroReel[0], { clipPath: 'inset(100% 0% 0% 0%)' },
-            { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.38 }, 0.06)
-          .fromTo(heroReelImages[0], { yPercent: 14, scale: 1.06 },
-            { yPercent: 0, scale: 1, duration: 0.38 }, 0.06)
-          .to(heroReelImages[0], { yPercent: -12, duration: 0.38 }, 0.54)
-          .fromTo(heroReel[1], { clipPath: 'inset(100% 0% 0% 0%)' },
-            { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.38 }, 0.54)
-          .fromTo(heroReelImages[1], { yPercent: 14, scale: 1.06 },
-            { yPercent: 0, scale: 1, duration: 0.38 }, 0.54)
-          .to({}, { duration: 0.08 }, 0.92);
+          .fromTo([heroCards[1], heroCards[2]], { opacity: 0 }, { opacity: 1, duration: 0.12 }, 0.08)
+          .fromTo(heroShades[0], { opacity: 0 }, { opacity: 0.24, duration: 0.6 }, 0.2)
+          .fromTo(heroShades[1], { opacity: 0.2 }, { opacity: 0, duration: 0.6 }, 0.2)
+          .fromTo(heroShades[2], { opacity: 0.32 }, { opacity: 0.18, duration: 0.6 }, 0.2)
+          .fromTo('[data-hero-orbit-caption]', { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, stagger: 0.04, duration: 0.15 }, 0.35)
+          .to({}, { duration: 0.12 }, 0.88);
 
         // Four readable stops, with direct selection still available throughout.
         const departmentCount = departments.querySelectorAll('[data-department-row]').length;
@@ -135,6 +147,8 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
       }
       return () => {
         root.classList.remove('cinema-active');
+        // Refresh callbacks also place these geometry-only wrappers; no React styles live on them.
+        root.querySelectorAll('[data-hero-orbit-card], .hero-gallery-rig').forEach(element => element.removeAttribute('style'));
         root.querySelectorAll('[data-scene-progress]').forEach(element => element.removeAttribute('data-scene-progress'));
         steps.forEach(step => delete step.dataset.passed);
       };
