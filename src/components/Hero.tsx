@@ -1,114 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, ArrowDown, ShieldCheck, Clock, ChevronRight, Pause, Play } from 'lucide-react';
+import { ArrowUpRight, ArrowDown, ShieldCheck, Clock, ChevronRight } from 'lucide-react';
 import SquiggleUnderline from './SquiggleUnderline';
-import { motion, AnimatePresence } from 'framer-motion';
-import { EASINGS } from '../lib/useScrollTrigger';
-import { useReducedMotion } from '../lib/useReducedMotion';
+import { FACILITIES_DATA } from '../data/facilities';
 
-interface HeroProps {
-  onOpenAppointment: () => void;
-}
-
-export interface HeroSlide {
-  id: string;
-  title: string;
-  src: string;
-  thumbnail: string;
-  duration?: number; // duration in seconds
-}
-
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    id: "directory",
-    title: "Hospital Navigation & Departments",
-    src: "/directory-corridor.jpg",
-    thumbnail: "/directory-corridor.jpg",
-    duration: 6,
-  },
-  {
-    id: "pharmacy",
-    title: "Patient Services at IMC",
-    src: "/pharmacy.png",
-    thumbnail: "/pharmacy.png",
-    duration: 6,
-  },
-  {
-    id: "staff",
-    title: "Medical & Surgical Care",
-    src: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=85&w=2000",
-    thumbnail: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=85&w=2000",
-    duration: 6,
-  },
-];
-
-export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const activeSlide = HERO_SLIDES[activeSlideIndex];
-  const gallerySlides = [1, 2].map(offset => HERO_SLIDES[(activeSlideIndex + offset) % HERO_SLIDES.length]);
-  const reduced = useReducedMotion();
-
-  // Automatic slideshow timing
-  useEffect(() => {
-    if (reduced || isPaused) return;
-    const duration = (activeSlide.duration || 6) * 1000;
-    const timer = setInterval(() => {
-      // Keep the photograph steady while the viewer scrubs the cinematic sequence.
-      const hero = document.getElementById('hero');
-      if (!hero || document.hidden || Number(hero.dataset.sceneProgress || 0) > 0.01) return;
-      const bounds = hero.getBoundingClientRect();
-      if (bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
-      setActiveSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, duration);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [activeSlide, reduced, isPaused]);
-
+export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => void }) {
   return (
     <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-imc-paper pt-28 pb-12 sm:pt-32 sm:pb-16">
-      {/* Background Slideshow Layer positioned on the right half */}
-      <div className="hero-photo-shell absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
-        <div className="hero-gallery-rig absolute inset-0">
-        <div data-hero-orbit-card className="hero-photo-window absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
-          <div data-hero-photo className="absolute inset-0">
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={activeSlide.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: EASINGS.easeInOutSoft }}
-              className="absolute inset-0"
-            >
-              <motion.img
-                src={activeSlide.src}
-                alt=""
-                initial={{ scale: reduced ? 1 : 1.03 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 6, ease: 'easeOut' }}
-                className="w-full h-full object-cover object-[center_12%] filter brightness-[0.97] contrast-[1.02]"
-                aria-hidden="true"
-              />
-
-              <div className="hero-photo-wash absolute inset-0 bg-imc-paper/90 lg:bg-transparent" />
-            </motion.div>
-          </AnimatePresence>
-          </div>
-          <div data-hero-orbit-shade className="hero-orbit-shade cinema-only absolute inset-0" aria-hidden="true" />
-          <span data-hero-orbit-caption className="hero-orbit-caption cinema-only" aria-hidden="true">{activeSlide.title}</span>
-        </div>
-        {gallerySlides.map((slide, index) => (
-          <div key={index} data-hero-orbit-card className="hero-orbit-card cinema-only" aria-hidden="true">
-            <img src={slide.src} alt="" decoding="async" className="w-full h-full object-cover object-[center_12%]" />
-            <div data-hero-orbit-shade className="hero-orbit-shade absolute inset-0" />
-            <span data-hero-orbit-caption className="hero-orbit-caption">{slide.title}</span>
+      <div className="hero-photo-space" aria-hidden="true">
+        {[FACILITIES_DATA.features[1], FACILITIES_DATA.features[2]].map((feature, index) => (
+          <div key={feature.id} data-hero-wing={index} className="hero-photo-wing cinema-only">
+            <img src={feature.image} alt="" decoding="async" />
           </div>
         ))}
+        <div data-hero-main className="hero-still">
+          <img src="/pharmacy.png" alt="" fetchPriority="high" decoding="async" />
         </div>
       </div>
-
       {/* Main Content Area */}
       <div className="hero-copy relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
         <div className="hero-copy-inner max-w-2xl space-y-6">
@@ -172,100 +78,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
         </div>
       </div>
 
-      {/* Bottom Row: Active Caption on Left + Interactive Thumbnail Strip on Bottom-Right */}
-      <div data-hero-controls className="hero-controls relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-6 flex flex-col sm:flex-row items-end justify-between gap-4">
-
-        {/* Active image caption tag with smooth animated label */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSlide.id}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.3 }}
-            className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-2xl bg-imc-paper border border-slate-200 text-xs text-slate-700"
-          >
-            <span className="font-medium">{activeSlide.title}</span>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Bottom-Right Thumbnail Carousel Strip */}
-        <div className="flex items-center gap-3 p-2 rounded-2xl bg-imc-paper border border-slate-200">
-          <div className="flex items-center gap-2 sm:gap-2.5">
-            {HERO_SLIDES.map((slide, idx) => {
-              const isActive = idx === activeSlideIndex;
-              return (
-                <button
-                  type="button"
-                  key={slide.id}
-                  onClick={() => { setActiveSlideIndex(idx); setIsPaused(true); }}
-                  aria-pressed={isActive}
-                  className={`group relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden transition-[transform,opacity,box-shadow] duration-200 cursor-pointer active:scale-95 ${
-                    isActive
-                      ? 'ring-2 ring-imc-blue scale-105 opacity-100'
-                      : 'opacity-70 hover:opacity-100'
-                  }`}
-                  title={slide.title}
-                  aria-label={`Switch hero slide to ${slide.title}`}
-                >
-                  <img
-                    src={slide.thumbnail}
-                    alt=""
-                    width={80}
-                    height={64}
-                    decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-
-                  {/* Subtle dark tint for non-active thumbnails */}
-                  <div
-                    className={`absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors ${
-                      isActive ? 'bg-transparent' : ''
-                    }`}
-                  />
-
-                  {/* Slide number tag */}
-                  <div className="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-black/70 text-[9px] font-label text-white">
-                    0{idx + 1}
-                  </div>
-
-                  {/* Active Slide Progress Line Indicator */}
-                  {isActive && !reduced && !isPaused && (
-                    <motion.div
-                      key={`progress-${slide.id}-${activeSlideIndex}`}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{
-                        duration: slide.duration || 6,
-                        ease: 'linear',
-                      }}
-                      style={{ originX: 0 }}
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-imc-blue"
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {!reduced && (
-            <button type="button" onClick={() => setIsPaused(paused => !paused)} aria-label={isPaused ? "Resume slideshow" : "Pause slideshow"} className="flex items-center justify-center w-11 h-11 text-imc-blue rounded-full hover:bg-slate-100 transition-colors cursor-pointer">
-              {isPaused ? <Play className="w-4 h-4" aria-hidden="true" /> : <Pause className="w-4 h-4" aria-hidden="true" />}
-            </button>
-          )}
-          <div className="hidden md:flex flex-col text-[11px] text-slate-500 pl-1 pr-2">
-            <span className="font-semibold text-slate-800">Slideshow</span>
-            <span className="text-[10px] text-slate-500">{reduced || isPaused ? 'Manual controls' : 'Auto-cycling'}</span>
-          </div>
-        </div>
-
+      <div className="hero-scene-caption" aria-hidden="true">
+        <span>Islam Medical Complex</span><span>Sabzazar, Lahore</span>
       </div>
-      <div className="cinema-hud cinema-only" aria-hidden="true">
-        <span>Care, closer</span><span className="cinema-scroll-cue">Scroll to explore <ArrowDown className="cinema-scroll-arrow" /></span>
+      <div className="hero-scroll-note" aria-hidden="true">
+        <span>Care, brought together.</span>
+        <span>Scroll to unfold <ArrowDown className="w-4 h-4" /></span>
       </div>
     </section>
   );
-};
-
-export default Hero;
-
+}

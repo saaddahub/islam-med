@@ -657,11 +657,6 @@ html.lenis, html.lenis body {
   .cinema-active .hero-headline .hero-line:nth-child(2) { margin: 0.1em 0; }
   .cinema-active .hero-copy-inner > p { font-size: clamp(0.875rem, 1.25vw, 1.125rem); max-width: 470px; }
   .cinema-active .hero-copy-inner > [data-hero-support]:last-child { gap: 0.65rem 1rem; padding-top: 1rem; }
-  .cinema-active .hero-photo-shell { perspective: 1600px; overflow: visible; }
-  .cinema-active .hero-gallery-rig { transform-style: preserve-3d; }
-  .cinema-active [data-hero-orbit-card] { position: absolute; left: 50%; top: 50%; right: auto; bottom: auto; width: 43vw; height: 62vh; overflow: hidden; backface-visibility: hidden; }
-  .cinema-active .hero-orbit-shade { background: var(--color-imc-ink); }
-  .cinema-active .hero-orbit-caption { position: absolute; left: 1.25rem; bottom: 1.25rem; max-width: calc(100% - 2.5rem); padding: 0.65rem 0.9rem; background: var(--color-imc-ink); color: var(--color-imc-paper); font-size: 0.75rem; }
   .cinema-active .cinema-hud { display: flex; position: absolute; z-index: 5; left: 2rem; right: 2rem; bottom: 1.5rem; justify-content: space-between; align-items: center; gap: 2rem; font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; pointer-events: none; }
   .cinema-active .hero-cinema .cinema-hud { color: var(--color-imc-ink); }
   .cinema-scroll-cue { display: inline-flex; align-items: center; gap: 1rem; }
@@ -682,7 +677,7 @@ html.lenis, html.lenis body {
   .cinema-active .facility-cinema-heading { position: absolute; z-index: 3; top: max(7rem, 14vh); left: 15vw; right: 15vw; margin: 0; display: block; text-align: center; transform-style: preserve-3d; }
   .cinema-active .facility-cinema-heading h2 { margin: auto; max-width: 850px; font-size: clamp(3.5rem, 6.5vw, 6.5rem); line-height: 0.95; }
   .cinema-active .facility-cinema-heading p { max-width: 560px; margin: 1.5rem auto 0; font-size: 0.875rem; }
-  .cinema-active .facility-photo-space { position: absolute; inset: 0; transform-style: preserve-3d; }
+  .cinema-active .facility-photo-space { position: absolute; inset: 0; z-index: 2; transform-style: preserve-3d; }
   .cinema-active .facility-photo-main { position: absolute; inset: 0; height: 100%; z-index: 2; transform-origin: 50% 55%; }
   .cinema-active .facility-photo-wing { backface-visibility: hidden; position: absolute; inset: 0; z-index: 1; background: var(--color-imc-night); overflow: hidden; transform-origin: 50% 50%; }
   .cinema-active .facility-photo-wing img { width: 100%; height: 100%; object-fit: cover; }
@@ -718,10 +713,41 @@ html.lenis, html.lenis body {
   .cinema-active .hero-copy-inner > p { font-size: 0.875rem; }
   .cinema-active .hero-copy-inner > [data-hero-support] :is(button, a) { font-size: 0.875rem; padding-inline: 1.25rem; }
   .cinema-active .hero-copy-inner > [data-hero-support] > .flex { gap: 0.75rem; }
-  .cinema-active .hero-controls { margin-top: 0.75rem; }
-  .cinema-active .hero-controls button[aria-pressed] { width: 4rem; height: 3rem; }
   .cinema-active .department-section { padding-top: 6rem; }
   .cinema-active .department-details { --tw-space-y-reverse: 0; }
   .cinema-active .department-details > * + * { margin-top: 0.75rem; }
   .cinema-active .department-details .font-sans { font-size: 0.875rem; }
+}
+
+/* The sculpture progressively replaces the photograph after its first GPU frame. */
+.facility-sculpture { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; z-index: 1; }
+.hero-still { position: absolute; inset: 0 0 0 52%; overflow: hidden; }
+.hero-still img { width: 100%; height: 100%; object-fit: cover; }
+.facility-3d-ready .facility-sculpture { opacity: 1; }
+.hero-scene-caption { visibility: hidden; position: absolute; left: 6%; right: 6%; bottom: 6%; display: flex; justify-content: space-between; color: var(--color-imc-ink); font-size: 0.875rem; }
+.hero-scroll-note { position: absolute; left: max(2rem, calc((100vw - 1216px) / 2)); right: max(2rem, calc((100vw - 1216px) / 2)); bottom: 2rem; display: none; justify-content: space-between; font-size: 0.8rem; color: var(--color-imc-muted); }
+.cinema-active .hero-scroll-note { display: flex; }
+.hero-scroll-note > span:last-child { display: inline-flex; align-items: center; gap: 1rem; }
+@media (min-width: 1024px) and (min-height: 650px) {
+  /* The ordinary photograph keeps the same readable columns when motion is reduced. */
+  .hero-copy-inner { max-width: 47%; }
+  .hero-headline { font-size: clamp(3.25rem, 6vw, 6rem); line-height: 0.95; }
+  .hero-line { display: block; width: fit-content; white-space: nowrap; }
+}
+@media (max-width: 1023px), (max-height: 649px) {
+  .hero-still { position: relative; inset: auto; order: 2; margin: 2.5rem 1rem 0; height: 350px; }
+  .hero-cinema { min-height: auto; }
+  .hero-copy { margin-block: 1rem; }
+}
+
+@media (min-width: 1024px) and (min-height: 650px) {
+  .cinema-active .hero-photo-space { position: absolute; inset: 0; perspective: 1400px; transform-style: preserve-3d; }
+  .cinema-active .hero-still { inset: 0; width: 100%; height: 100%; z-index: 2; transform-origin: 50% 55%; }
+  .hero-photo-wing { position: absolute; inset: 0; z-index: 1; overflow: hidden; backface-visibility: hidden; }
+  .hero-photo-wing img { width: 100%; height: 100%; object-fit: cover; }
+  .cinema-active .hero-scene-caption { left: 2rem; right: auto; bottom: 2rem; gap: 2rem; padding: 1rem 1.25rem; background: var(--color-imc-paper); z-index: 4; }
+  .cinema-active .facility-cinema-stage:not(.facility-3d-ready) .facility-photo-main { transform: translateY(22%) scale(0.47); }
+}
+@media (max-width: 1023px), (max-height: 649px) {
+  .hero-photo-space { order: 2; }
 }
