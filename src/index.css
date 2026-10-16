@@ -651,22 +651,19 @@ html.lenis, html.lenis body {
     height: 100svh; min-height: 0; max-width: none; overflow: clip; isolation: isolate;
   }
   .cinema-active .hero-cinema { perspective: 1600px; padding-top: 7rem; padding-bottom: 5.5rem; }
-  .cinema-active .hero-copy { transform-style: preserve-3d; }
   .cinema-active .hero-copy-inner { max-width: 47%; }
   .cinema-active .hero-headline { font-size: clamp(3.8rem, 6vw, 6rem); line-height: 0.95; }
-  .cinema-active .hero-line { display: block; width: fit-content; transform-style: preserve-3d; }
+  .cinema-active .hero-line { display: block; width: fit-content; white-space: nowrap; }
   .cinema-active .hero-headline .hero-line:nth-child(2) { margin: 0.1em 0; }
   .cinema-active .hero-copy-inner > p { font-size: clamp(0.875rem, 1.25vw, 1.125rem); max-width: 470px; }
   .cinema-active .hero-copy-inner > [data-hero-support]:last-child { gap: 0.65rem 1rem; padding-top: 1rem; }
-  .cinema-active .hero-photo-window { width: 100%; inset: 0; }
+  .cinema-active .hero-photo-window { inset: 17% 2.5% 18% auto; width: 47%; height: auto; transform-origin: 50% 50%; box-shadow: 12px 24px 48px rgb(28 48 59 / 0.12); }
   .cinema-active .hero-photo-shell { perspective: 1600px; overflow: visible; }
-  .cinema-active [data-hero-photo] { transform-origin: 50% 50%; }
-  .cinema-active .hero-photo-shade { background: var(--color-imc-night); pointer-events: none; }
-  .cinema-active .hero-threshold { position: absolute; inset: 0; z-index: 2; perspective: 1600px; pointer-events: none; }
-  .cinema-active .hero-threshold-frame { position: absolute; inset: 0; outline: 8px solid var(--color-imc-paper); box-shadow: 10px 18px 32px rgb(28 48 59 / 0.18); backface-visibility: hidden; }
-  .cinema-active .hero-film-caption { position: absolute; z-index: 3; left: 6.5vw; right: 6.5vw; bottom: 12vh; color: var(--color-imc-paper); pointer-events: none; font-size: clamp(1rem, 1.3vw, 1.25rem); }
+  .cinema-active .hero-scroll-reel { overflow: hidden; }
+  .cinema-active .hero-reel-panel { overflow: hidden; }
+  .cinema-active .hero-reel-caption { position: absolute; left: 1.25rem; bottom: 1.25rem; max-width: calc(100% - 2.5rem); padding: 0.65rem 0.9rem; background: var(--color-imc-ink); color: var(--color-imc-paper); font-size: 0.75rem; }
   .cinema-active .cinema-hud { display: flex; position: absolute; z-index: 5; left: 2rem; right: 2rem; bottom: 1.5rem; justify-content: space-between; align-items: center; gap: 2rem; font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; pointer-events: none; }
-  .cinema-active .hero-cinema .cinema-hud { color: var(--color-imc-paper); mix-blend-mode: difference; }
+  .cinema-active .hero-cinema .cinema-hud { color: var(--color-imc-ink); }
   .cinema-scroll-cue { display: inline-flex; align-items: center; gap: 1rem; }
   .cinema-scroll-arrow { width: 20px; height: 20px; }
   .cinema-active .department-section { height: 100svh; padding-top: 6.5rem; padding-bottom: 2rem; overflow: clip; }
@@ -715,10 +712,12 @@ html.lenis, html.lenis body {
 }
 @media (min-width: 1024px) and (min-height: 650px) and (max-height: 760px) {
   .cinema-active .hero-cinema { padding-top: 6.5rem; padding-bottom: 4rem; }
-  .cinema-active .hero-copy-inner { max-width: 51%; }
+  .cinema-active .hero-copy-inner { max-width: 46%; }
   .cinema-active .hero-headline { font-size: clamp(3.25rem, 5.2vw, 4.5rem); }
   .cinema-active .hero-copy-inner > * + * { margin-top: 1rem; }
   .cinema-active .hero-copy-inner > p { font-size: 0.875rem; }
+  .cinema-active .hero-copy-inner > [data-hero-support] :is(button, a) { font-size: 0.875rem; padding-inline: 1.25rem; }
+  .cinema-active .hero-copy-inner > [data-hero-support] > .flex { gap: 0.75rem; }
   .cinema-active .hero-controls { margin-top: 0.75rem; }
   .cinema-active .hero-controls button[aria-pressed] { width: 4rem; height: 3rem; }
   .cinema-active .department-section { padding-top: 6rem; }

@@ -45,6 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const activeSlide = HERO_SLIDES[activeSlideIndex];
+  const scrollSlides = [1, 2].map(offset => HERO_SLIDES[(activeSlideIndex + offset) % HERO_SLIDES.length]);
   const reduced = useReducedMotion();
 
   // Automatic slideshow timing
@@ -53,7 +54,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
     const duration = (activeSlide.duration || 6) * 1000;
     const timer = setInterval(() => {
       // Keep the photograph steady while the viewer scrubs the cinematic sequence.
-      if (Number(document.getElementById('hero')?.dataset.sceneProgress || 0) > 0.01) return;
+      const hero = document.getElementById('hero');
+      if (!hero || document.hidden || Number(hero.dataset.sceneProgress || 0) > 0.01) return;
+      const bounds = hero.getBoundingClientRect();
+      if (bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
       setActiveSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
     }, duration);
 
@@ -68,7 +72,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
       <div className="hero-photo-shell absolute inset-0 z-0 overflow-hidden select-none pointer-events-none">
         <div className="hero-photo-window absolute top-0 right-0 bottom-0 w-full lg:w-[56%] h-full overflow-hidden">
           <div data-hero-photo className="absolute inset-0">
-          <AnimatePresence initial={false} mode="wait">
+          <AnimatePresence initial={false}>
             <motion.div
               key={activeSlide.id}
               initial={{ opacity: 0 }}
@@ -91,14 +95,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
             </motion.div>
           </AnimatePresence>
           </div>
-          <div data-hero-shade className="hero-photo-shade absolute inset-0" aria-hidden="true" />
+          <div className="hero-scroll-reel cinema-only absolute inset-0" aria-hidden="true">
+            {scrollSlides.map((slide, index) => (
+              <div key={index} data-hero-reel className="hero-reel-panel absolute inset-0">
+                <img data-hero-reel-image src={slide.src} alt="" decoding="async" className="w-full h-full object-cover object-[center_12%]" />
+                <span className="hero-reel-caption">{slide.title}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-
-      {/* Two architectural edges pass the viewer as the photograph opens into the scene. */}
-      <div className="hero-threshold cinema-only" aria-hidden="true">
-        <div data-hero-frame className="hero-threshold-frame" />
-        <div data-hero-frame className="hero-threshold-frame" />
       </div>
 
       {/* Main Content Area */}
@@ -108,7 +113,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           {/* Headline in Display Serif with Squiggle */}
           <h1 className="hero-headline font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-imc-ink leading-[1.02]">
             <span data-hero-line className="hero-line">Care that feels</span>{' '}
-            <span data-hero-line data-hero-word className="hero-line relative inline-block italic font-normal text-imc-ink">
+            <span data-hero-line className="hero-line relative inline-block italic font-normal text-imc-ink">
               closer
               <SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
             </span>{' '}
@@ -251,9 +256,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           </div>
         </div>
 
-      </div>
-      <div className="hero-film-caption cinema-only" aria-hidden="true">
-        <span>Care that feels closer than you think.</span>
       </div>
       <div className="cinema-hud cinema-only" aria-hidden="true">
         <span>Care, closer</span><span className="cinema-scroll-cue">Scroll to explore <ArrowDown className="cinema-scroll-arrow" /></span>
