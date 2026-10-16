@@ -75,7 +75,7 @@ export function StickyImagePairSection() {
             caption={{
               thumbnail: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=600",
               label: "Personal Attention & Dignity",
-              description: "Privacy, clear communication, cleanliness and comfort are central to the patient experience described by IMC.",
+              description: "Privacy, clear communication, cleanliness and comfort are central to your visit.",
             }}
             reverse={true}
           />

@@ -51,7 +51,7 @@ export const AppointmentModal = ({
             <dt className="font-medium">Visit us</dt>
             <dd className="mt-1 sm:mt-0 text-imc-muted">
               {CLINIC.address}
-              <a href={CLINIC_MAP_URL} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-11 items-center gap-1 text-imc-blue underline">
+              <a href={CLINIC_MAP_URL} target="_blank" rel="noopener noreferrer" className="mt-2 flex w-fit min-h-11 items-center gap-1 text-imc-blue underline">
                 Get directions <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </dd>
