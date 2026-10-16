@@ -95,6 +95,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
         </div>
       </div>
 
+      {/* Two architectural edges pass the viewer as the photograph opens into the scene. */}
+      <div className="hero-threshold cinema-only" aria-hidden="true">
+        <div data-hero-frame className="hero-threshold-frame" />
+        <div data-hero-frame className="hero-threshold-frame" />
+      </div>
+
       {/* Main Content Area */}
       <div className="hero-copy relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
         <div className="hero-copy-inner max-w-2xl space-y-6">
@@ -102,7 +108,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
           {/* Headline in Display Serif with Squiggle */}
           <h1 className="hero-headline font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-imc-ink leading-[1.02]">
             <span data-hero-line className="hero-line">Care that feels</span>{' '}
-            <span data-hero-line className="hero-line relative inline-block italic font-normal text-imc-ink">
+            <span data-hero-line data-hero-word className="hero-line relative inline-block italic font-normal text-imc-ink">
               closer
               <SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
             </span>{' '}
@@ -247,8 +253,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenAppointment }) => {
 
       </div>
       <div className="hero-film-caption cinema-only" aria-hidden="true">
-        <span data-hero-finale className="font-serif-display">Closer.</span>
-        <span className="cinema-eyebrow">Care that feels closer than you think.</span>
+        <span>Care that feels closer than you think.</span>
       </div>
       <div className="cinema-hud cinema-only" aria-hidden="true">
         <span>Care, closer</span><span className="cinema-scroll-cue">Scroll to explore <ArrowDown className="cinema-scroll-arrow" /></span>

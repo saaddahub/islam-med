@@ -24,7 +24,11 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
         const hero = root.querySelector<HTMLElement>('#hero')!;
         const departments = root.querySelector<HTMLElement>('#departments')!;
         const facility = root.querySelector<HTMLElement>('.facility-cinema-stage')!;
-        const heroLines = hero.querySelectorAll('[data-hero-line]');
+        const heroLines = hero.querySelectorAll('[data-hero-line]:not([data-hero-word])');
+        const heroWord = hero.querySelector<HTMLElement>('[data-hero-word]')!;
+        const palette = getComputedStyle(root);
+        const heroInk = palette.getPropertyValue('--color-imc-ink').trim();
+        const heroPaper = palette.getPropertyValue('--color-imc-paper').trim();
         const updateChapter = (element: HTMLElement) => (self: ScrollTrigger) => {
           element.dataset.sceneProgress = self.progress.toFixed(3);
         };
@@ -33,28 +37,57 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
           scrub: 0.4, invalidateOnRefresh: true,
         };
 
-        // The photo and final word arrive together; the next section pushes past a flat image.
+        // Layout offsets ignore scrubbed transforms, so resizing mid-scene keeps the same word anchored.
+        const wordDestination = () => {
+          let left = 0;
+          let top = 0;
+          let element: HTMLElement | null = heroWord;
+          while (element && element !== hero) {
+            left += element.offsetLeft;
+            top += element.offsetTop;
+            element = element.offsetParent as HTMLElement | null;
+          }
+          const scale = hero.clientWidth * 0.86 / heroWord.offsetWidth;
+          return {
+            x: hero.clientWidth * 0.065 - left,
+            y: hero.clientHeight * 0.61 - heroWord.offsetHeight * scale / 2 - top,
+            scale,
+          };
+        };
+
+        // One continuous approach: the doorway passes the camera and the original word becomes the title.
         const heroTimeline = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
           ...pinOptions, id: 'cinema-hero', trigger: hero, refreshPriority: 3,
           end: () => `+=${window.innerHeight * 1.05}`, onUpdate: updateChapter(hero),
         } });
         heroTimeline
-          .fromTo('.hero-photo-window', { clipPath: 'inset(8% 3% 12% 53% round 2px)' },
-            { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 0.5 }, 0)
-          .fromTo('[data-hero-photo]', { scale: 1.16, rotationY: -8, rotationZ: 2 },
-            { scale: 1, rotationY: 0, rotationZ: 0, duration: 0.6 }, 0)
-          .to('[data-hero-support]', { y: -55, autoAlpha: 0, stagger: 0.025, duration: 0.16 }, 0)
-          .to('[data-hero-controls]', { y: 40, autoAlpha: 0, duration: 0.14 }, 0)
-          .to(heroLines, {
-            xPercent: i => [-110, 100, -85][i], yPercent: i => [-40, 15, 60][i],
-            rotationY: i => [-45, 50, -35][i], z: 240, opacity: 0,
-            stagger: 0.04, duration: 0.3,
-          }, 0.015)
-          .fromTo('.hero-film-caption', { opacity: 0 }, { opacity: 1, duration: 0.18 }, 0.21)
-          .fromTo('[data-hero-shade]', { opacity: 0 }, { opacity: 0.38, duration: 0.22 }, 0.14)
-          .fromTo('[data-hero-finale]', { yPercent: 40, rotationX: -30, z: -120 },
-            { yPercent: 0, rotationX: 0, z: 0, duration: 0.24 }, 0.21)
-          .to({}, { duration: 0.2 }, 0.6);
+          .fromTo('.hero-photo-window', { scale: 0.55, xPercent: 22, rotationY: -24, z: 0 },
+            { scale: 1, xPercent: 0, rotationY: 0, z: 0, duration: 0.38 }, 0)
+          .fromTo('[data-hero-photo]', { scale: 1 }, { scale: 1.12, duration: 0.58 }, 0)
+          .fromTo('[data-hero-frame]', {
+            scale: 0.55, xPercent: 22, rotationY: -24, z: i => 30 + 90 * i,
+            opacity: i => i === 0 ? 0.85 : 0.5,
+          }, {
+            xPercent: 0, rotationY: 0, z: 1050, scale: 1.05,
+            stagger: 0.08, duration: 0.46,
+          }, 0)
+          .to('[data-hero-frame]', { opacity: 0, stagger: 0.08, duration: 0.14 }, 0.29)
+          .to('[data-hero-support]', { x: -45, autoAlpha: 0, stagger: 0.02, duration: 0.14 }, 0)
+          .to('[data-hero-controls]', { y: 24, autoAlpha: 0, duration: 0.12 }, 0)
+          .to(heroLines, { xPercent: -75, rotationY: 35, z: 220, opacity: 0,
+            stagger: 0.02, duration: 0.16 }, 0)
+          .to('[data-hero-word] svg', { opacity: 0, duration: 0.1 }, 0)
+          .set(heroWord, { color: heroInk }, 0)
+          .fromTo(heroWord, { x: 0, y: 0, scale: 1, transformOrigin: '0% 0%' }, {
+            x: () => wordDestination().x,
+            y: () => wordDestination().y,
+            scale: () => wordDestination().scale,
+            duration: 0.52,
+          }, 0.02)
+          .to(heroWord, { color: heroPaper, duration: 0.1 }, 0.3)
+          .fromTo('[data-hero-shade]', { opacity: 0 }, { opacity: 0.74, duration: 0.14 }, 0.28)
+          .fromTo('.hero-film-caption', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.16 }, 0.4)
+          .to({}, { duration: 0.12 }, 0.58);
 
         // Four readable stops, with direct selection still available throughout.
         const departmentCount = departments.querySelectorAll('[data-department-row]').length;
