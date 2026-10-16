@@ -52,6 +52,10 @@ Prefer flat fields, spacing, and clear scale changes over nested containers and 
 
 Preserve the established GSAP/ScrollTrigger cinematic sequences, their timings, and their reduced-motion alternatives. Palette work must not change pin durations, perspective, reveal distances, or scroll transitions.
 
+The opening hero uses a forward approach through a photographic doorway. Its angled photograph comes to face the viewer while two architectural edges pass the camera. The original headline word “closer” grows into the final composition; do not replace it with a delayed duplicate title or a backward-tilting exit. Keep the sequence within approximately 1.05 viewport heights of scrolling. Other section sequences remain independent.
+
+Run the dimensional hero only on full-motion desktop layouts at least 1024px wide and 650px tall. Phones, compact windows, lower-performance tiers and reduced-motion preferences retain the ordinary hero, its readable heading and appointment controls. GSAP owns the scroll transforms directly; do not drive frame-by-frame motion through React state. Decorative doorway edges remain hidden from assistive technology.
+
 Keep native dialog semantics, keyboard focus indicators, internal dialog scrolling, Escape dismissal, reception handoff, and Lenis scroll restoration. The logo and footer return-to-top link target the stable `#top` wrapper rather than the pinned hero.
 
 ## Responsive verification
