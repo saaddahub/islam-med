@@ -22,5 +22,3 @@ Deploy the contents of `dist` over HTTPS. The build includes a content security 
 If the hosting service does not support `_headers`, configure the same response headers at the web server or CDN. In particular, framing protection requires HTTP headers; it cannot be enforced by a meta tag. Verify the deployed responses after publishing. Development permits Vite's inline HMR preamble; the production build permits scripts only from its own origin.
 
 The policy allows the existing Google Fonts and Unsplash images. Inline styles remain permitted for the motion libraries. Environment and key files are ignored by Git and denied by the development server.
-
-See [SECURITY_REVIEW.md](./SECURITY_REVIEW.md) for the review scope, findings, and checks.
