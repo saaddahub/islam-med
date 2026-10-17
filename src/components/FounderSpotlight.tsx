@@ -16,10 +16,10 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               <div className="founder-portrait-crop">
                 <img
                   data-founder-portrait
-                  src="/directory-corridor.jpg"
-                  alt="Inside Islam Medical Complex, Sabzazar, Lahore"
-                  width={800}
-                  height={1000}
+                  src="/imran-islam-founder.webp"
+                  alt="Imran Islam, Founder of Islam Medical Complex"
+                  width={1024}
+                  height={1536}
                   loading="lazy"
                   decoding="async"
                 />
