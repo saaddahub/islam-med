@@ -3,7 +3,6 @@ import { FACILITIES_DATA } from '../data/facilities';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
-import FacilitySculpture from './FacilitySculpture';
 
 export const FacilityReveal: React.FC = () => {
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState(0);
@@ -28,8 +27,13 @@ export const FacilityReveal: React.FC = () => {
             patient experience, from reception to your clinical consultation.
           </p>
         </div>
-        <FacilitySculpture imageSrc={currentFeature.image} />
         <div className="facility-photo-space">
+          {[FACILITIES_DATA.features[1], FACILITIES_DATA.features[2]].map((feature, index) => (
+            <div key={feature.id} data-facility-wing={index === 0 ? 'left' : 'right'} className="facility-photo-wing cinema-only" aria-hidden="true">
+              <img src={feature.image} alt="" loading="lazy" decoding="async" />
+              <span className="cinema-eyebrow">{feature.title}</span>
+            </div>
+          ))}
           <div data-facility-main className="facility-photo-main">
             <AnimatePresence initial={false} mode="wait">
               <motion.div key={currentFeature.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}

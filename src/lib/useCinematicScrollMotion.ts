@@ -22,7 +22,7 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
       if (cinematic) {
         root.classList.add('cinema-active');
         const departments = root.querySelector<HTMLElement>('#departments')!;
-        const hero = root.querySelector<HTMLElement>('#hero')!;
+        const facility = root.querySelector<HTMLElement>('.facility-cinema-stage')!;
         const updateChapter = (element: HTMLElement) => (self: ScrollTrigger) => {
           element.dataset.sceneProgress = self.progress.toFixed(3);
         };
@@ -49,26 +49,26 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
           onRefresh: selectDepartment,
         });
 
-        // The loved photographic hinge sequence now opens the page and fills the viewport.
-        const wings = hero.querySelectorAll('[data-hero-wing]');
-        gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-          ...pinOptions, id: 'cinema-hero', trigger: hero, refreshPriority: 3,
-          end: () => `+=${window.innerHeight * 1.45}`, onUpdate: updateChapter(hero),
-        } })
-          .to('.hero-headline', { y: -38, opacity: 0, duration: 0.18 }, 0)
-          .to('[data-hero-support]', { y: -28, autoAlpha: 0, duration: 0.14 }, 0)
-          .to('.hero-scroll-note', { autoAlpha: 0, duration: 0.1 }, 0)
+        // Photographic hinges keep their front faces visible; the heading clears before expansion.
+        const wings = facility.querySelectorAll('[data-facility-wing]');
+        const facilityTimeline = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
+          ...pinOptions, id: 'cinema-facility', trigger: facility, refreshPriority: 1,
+          end: () => `+=${window.innerHeight * 1.45}`, onUpdate: updateChapter(facility),
+        } });
+        facilityTimeline
           .fromTo(wings, {
             scale: 0.3, xPercent: i => i === 0 ? -34 : 34, yPercent: 16,
-            rotationY: i => i === 0 ? 48 : -48, rotationZ: i => i === 0 ? -5 : 5, z: -180, opacity: 0,
+            rotationY: i => i === 0 ? 48 : -48, rotationZ: i => i === 0 ? -5 : 5, z: -180,
           }, { scale: 0.36, xPercent: i => i === 0 ? -33 : 33, yPercent: 12,
-            rotationY: i => i === 0 ? 24 : -24, rotationZ: 0, z: 0, opacity: 1, duration: 0.23 }, 0.05)
-          .fromTo('[data-hero-main]', { scale: 0.43, xPercent: 27, yPercent: 0, rotationX: 12, rotationY: -7, z: -100 },
-            { scale: 0.57, xPercent: 0, yPercent: 16, rotationX: 0, rotationY: 0, z: 0, duration: 0.28 }, 0)
+            rotationY: i => i === 0 ? 24 : -24, rotationZ: 0, z: 0, duration: 0.28 }, 0)
+          .fromTo('[data-facility-main]', { scale: 0.47, yPercent: 22, rotationX: 12, rotationY: -7, z: -100 },
+            { scale: 0.57, yPercent: 16, rotationX: 0, rotationY: 0, z: 0, duration: 0.28 }, 0)
+          .to('[data-facility-heading]', { y: -38, opacity: 0, duration: 0.18 }, 0.2)
           .to(wings, { xPercent: i => i === 0 ? -85 : 85,
             rotationY: i => i === 0 ? -78 : 78, z: -280, opacity: 0, duration: 0.38 }, 0.3)
-          .to('[data-hero-main]', { scale: 1, yPercent: 0, duration: 0.4 }, 0.36)
-          .fromTo('.hero-scene-caption', { y: 32, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.18 }, 0.7)
+          .to('[data-facility-main]', { scale: 1, yPercent: 0, duration: 0.4 }, 0.36)
+          .fromTo('.facility-photo-shade', { opacity: 0 }, { opacity: 1, duration: 0.18 }, 0.62)
+          .fromTo('[data-facility-caption]', { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18 }, 0.7)
           .to({}, { duration: 0.1 }, 0.88);
       } else {
         gsap.fromTo('[data-facility-main]', { rotationX: 10, scale: 0.94 }, {

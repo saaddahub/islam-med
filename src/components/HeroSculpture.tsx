@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 
-export default function FacilitySculpture({ imageSrc }: { imageSrc: string }) {
+export default function HeroSculpture() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const generationRef = useRef(0);
   useEffect(() => {
     const canvas = canvasRef.current;
-    const hero = canvas?.closest<HTMLElement>('.facility-cinema-stage');
+    const hero = canvas?.closest<HTMLElement>('#hero');
     if (!canvas || !hero) return;
     const media = gsap.matchMedia();
     media.add('(min-width: 1024px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)', () => {
@@ -14,7 +14,7 @@ export default function FacilitySculpture({ imageSrc }: { imageSrc: string }) {
       const generation = ++generationRef.current;
       const controller = new AbortController();
       let disposed = false;
-      let scene: Awaited<ReturnType<typeof import('../lib/createFacilitySculpture').createFacilitySculpture>> | undefined;
+      let scene: Awaited<ReturnType<typeof import('../lib/createHeroSculpture').createHeroSculpture>> | undefined;
       let context: ReturnType<typeof gsap.context> | undefined;
       let observer: IntersectionObserver | undefined;
       let dialogObserver: MutationObserver | undefined;
@@ -71,34 +71,34 @@ export default function FacilitySculpture({ imageSrc }: { imageSrc: string }) {
         scene?.dispose();
         scene = undefined;
         if (generationRef.current === generation) {
-          hero!.classList.remove('facility-3d-ready');
+          hero!.classList.remove('hero-3d-ready');
           delete hero!.dataset.sceneProgress;
         }
       }
       // Loss can occur while the texture loads or shaders compile, before the scene is ready.
       canvas.addEventListener('webglcontextlost', loseContext);
-      void import('../lib/createFacilitySculpture').then(async ({ createFacilitySculpture }) => {
+      void import('../lib/createHeroSculpture').then(async ({ createHeroSculpture }) => {
         if (!isCurrent()) return;
-        const created = await createFacilitySculpture(canvas, controller.signal, imageSrc);
+        const created = await createHeroSculpture(canvas, controller.signal);
         if (!isCurrent()) { created.dispose(); return; }
         scene = created;
         resize();
         scene.render(0, 0, 0);
-        hero.classList.add('facility-3d-ready');
+        hero.classList.add('hero-3d-ready');
         context = gsap.context(() => {}, hero);
         context.add(() => {
           gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-            id: 'cinema-facility', trigger: hero, start: 'top top',
+            id: 'cinema-hero', trigger: hero, start: 'top top',
             end: () => `+=${window.innerHeight * 1.25}`,
-            pin: true, anticipatePin: 1, scrub: true, refreshPriority: 1,
+            pin: true, anticipatePin: 1, scrub: true, refreshPriority: 3,
             invalidateOnRefresh: true,
             onUpdate: self => { hero.dataset.sceneProgress = self.progress.toFixed(3); },
           } })
             .to(progress, { value: 1, duration: 1 }, 0)
-            .to('[data-facility-heading]', { y: -38, opacity: 0, duration: 0.18 }, 0.08)
-            .fromTo('[data-facility-main]', { opacity: 0 }, { opacity: 1, duration: 0.05 }, 0.94)
-            .fromTo('[data-facility-caption]', { y: 32, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.13 }, 0.83);
-
+            .to('.hero-headline', { y: -40, opacity: 0, duration: 0.17 }, 0.02)
+            .to('[data-hero-support]', { y: -28, autoAlpha: 0, duration: 0.13 }, 0)
+            .to('.hero-scroll-note', { autoAlpha: 0, duration: 0.1 }, 0)
+            .fromTo('.hero-scene-caption', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.13 }, 0.84);
         });
         observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; if (inView) rendered = -1; });
         observer.observe(hero);
@@ -121,6 +121,6 @@ export default function FacilitySculpture({ imageSrc }: { imageSrc: string }) {
       return teardown;
     });
     return () => media.revert();
-  }, [imageSrc]);
-  return <canvas ref={canvasRef} className="facility-sculpture" aria-hidden="true" />;
+  }, []);
+  return <canvas ref={canvasRef} className="hero-sculpture" aria-hidden="true" />;
 }
