@@ -51,7 +51,7 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
   const assembly = new THREE.Group();
   scene.add(assembly);
   const blue = new THREE.MeshPhysicalMaterial({
-    color: 0x233f4d, metalness: 0.25, roughness: 0.36, clearcoat: 0.25, clearcoatRoughness: 0.3,
+    color: 0x541e24, metalness: 0.25, roughness: 0.36, clearcoat: 0.25, clearcoatRoughness: 0.3,
   });
   const geometries: THREE.BufferGeometry[] = [];
   const materials: THREE.Material[] = [blue];
