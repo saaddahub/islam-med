@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Menu as MenuIcon, X, Phone, MapPin } from 'lucide-react';
+import { ArrowUpRight, Menu as MenuIcon, X, Phone, MapPin, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 import Modal from './Modal';
 import { CLINIC } from '../data/clinic';
+import { DEPARTMENTS } from '../data/departments';
 
 interface NavbarProps {
   onOpenAppointment: () => void;
@@ -19,6 +20,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const closeMobile = () => { if (desktop.matches) setIsMenuOpen(false); };
+    const closeDropdown = (event: PointerEvent) => {
+      if (event.target instanceof Element && !event.target.closest('.department-nav')) {
+        document.querySelector<HTMLDetailsElement>('.department-nav')?.removeAttribute('open');
+      }
+    };
+    desktop.addEventListener('change', closeMobile);
+    document.addEventListener('pointerdown', closeDropdown);
+    return () => {
+      desktop.removeEventListener('change', closeMobile);
+      document.removeEventListener('pointerdown', closeDropdown);
+    };
   }, []);
 
   const navLinks = [
@@ -68,45 +85,35 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               </div>
             </a>
 
-            {/* Plain navigation keeps the cream surface and wordmark in focus. */}
-            <div
-              className="hidden xl:flex items-center gap-1"
-            >
-              <button
-                type="button"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-expanded={isMenuOpen}
-                aria-controls="site-navigation"
-                className="flex items-center gap-2 min-h-11 px-3.5 py-2 rounded-full text-xs font-medium uppercase tracking-wider transition-[background-color,color,transform] duration-150 cursor-pointer active:scale-95 bg-slate-100 text-imc-ink hover:bg-slate-200/80 border border-slate-200/80"
-              >
-                <MenuIcon className="w-3.5 h-3.5 text-imc-blue" aria-hidden="true" />
-                <span>Menu</span>
-              </button>
-
-              <nav aria-label="Main navigation" className="flex items-center space-x-1">
-                {navLinks.slice(0, 4).map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="inline-flex items-center min-h-11 px-3 py-2 rounded-full text-xs font-medium text-slate-700 hover:text-imc-blue hover:bg-slate-100 transition-[color,background-color,transform] duration-150 active:scale-95"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
+            <nav aria-label="Main navigation" className="desktop-navigation hidden lg:flex items-center gap-1">
+              <details className="department-nav"
+                onPointerEnter={event => { if (event.pointerType === 'mouse') event.currentTarget.open = true; }}
+                onPointerLeave={event => { if (event.pointerType === 'mouse' && !event.currentTarget.contains(document.activeElement)) event.currentTarget.open = false; }}
+                onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false; }}
+                onKeyDown={event => {
+                  if (event.key === 'Escape') {
+                    event.preventDefault();
+                    event.currentTarget.open = false;
+                    event.currentTarget.querySelector('summary')?.focus();
+                  }
+                }}>
+                <summary className="desktop-nav-link">Departments <ChevronDown size={13} aria-hidden="true" /></summary>
+                <div className="department-dropdown">
+                  <a href="#departments" className="department-dropdown-all" onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>Explore our departments <ArrowUpRight size={16} aria-hidden="true" /></a>
+                  <ul>
+                    {DEPARTMENTS.map(department => <li key={department.id}>
+                      <a href={`#department-${department.id}`} onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>
+                        <span>{department.name}</span><ArrowUpRight size={15} aria-hidden="true" />
+                      </a>
+                    </li>)}
+                  </ul>
+                </div>
+              </details>
+              {navLinks.slice(1).map(link => <a key={link.href} href={link.href} className="desktop-nav-link">{link.label}</a>)}
+            </nav>
 
             {/* Top-Right: Ghost Circular Arrow + Primary Appointment Pill Button */}
             <div className="flex items-center gap-2 shrink-0">
-              <a
-                href="#how-it-works"
-                className="hidden sm:flex w-11 h-11 rounded-full items-center justify-center border border-imc-blue/20 text-imc-blue hover:bg-imc-linen transition-[background-color,border-color,color,transform] duration-150 cursor-pointer active:scale-90"
-                title="How Care Works"
-                aria-label="How Care Works"
-              >
-                <ArrowUpRight className="w-4 h-4 text-imc-blue" aria-hidden="true" />
-              </a>
-
               <button
                 type="button"
                 onClick={onOpenAppointment}
@@ -121,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               <button
                 type="button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="xl:hidden w-11 h-11 flex items-center justify-center rounded-full border border-imc-blue/20 text-imc-blue hover:bg-imc-linen transition-[background-color,transform] duration-150 cursor-pointer active:scale-90"
+                className="lg:hidden w-11 h-11 flex items-center justify-center rounded-full border border-imc-blue/20 text-imc-blue hover:bg-imc-linen transition-[background-color,transform] duration-150 cursor-pointer active:scale-90"
                 aria-label="Toggle navigation menu"
                 aria-expanded={isMenuOpen}
                 aria-controls="site-navigation"
@@ -151,22 +158,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               </button>
             </div>
 
-            <nav aria-label="All sections" className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="group flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 active:scale-[0.98] border border-slate-200/60 transition-[background-color,transform] duration-150"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-medium text-sm text-slate-800 group-hover:text-imc-blue group-hover:translate-x-1 transition-[color,transform]">
-                      {link.label}
-                    </span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-imc-blue transition-colors" aria-hidden="true" />
-                </a>
-              ))}
+            <nav aria-label="All sections" className="mobile-navigation-links">
+              <details className="mobile-departments" open>
+                <summary>Departments <ChevronDown size={18} aria-hidden="true" /></summary>
+                <ul>
+                  {DEPARTMENTS.map(department => <li key={department.id}><a href={`#department-${department.id}`} onClick={() => setIsMenuOpen(false)}>{department.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
+                </ul>
+              </details>
+              {navLinks.slice(1).map(link => <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}
             </nav>
 
             <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">

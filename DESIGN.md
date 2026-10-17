@@ -65,3 +65,11 @@ Keep native dialog semantics, keyboard focus indicators, internal dialog scrolli
 ## Responsive verification
 
 Inspect desktop and phone together when changing surfaces or type. Check intermediate widths when layout structure changes. Keep navigation targets usable at narrow widths and avoid horizontal overflow. Browser viewport emulation is not a substitute for physical-device touch or cross-browser testing.
+
+## Care journey and department navigation
+
+The user requested open, minimal process steps instead of cards. How It Works now uses a single rounded S-shaped SVG route with four numbered stops. Each segment is driven by the scroll distance between its two steps; copy reveals with a small translation and opacity change. There is no section pin. At phone widths the route moves to the left gutter and the copy stays in one column. Reduced motion shows the complete line and all content.
+
+Desktop navigation has plain section links and a native Departments disclosure that opens on mouse hover or keyboard/click. The menu button is reserved for widths below 1024px. All five departments from the supplied document are independent: Gynecology & Obstetrics, Pediatrics, Outpatient Department, Internal Medicine and Laboratory Testing. Each has a shareable hash reading view with service lists, explanations and reception actions. Summaries remain in the scroll-driven landing chapters. The How We Care for You section has been removed by request.
+
+The founder is Imran Islam, Founder, with no clinical title. The old stock doctor portrait was replaced by existing IMC interior photography, accurately captioned as the complex rather than a portrait. Full department copy is edited from IMC Department details.docx; repetitions, unsubstantiated best-in-city rankings and paragraphs explicitly about another hospital are omitted. Clinical service descriptions are retained without adding new claims.

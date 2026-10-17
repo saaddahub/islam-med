@@ -10,7 +10,6 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
     const root = rootRef.current;
     if (!root || reduced || document.documentElement.dataset.motion === 'none') return;
     const media = gsap.matchMedia();
-    const steps = Array.from(root.querySelectorAll<HTMLElement>('[data-care-step]'));
     let active = true;
 
     media.add({
@@ -31,7 +30,7 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
           scrub: 0.4, invalidateOnRefresh: true,
         };
 
-        // Four readable stops, with direct selection still available throughout.
+        // One readable stop per department; direct selection remains available.
         const departmentCount = departments.querySelectorAll('[data-department-row]').length;
         let lastDepartment = -1;
         const selectDepartment = (self: ScrollTrigger) => {
@@ -44,7 +43,7 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
         };
         ScrollTrigger.create({
           ...pinOptions, id: 'cinema-departments', trigger: departments, refreshPriority: 2,
-          end: () => `+=${window.innerHeight * 2.6}`,
+          end: () => `+=${window.innerHeight * departmentCount * 0.65}`,
           onUpdate: selectDepartment,
           onRefresh: selectDepartment,
         });
@@ -77,15 +76,6 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
         });
       }
 
-      // A contained, two-line editorial reveal introduces the clinical journey without pinning it.
-      const care = root.querySelector('#care-story')!;
-      gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-        trigger: care, start: 'top 88%', end: 'top 35%', scrub: 0.35,
-      } })
-        .fromTo('[data-care-line]', { yPercent: 110 }, { yPercent: 0, stagger: 0.08, duration: 0.55 }, 0)
-        .fromTo('[data-care-rule]', { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.5 }, 0.12)
-        .fromTo('[data-care-detail]', { x: 35, opacity: 0.35 }, { x: 0, opacity: 1, duration: 0.5 }, 0.15);
-
       const founder = root.querySelector('#about')!;
       gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
         trigger: founder, start: 'top 85%', end: 'top 20%', scrub: 0.45,
@@ -97,21 +87,9 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
           { clipPath: 'inset(-10% 0% -10% 0%)', x: 0, duration: 0.45 }, 0.12)
         .fromTo('[data-founder-copy]', { y: 35, opacity: 0.3 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.42 }, 0.22);
 
-      const route = root.querySelector<HTMLElement>('[data-care-route]');
-      const fill = root.querySelector('[data-care-progress]');
-      if (route && fill) {
-        gsap.fromTo(fill, { scaleY: 0 }, { scaleY: 1, ease: 'none',
-          scrollTrigger: { trigger: route, start: 'top 60%', end: 'bottom 60%', scrub: 0.3 },
-        });
-        steps.forEach(step => {
-          const update = (self: ScrollTrigger) => { step.dataset.passed = String(self.scroll() >= self.start); };
-          ScrollTrigger.create({ trigger: step, start: 'top 60%', end: 'bottom 60%', onUpdate: update, onRefresh: update });
-        });
-      }
       return () => {
         root.classList.remove('cinema-active');
         root.querySelectorAll('[data-scene-progress]').forEach(element => element.removeAttribute('data-scene-progress'));
-        steps.forEach(step => delete step.dataset.passed);
       };
     }, root);
 

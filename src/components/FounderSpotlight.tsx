@@ -16,8 +16,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               <div className="founder-portrait-crop">
                 <img
                   data-founder-portrait
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=85&w=1000"
-                  alt="Dr. Imran Islam, Founder & Medical Director"
+                  src="/directory-corridor.jpg"
+                  alt="Inside Islam Medical Complex, Sabzazar, Lahore"
                   width={800}
                   height={1000}
                   loading="lazy"
@@ -33,8 +33,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
 
           <div className="founder-content">
             <div>
-              <h2 id="founder-name" data-founder-heading className="font-editorial">Dr. Imran Islam</h2>
-              <p className="founder-role">Founder &amp; Medical Director</p>
+              <h2 id="founder-name" data-founder-heading className="font-editorial">Imran Islam</h2>
+              <p className="founder-role">Founder</p>
             </div>
 
             <div data-founder-copy>
@@ -52,7 +52,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               <div className="founder-practice">
                 <h3>Our approach to care</h3>
                 <p>Personal attention, cleanliness and comfort are central to how patients are welcomed and cared for.</p>
-                <ul aria-label="Clinical approach">
+                <ul aria-label="Our approach">
                   <li>Women's &amp; Children's Health</li>
                   <li>Adult &amp; Preventive Care</li>
                   <li>Clear Communication &amp; Personal Attention</li>
@@ -65,7 +65,7 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                   onClick={onOpenAppointment}
                   className="founder-consult transition-[background-color,transform] duration-150 active:scale-95"
                 >
-                  <span>Schedule consultation</span>
+                  <span>Contact reception</span>
                   <ArrowUpRight size={19} aria-hidden="true" />
                 </button>
                 <a href="#facilities" className="founder-campus transition-[background-color,transform] duration-150 active:scale-95">

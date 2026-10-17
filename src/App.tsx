@@ -1,10 +1,9 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useLenis from './lib/useLenis';
 import { usePageMotion } from './lib/usePageMotion';
 import { useCinematicScrollMotion } from './lib/useCinematicScrollMotion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import DarkPanelSlide from './components/DarkPanelSlide';
 import ServiceAccordion from './components/ServiceAccordion';
 import DoctorList from './components/DoctorList';
 import FacilityReveal from './components/FacilityReveal';
@@ -15,12 +14,47 @@ import Footer from './components/Footer';
 import AppointmentModal from './components/AppointmentModal';
 import DoctorProfileModal from './components/DoctorProfileModal';
 import type { Doctor } from './data/doctors';
+import { DEPARTMENTS } from './data/departments';
+import DepartmentPage from './components/DepartmentPage';
 
-export function App() {
+function LandingPage({ onOpenAppointment, onSelectDoctor }: { onOpenAppointment: () => void; onSelectDoctor: (doctor: Doctor) => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  useLenis();
   usePageMotion();
   useCinematicScrollMotion(rootRef);
+  return <div ref={rootRef}>
+    <Hero onOpenAppointment={onOpenAppointment} />
+    <ServiceAccordion onOpenAppointment={onOpenAppointment} />
+    <FacilityReveal />
+    <DoctorList onSelectDoctor={onSelectDoctor} onOpenAppointment={onOpenAppointment} />
+    <StickyImagePairSection />
+    <HowItWorksSticky onOpenAppointment={onOpenAppointment} />
+    <FounderSpotlight onOpenAppointment={onOpenAppointment} />
+  </div>;
+}
+
+const readDepartment = () => DEPARTMENTS.find(department => location.hash === `#department-${department.id}`);
+
+export function App() {
+  const [department, setDepartment] = useState(readDepartment);
+  // Remount scroll smoothing with each reading view, clearing any old scroll momentum.
+  useLenis(department?.id);
+  useEffect(() => {
+    const update = () => setDepartment(readDepartment());
+    window.addEventListener('hashchange', update);
+    return () => window.removeEventListener('hashchange', update);
+  }, []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (department) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        document.getElementById('department-title')?.focus({ preventScroll: true });
+      } else if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const target = document.getElementById(location.hash.slice(1) || 'top');
+        target?.scrollIntoView({ behavior: 'instant' });
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [department]);
   const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
 
@@ -30,18 +64,13 @@ export function App() {
   };
 
   return (
-    <div id="top" ref={rootRef} className="min-h-screen bg-imc-paper text-imc-ink flex flex-col selection:bg-imc-blue selection:text-white">
+    <div id="top" className="min-h-screen bg-imc-paper text-imc-ink flex flex-col selection:bg-imc-blue selection:text-white">
       <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar onOpenAppointment={openAppointment} />
       <main id="main-content" tabIndex={-1}>
-      <Hero onOpenAppointment={openAppointment} />
-      <DarkPanelSlide />
-      <ServiceAccordion onOpenAppointment={openAppointment} />
-      <FacilityReveal />
-      <DoctorList onSelectDoctor={setSelectedDoctor} onOpenAppointment={openAppointment} />
-      <StickyImagePairSection />
-      <HowItWorksSticky onOpenAppointment={openAppointment} />
-      <FounderSpotlight onOpenAppointment={openAppointment} />
+      {department
+        ? <DepartmentPage key={department.id} department={department} onOpenAppointment={openAppointment} />
+        : <LandingPage onOpenAppointment={openAppointment} onSelectDoctor={setSelectedDoctor} />}
       </main>
       <Footer onOpenAppointment={openAppointment} />
       <AppointmentModal isOpen={isAppointmentOpen} onClose={() => setIsAppointmentOpen(false)} />

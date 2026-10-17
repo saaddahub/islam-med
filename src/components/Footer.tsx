@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUp, ArrowUpRight, Phone, Mail, MapPin, ShieldCheck, Clock, Heart } from 'lucide-react';
 import Logo from './Logo';
+import { DEPARTMENTS } from '../data/departments';
 import { CLINIC, CLINIC_MAP_URL } from '../data/clinic';
 
 interface FooterProps {
@@ -55,12 +56,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
               DIVISIONS
             </h4>
             <ul className="space-y-2 font-sans">
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Gynecology &amp; Obstetrics</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Pediatrics</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Outpatient Consultations</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Internal Medicine</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Laboratory Testing</a></li>
-              <li><a href="#departments" className="hover:text-white transition-colors duration-150">Gynecological Emergency</a></li>
+              {DEPARTMENTS.map(department => <li key={department.id}>
+                <a href={`#department-${department.id}`} className="hover:text-white transition-colors duration-150">{department.name}</a>
+              </li>)}
             </ul>
           </div>
 

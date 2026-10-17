@@ -14,8 +14,8 @@ export interface Department {
   stat: string;
 }
 
-// Content source: IMC Department details.docx. OPD and internal medicine share
-// one chapter so the established four-stage scroll sequence stays intact.
+// Content source: IMC Department details.docx. Full service information lives
+// in departmentDetails.ts; these summaries keep the landing-page chapters readable.
 export const DEPARTMENTS: Department[] = [
   {
     id: 'gynecology',
@@ -68,10 +68,10 @@ export const DEPARTMENTS: Department[] = [
     stat: 'Inpatient & Outpatient Care',
   },
   {
-    id: 'internal-medicine',
+    id: 'outpatients',
     number: '03.',
-    name: 'OPD & Internal Medicine',
-    shortDesc: 'Outpatient assessment, treatment and referral, alongside adult preventive care and management of chronic or complex conditions affecting more than one organ system.',
+    name: 'Outpatient Department',
+    shortDesc: 'Screening, examination, treatment and referral to the appropriate medical or surgical specialist, with consultant clinics from morning to late evening.',
     services: [
       {
         number: '01',
@@ -80,21 +80,34 @@ export const DEPARTMENTS: Department[] = [
       },
       {
         number: '02',
-        name: 'Adult & Chronic-Condition Care',
-        detail: 'Assessment and management of adult health concerns, including diabetes, hypertension, asthma and other long-term conditions.',
+        name: 'Reception & Guidance',
+        detail: 'Multiple reception counters offer information and assistance, with attention to privacy, dignity, communication and personal comfort.',
       },
       {
         number: '03',
-        name: 'Prevention & Coordinated Care',
-        detail: 'Preventive care, assessment of recurring symptoms and coordination with other specialties for complex or multi-system illnesses.',
+        name: 'Medical & Surgical Clinics',
+        detail: 'Consultant clinics cover medical and surgical specialties for both adults and children.',
       },
     ],
-    careTeam: 'Outpatient & adult medicine',
+    careTeam: 'Outpatient consultations & referrals',
     stat: 'Morning to Late Evening Clinics',
   },
   {
-    id: 'laboratory',
+    id: 'internal-medicine',
     number: '04.',
+    name: 'Internal Medicine',
+    shortDesc: 'Adult primary and preventive care, with diagnosis and treatment of chronic, complex and multi-system illnesses in coordination with other specialties.',
+    services: [
+      { number: '01', name: 'Adult & Preventive Care', detail: 'Primary care, age-related health concerns and assessment of persistent or recurring symptoms.' },
+      { number: '02', name: 'Long-Term Conditions', detail: 'Management of diabetes, hypertension, asthma, cardiac conditions and other chronic illnesses.' },
+      { number: '03', name: 'Complex Diagnoses', detail: 'Coordinated care for conditions affecting the lungs, heart, kidneys, digestive system, nervous system and joints.' },
+    ],
+    careTeam: 'Adult health & coordinated care',
+    stat: 'Primary & Preventive Care',
+  },
+  {
+    id: 'laboratory',
+    number: '05.',
     name: 'Laboratory Testing',
     shortDesc: 'Diagnostic and laboratory testing supports clinical assessment, diagnosis, treatment decisions and ongoing patient care at Islam Medical Complex.',
     services: [

@@ -17,7 +17,7 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
           <h1 className="hero-headline font-serif-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-imc-ink leading-[1.02]">
             <span data-hero-line className="hero-line">Care that feels</span>{' '}
             <span data-hero-line className="hero-line relative inline-block italic font-normal text-imc-ink">
-              closer
+              Closer
               <SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
             </span>{' '}
             <span data-hero-line className="hero-line">than you think.</span>

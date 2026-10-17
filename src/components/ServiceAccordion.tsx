@@ -39,6 +39,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
       className="department-section relative z-20 w-full bg-imc-night text-white py-14 sm:py-20 selection:bg-imc-blue selection:text-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <h2 className="department-section-title font-editorial">Our departments</h2>
         <div className="hidden md:flex items-center justify-between pb-4 mb-3 border-b border-white/10">
 
           <div className="text-xs font-label text-slate-400">
@@ -164,7 +165,7 @@ export const ServiceAccordion: React.FC<ServiceAccordionProps> = ({
                         <div className="flex flex-wrap items-center justify-between gap-4 pt-2.5 border-t border-white/10">
                           <div className="flex items-center gap-2 text-xs text-slate-400">
                             <Stethoscope className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
-                            <span>{dept.careTeam}</span>
+                            <a className="department-detail-link" href={`#department-${dept.id}`}>All services &amp; department information <ArrowUpRight size={16} aria-hidden="true" /></a>
                           </div>
 
                           <button

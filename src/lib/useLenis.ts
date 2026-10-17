@@ -3,7 +3,7 @@ import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from './useScrollTrigger';
 import { useReducedMotion } from './useReducedMotion';
 
-export function useLenis() {
+export function useLenis(viewKey?: string) {
   const reduced = useReducedMotion();
   useEffect(() => {
     if (reduced) return;
@@ -27,6 +27,30 @@ export function useLenis() {
 
     gsap.ticker.add(tickerCallback);
 
+    // A department reading view remounts the landing scenes. Their async hero pin
+    // can shift anchors after navigation; align again on refresh until user input.
+    const anchor = window.location.hash.slice(1);
+    let anchorFrame = 0;
+    let followAnchor = true;
+    const alignAnchor = () => {
+      cancelAnimationFrame(anchorFrame);
+      if (!followAnchor) return;
+      anchorFrame = requestAnimationFrame(() => {
+        if (!followAnchor) return;
+        lenis.resize();
+        const target = document.getElementById(anchor);
+        const pinnedStart = anchor === 'departments' ? ScrollTrigger.getById('cinema-departments')?.start : undefined;
+        lenis.scrollTo(pinnedStart !== undefined ? pinnedStart + 1 : target || 0, {
+          immediate: true, force: true, offset: pinnedStart !== undefined || !target || anchor === 'top' ? 0 : -96,
+        });
+      });
+    };
+    const stopFollowing = () => { followAnchor = false; cancelAnimationFrame(anchorFrame); };
+    const inputEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'] as const;
+    inputEvents.forEach(type => window.addEventListener(type, stopFollowing, { passive: true }));
+    ScrollTrigger.addEventListener('refresh', alignAnchor);
+    alignAnchor();
+
     let dialogWasOpen = false;
     const syncDialog = () => {
       const dialogIsOpen = Boolean(document.querySelector('dialog[open]'));
@@ -44,11 +68,14 @@ export function useLenis() {
     });
 
     return () => {
+      cancelAnimationFrame(anchorFrame);
+      inputEvents.forEach(type => window.removeEventListener(type, stopFollowing));
+      ScrollTrigger.removeEventListener('refresh', alignAnchor);
       dialogObserver.disconnect();
       lenis.destroy();
       gsap.ticker.remove(tickerCallback);
     };
-  }, [reduced]);
+  }, [reduced, viewKey]);
 }
 
 export default useLenis;

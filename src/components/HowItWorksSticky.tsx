@@ -1,132 +1,107 @@
-import React from 'react';
+import { useLayoutEffect, useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/processSteps';
-import { ArrowUpRight, CheckCircle2, UserCheck, CalendarDays, HeartPulse, MessageSquareQuote } from 'lucide-react';
-import SquiggleUnderline from './SquiggleUnderline';
+import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
+import { useReducedMotion } from '../lib/useReducedMotion';
 
-interface HowItWorksStickyProps {
-  onOpenAppointment: () => void;
-}
+export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointment: () => void }) {
+  const routeRef = useRef<HTMLOListElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const reduced = useReducedMotion();
 
-export const HowItWorksSticky: React.FC<HowItWorksStickyProps> = ({ onOpenAppointment }) => {
-  const getStepIcon = (index: number) => {
-    switch (index) {
-      case 0:
-        return <UserCheck className="w-5 h-5 text-imc-blue" aria-hidden="true" />;
-      case 1:
-        return <CalendarDays className="w-5 h-5 text-imc-blue" aria-hidden="true" />;
-      case 2:
-        return <HeartPulse className="w-5 h-5 text-imc-blue" aria-hidden="true" />;
-      case 3:
-      default:
-        return <MessageSquareQuote className="w-5 h-5 text-imc-blue" aria-hidden="true" />;
-    }
-  };
+  useLayoutEffect(() => {
+    const route = routeRef.current;
+    const svg = svgRef.current;
+    if (!route || !svg) return;
+    let context: ReturnType<typeof gsap.context> | undefined;
+    let frame = 0;
+    let lastSize = '';
+    const rows = Array.from(route.querySelectorAll<HTMLElement>('[data-journey-step]'));
+    const draw = () => {
+      const width = route.clientWidth;
+      const height = route.clientHeight;
+      const size = `${width}:${height}`;
+      if (size === lastSize) return;
+      lastSize = size;
+      context?.revert();
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      const compact = width < 640;
+      const anchors = rows.map((row, index) => ({
+        x: compact ? 24 : width * (index % 2 === 0 ? 0.1 : 0.9),
+        y: row.offsetTop + 24,
+      }));
+      const progressPaths = Array.from(svg.querySelectorAll<SVGPathElement>('[data-journey-progress]'));
+      anchors.slice(0, -1).forEach((point, index) => {
+        const next = anchors[index + 1];
+        const right = index % 2 === 0;
+        const bend = compact ? (right ? 42 : 6) : (right ? width - 16 : 16);
+        const radius = compact ? 18 : Math.min(64, (next.y - point.y) / 2);
+        const entry = right ? bend - radius : bend + radius;
+        const path = `M ${point.x} ${point.y} H ${entry} Q ${bend} ${point.y} ${bend} ${point.y + radius} V ${next.y - radius} Q ${bend} ${next.y} ${entry} ${next.y} H ${next.x}`;
+        svg.querySelector(`[data-journey-track="${index}"]`)?.setAttribute('d', path);
+        progressPaths[index].setAttribute('d', path);
+      });
+      if (reduced || document.documentElement.dataset.motion === 'none') return;
+      context = gsap.context(() => {
+        // Each segment completes at the next step, keeping the line and copy in sync.
+        // SVG paint is limited to the single thin route; text uses transform/opacity.
+        progressPaths.forEach((path, index) => {
+          gsap.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, ease: 'none',
+            scrollTrigger: { trigger: rows[index], endTrigger: rows[index + 1], start: 'top+=24 65%', end: 'top+=24 65%', scrub: true },
+          });
+        });
+        rows.forEach(row => {
+          gsap.fromTo(row.querySelector('[data-journey-copy]'), { y: 14, opacity: 0.35 }, { y: 0, opacity: 1, ease: 'none',
+            scrollTrigger: { trigger: row, start: 'top 83%', end: 'top 65%', scrub: true },
+          });
+          const update = (self: ScrollTrigger) => { row.dataset.passed = String(self.scroll() >= self.start); };
+          ScrollTrigger.create({ trigger: row, start: 'top+=24 65%', onUpdate: update, onRefresh: update });
+        });
+      }, route);
+      ScrollTrigger.refresh();
+    };
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(draw);
+    });
+    observer.observe(route);
+    draw();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      context?.revert();
+      rows.forEach(row => delete row.dataset.passed);
+    };
+  }, [reduced]);
 
-  return (
-    <section id="how-it-works" data-stack="in" className="relative z-20 w-full bg-imc-paper text-imc-ink py-24 sm:py-32 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Two Column Layout: Left Column Sticky, Right Column Scrolling Stack */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-
-          {/* Left Column (Sticky / Pinned via CSS sticky) */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
-
-            <h2 data-reveal="mask" className="font-serif-display text-5xl sm:text-6xl md:text-7xl text-imc-ink leading-[0.95]">
-              How it{' '}
-              <span className="relative inline-block italic font-normal text-imc-ink">
-                works
-                <SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
-              </span>
-            </h2>
-
-            <p data-reveal="up" className="font-sans text-base sm:text-lg text-imc-body leading-relaxed font-normal">
-              From choosing a department to planning your next visit, our reception
-              and clinical teams help you understand each step of your care.
-            </p>
-
-            {/* Persistent CTA block (pill button + circular arrow icon) */}
-            <div className="p-6 rounded-3xl bg-imc-night text-white space-y-4 border border-white/10">
-              <div className="space-y-1">
-                <span className="text-[11px] font-label text-imc-mist uppercase tracking-wider">
-                  RECEPTION &amp; APPOINTMENTS
-                </span>
-                <div className="font-editorial text-xl uppercase tracking-tight text-white">
-                  Ready for personalized attention?
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={onOpenAppointment}
-                className="w-full py-3 px-5 rounded-full bg-imc-blue text-white font-medium text-xs uppercase tracking-wider hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-                <span>Book Visit Now</span>
-              </button>
+  return <section id="how-it-works" className="journey-section" aria-labelledby="journey-title">
+    <div className="journey-container">
+      <header className="journey-heading">
+        <h2 id="journey-title" className="font-editorial">How it <em>works.</em></h2>
+        <p>From choosing a department to planning your next visit, our reception and clinical teams help you understand each step of your care.</p>
+      </header>
+      <div className="journey-map">
+        <svg ref={svgRef} className="journey-line" aria-hidden="true" fill="none" preserveAspectRatio="none">
+          {PROCESS_STEPS.slice(0, -1).map((step, index) => <g key={step.step}>
+            <path data-journey-track={index} className="journey-line-track" />
+            <path data-journey-progress pathLength="1" strokeDasharray="1 1" className="journey-line-fill" />
+          </g>)}
+        </svg>
+        <ol ref={routeRef} className="journey-steps">
+          {PROCESS_STEPS.map(step => <li key={step.step} data-journey-step className="journey-step">
+            <span className="journey-marker" aria-hidden="true">{step.step}</span>
+            <div data-journey-copy className="journey-copy">
+              <h3 className="font-editorial">{step.title}</h3>
+              <p>{step.description}</p>
+              <p className="journey-note">{step.highlight}</p>
             </div>
-
-          </div>
-
-          {/* Right Column: Stack of Full-Color Pastel Blocks */}
-          <div data-care-route className="care-route lg:col-span-7 space-y-6">
-            <div className="care-route-track" aria-hidden="true">
-              <div data-care-progress className="care-route-progress" />
-            </div>
-            {PROCESS_STEPS.map((step, idx) => {
-              const isBlue = step.bgVariant === 'lavender';
-
-              return (
-                <div
-                  data-reveal="up"
-                  data-care-step
-                  key={step.step}
-                  className={`care-route-step relative p-6 sm:p-10 rounded-[2rem] border transition-shadow duration-200 hover:shadow-md ${
-                    isBlue
-                      ? 'bg-imc-linen border-imc-sand'
-                      : 'bg-imc-linen border-imc-sand'
-                  }`}
-                >
-                  <span className="care-route-marker" aria-hidden="true" />
-                  {/* Top-Right Line Icon & Step Number */}
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="font-label text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-white/25 text-imc-ink border border-black/10">
-                      Step {step.step}
-                    </span>
-
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/25 border border-black/10">
-                      {getStepIcon(idx)}
-                    </div>
-                  </div>
-
-                  {/* Headline & Description */}
-                  <div className="space-y-3">
-                    <h3 className="font-editorial text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-imc-ink">
-                      {step.title}
-                    </h3>
-
-                    <p className="font-sans text-sm sm:text-base text-imc-body leading-relaxed font-normal">
-                      {step.description}
-                    </p>
-                  </div>
-
-                  {/* Highlight pill at bottom */}
-                  <div className="mt-6 pt-4 border-t border-black/15 flex items-center gap-2 text-xs font-sans text-imc-body font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-imc-blue shrink-0" aria-hidden="true" />
-                    <span>{step.highlight}</span>
-                  </div>
-
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-
+          </li>)}
+        </ol>
       </div>
-    </section>
-  );
-};
-
-export default HowItWorksSticky;
-
+      <div className="journey-action">
+        <p className="font-editorial">We’ll help you take the first step.</p>
+        <button type="button" onClick={onOpenAppointment} className="founder-consult">Arrange your visit <ArrowUpRight size={18} aria-hidden="true" /></button>
+      </div>
+    </div>
+  </section>;
+}
