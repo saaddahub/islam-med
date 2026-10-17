@@ -2,32 +2,27 @@ export interface ProcessStep {
   step: string;
   title: string;
   description: string;
-  highlight: string;
 }
 
 export const PROCESS_STEPS: ProcessStep[] = [
   {
     step: '01',
     title: 'Find your care',
-    description: "Explore women's health, pediatrics, outpatient and internal medicine, or laboratory services to find the care you need.",
-    highlight: 'Reception can help you choose the appropriate department.',
+    description: 'Choose a department, or ask reception to help you find the right care.',
   },
   {
     step: '02',
     title: 'Arrange your visit',
-    description: 'Call reception to confirm your consultant, clinic timings and any information to bring to your appointment.',
-    highlight: 'Visit Islam Medical Complex in Sabzazar, Lahore.',
+    description: 'Confirm your consultant, clinic time and what to bring with reception.',
   },
   {
     step: '03',
     title: 'Meet your clinician',
-    description: 'Your clinician will assess your concerns and discuss treatment, relevant tests or referral to another specialist.',
-    highlight: 'Care with attention to privacy, dignity and clear communication.',
+    description: 'Discuss your concerns, assessment and treatment with your clinician.',
   },
   {
     step: '04',
     title: 'Plan the next step',
-    description: 'Discuss your treatment plan, recommended investigations and any follow-up arrangements with your clinical team.',
-    highlight: 'Contact reception for help arranging a return visit.',
+    description: 'Leave with a clear plan for treatment, tests and any follow-up.',
   },
 ];

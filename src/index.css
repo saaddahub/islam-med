@@ -723,29 +723,28 @@ html.lenis, html.lenis body {
   .desktop-nav-link { padding-inline: 8px; font-size: 11px; }
 }
 
-/* Four open steps, joined by a continuous rounded S path. */
-.journey-section { position: relative; z-index: 20; padding: 112px 0 104px; border-top: 1px solid var(--color-imc-sand); background: var(--color-imc-paper); color: var(--color-imc-ink); }
-.journey-container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-.journey-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 56px; margin-bottom: 64px; }
-.journey-heading h2 { font-size: clamp(3.5rem, 6.5vw, 6rem); flex-shrink: 0; }
-.journey-heading p { max-width: 440px; color: var(--color-imc-body); font-size: 16px; line-height: 1.75; }
-.journey-map { position: relative; max-width: 1100px; margin: auto; }
+/* Compact alternating steps follow a narrow, vertically flowing S. */
+.journey-section { position: relative; z-index: 20; padding: 72px 0; border-top: 1px solid var(--color-imc-sand); background: var(--color-imc-paper); color: var(--color-imc-ink); }
+.journey-container { max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+.journey-heading { display: flex; justify-content: space-between; align-items: center; gap: 40px; margin-bottom: 40px; }
+.journey-heading h2 { font-size: clamp(3rem, 5vw, 4.5rem); flex-shrink: 0; }
+.journey-heading p { max-width: 310px; color: var(--color-imc-body); font-size: 14px; line-height: 1.7; }
+.journey-map { position: relative; max-width: 800px; margin: auto; }
 .journey-line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .journey-line path { stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .journey-line-track { stroke: var(--color-imc-sand); }
 .journey-line-fill { stroke: var(--color-imc-blue); }
 .journey-steps { position: relative; list-style: none; margin: 0; padding: 0; }
-.journey-step { position: relative; min-height: 262px; padding: 64px 10% 44px; }
-.journey-copy { width: 48%; max-width: 430px; }
-.journey-step:nth-child(even) .journey-copy { margin-left: auto; }
-.journey-marker { position: absolute; top: 0; left: 10%; transform: translateX(-50%); display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--color-imc-blue); border-radius: 50%; background: var(--color-imc-blue); color: var(--color-imc-paper); font-size: 12px; font-variant-numeric: tabular-nums; transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
-.journey-step:nth-child(even) .journey-marker { left: 90%; }
+.journey-step { position: relative; min-height: 124px; padding: 0 0 28px; }
+.journey-step:last-child { min-height: 0; padding-bottom: 0; }
+.journey-copy { width: calc(50% - 80px); text-align: right; }
+.journey-step:nth-child(even) .journey-copy { margin-left: auto; text-align: left; }
+.journey-marker { position: absolute; top: 0; left: calc(50% - 38px); transform: translateX(-50%); display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid var(--color-imc-blue); border-radius: 50%; background: var(--color-imc-blue); color: var(--color-imc-paper); font-size: 10px; font-variant-numeric: tabular-nums; transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+.journey-step:nth-child(even) .journey-marker { left: calc(50% + 38px); }
 .journey-step[data-passed="false"] .journey-marker { background: var(--color-imc-paper); color: var(--color-imc-muted); border-color: var(--color-imc-sand); }
-.journey-copy h3 { font-size: clamp(2rem, 3vw, 2.7rem); margin-bottom: 14px; }
-.journey-copy > p { font-size: 15px; line-height: 1.75; color: var(--color-imc-body); }
-.journey-copy .journey-note { margin-top: 16px; max-width: 36ch; font-size: 12px; color: var(--color-imc-muted); }
-.journey-action { display: flex; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid var(--color-imc-sand); padding-top: 36px; margin-top: 8px; }
-.journey-action p { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+.journey-copy h3 { font-size: clamp(1.6rem, 2.5vw, 1.9rem); margin-bottom: 8px; }
+.journey-copy > p { font-size: 14px; line-height: 1.65; color: var(--color-imc-body); }
+.journey-action { display: flex; justify-content: center; margin-top: 28px; }
 
 /* Complete department reading views share the landing page's editorial scale. */
 .department-section-title { font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 24px; }
@@ -783,17 +782,17 @@ html.lenis, html.lenis body {
   .cinema-active [data-department-row] > button { padding: 1.1rem 0; }
 }
 @media (max-width: 1023px) {
-  .journey-heading { display: block; }
-  .journey-heading p { max-width: 560px; margin-top: 24px; }
+  .journey-heading { gap: 24px; }
+
   .department-reading-layout { gap: 48px; grid-template-columns: minmax(0, 1fr) 260px; }
 }
 @media (max-width: 767px) {
-  .journey-section { padding: 72px 0; }
+  .journey-section { padding: 56px 0; }
   .journey-container, .department-reading-container { padding: 0 24px; }
-  .journey-heading { margin-bottom: 40px; }
-  .journey-heading h2 { font-size: clamp(3rem, 10vw, 4.5rem); }
-  .journey-heading p { font-size: 15px; }
-  .journey-action { flex-direction: column; align-items: flex-start; }
+  .journey-heading { display: block; margin-bottom: 32px; }
+  .journey-heading h2 { font-size: 3rem; }
+  .journey-heading p { font-size: 14px; margin-top: 16px; max-width: 36ch; }
+
   .department-reading { padding: 112px 0 72px; }
   .department-reading-heading { margin-top: 24px; padding-bottom: 32px; }
   .department-reading-heading > p { font-size: 16px; }
@@ -802,10 +801,10 @@ html.lenis, html.lenis body {
   .department-reading-section + .department-reading-section { margin-top: 36px; }
 }
 @media (max-width: 687px) {
-  .journey-step { padding: 4px 0 44px 72px; min-height: 220px; }
-  .journey-copy { width: 100%; max-width: none; }
-  .journey-step .journey-marker, .journey-step:nth-child(even) .journey-marker { left: 24px; width: 40px; height: 40px; top: 4px; }
-  .journey-copy h3 { font-size: 2rem; margin: 7px 0 14px; }
-  .journey-copy > p { font-size: 14px; }
-  .journey-copy .journey-note { font-size: 12px; }
+  .journey-step { padding: 0 0 24px 64px; min-height: 120px; }
+  .journey-copy, .journey-step:nth-child(even) .journey-copy { width: 100%; max-width: none; text-align: left; }
+  .journey-step .journey-marker { left: 18px; }
+  .journey-step:nth-child(even) .journey-marker { left: 34px; }
+  .journey-copy h3 { font-size: 1.65rem; }
+  .journey-action { justify-content: flex-start; padding-left: 64px; }
 }

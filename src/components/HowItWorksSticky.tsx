@@ -25,19 +25,16 @@ export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointm
       lastSize = size;
       context?.revert();
       svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-      const compact = width < 640;
-      const anchors = rows.map((row, index) => ({
-        x: compact ? 24 : width * (index % 2 === 0 ? 0.1 : 0.9),
-        y: row.offsetTop + 24,
-      }));
+      const anchors = rows.map(row => {
+        const marker = row.querySelector<HTMLElement>('.journey-marker')!;
+        return { x: marker.offsetLeft, y: row.offsetTop + marker.offsetTop + marker.offsetHeight / 2 };
+      });
       const progressPaths = Array.from(svg.querySelectorAll<SVGPathElement>('[data-journey-progress]'));
       anchors.slice(0, -1).forEach((point, index) => {
         const next = anchors[index + 1];
-        const right = index % 2 === 0;
-        const bend = compact ? (right ? 42 : 6) : (right ? width - 16 : 16);
-        const radius = compact ? 18 : Math.min(64, (next.y - point.y) / 2);
-        const entry = right ? bend - radius : bend + radius;
-        const path = `M ${point.x} ${point.y} H ${entry} Q ${bend} ${point.y} ${bend} ${point.y + radius} V ${next.y - radius} Q ${bend} ${next.y} ${entry} ${next.y} H ${next.x}`;
+        const tangent = (next.y - point.y) * 0.52;
+        // Vertical tangents join each bend smoothly into one narrow, flowing S.
+        const path = `M ${point.x} ${point.y} C ${point.x} ${point.y + tangent} ${next.x} ${next.y - tangent} ${next.x} ${next.y}`;
         svg.querySelector(`[data-journey-track="${index}"]`)?.setAttribute('d', path);
         progressPaths[index].setAttribute('d', path);
       });
@@ -47,15 +44,15 @@ export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointm
         // SVG paint is limited to the single thin route; text uses transform/opacity.
         progressPaths.forEach((path, index) => {
           gsap.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, autoRound: false, ease: 'none',
-            scrollTrigger: { trigger: rows[index], endTrigger: rows[index + 1], start: 'top+=24 65%', end: 'top+=24 65%', scrub: true },
+            scrollTrigger: { trigger: rows[index], endTrigger: rows[index + 1], start: 'top+=14 65%', end: 'top+=14 65%', scrub: true },
           });
         });
         rows.forEach(row => {
-          gsap.fromTo(row.querySelector('[data-journey-copy]'), { y: 14, opacity: 0.35 }, { y: 0, opacity: 1, ease: 'none',
+          gsap.fromTo(row.querySelector('[data-journey-copy]'), { y: 8, opacity: 0.55 }, { y: 0, opacity: 1, ease: 'none',
             scrollTrigger: { trigger: row, start: 'top 83%', end: 'top 65%', scrub: true },
           });
           const update = (self: ScrollTrigger) => { row.dataset.passed = String(self.scroll() >= self.start); };
-          ScrollTrigger.create({ trigger: row, start: 'top+=24 65%', onUpdate: update, onRefresh: update });
+          ScrollTrigger.create({ trigger: row, start: 'top+=14 65%', onUpdate: update, onRefresh: update });
         });
       }, route);
       ScrollTrigger.refresh();
@@ -78,7 +75,7 @@ export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointm
     <div className="journey-container">
       <header className="journey-heading">
         <h2 id="journey-title" className="font-editorial">How it <em>works.</em></h2>
-        <p>From choosing a department to planning your next visit, our reception and clinical teams help you understand each step of your care.</p>
+        <p>A little guidance at every step, from your first enquiry to your follow-up.</p>
       </header>
       <div className="journey-map">
         <svg ref={svgRef} className="journey-line" aria-hidden="true" fill="none" preserveAspectRatio="none">
@@ -93,13 +90,11 @@ export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointm
             <div data-journey-copy className="journey-copy">
               <h3 className="font-editorial">{step.title}</h3>
               <p>{step.description}</p>
-              <p className="journey-note">{step.highlight}</p>
             </div>
           </li>)}
         </ol>
       </div>
       <div className="journey-action">
-        <p className="font-editorial">We’ll help you take the first step.</p>
         <button type="button" onClick={onOpenAppointment} className="founder-consult">Arrange your visit <ArrowUpRight size={18} aria-hidden="true" /></button>
       </div>
     </div>
