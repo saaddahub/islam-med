@@ -16,6 +16,7 @@ import DoctorProfileModal from './components/DoctorProfileModal';
 import type { Doctor } from './data/doctors';
 import { DEPARTMENTS } from './data/departments';
 import DepartmentPage from './components/DepartmentPage';
+import { useStartupReady } from './lib/useStartupReady';
 
 function LandingPage({ onOpenAppointment, onSelectDoctor }: { onOpenAppointment: () => void; onSelectDoctor: (doctor: Doctor) => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -38,6 +39,7 @@ export function App() {
   const [department, setDepartment] = useState(readDepartment);
   // Remount scroll smoothing with each reading view, clearing any old scroll momentum.
   useLenis(department?.id);
+  useStartupReady();
   useEffect(() => {
     const update = () => setDepartment(readDepartment());
     window.addEventListener('hashchange', update);

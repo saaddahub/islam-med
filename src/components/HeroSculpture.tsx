@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
+import { trackStartupTask } from '../lib/useStartupReady';
 
 export default function HeroSculpture() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -13,6 +14,10 @@ export default function HeroSculpture() {
       if (document.documentElement.dataset.motion !== 'full') return;
       const generation = ++generationRef.current;
       const controller = new AbortController();
+      let finishStartup: () => void = () => {};
+      trackStartupTask(new Promise<void>(resolve => { finishStartup = resolve; }));
+      // A slow or unsupported renderer falls back to the already decoded HTML photo.
+      const startupDeadline = setTimeout(() => { teardown(); ScrollTrigger.refresh(); }, 7000);
       let disposed = false;
       let scene: Awaited<ReturnType<typeof import('../lib/createHeroSculpture').createHeroSculpture>> | undefined;
       let context: ReturnType<typeof gsap.context> | undefined;
@@ -59,6 +64,8 @@ export default function HeroSculpture() {
       function teardown() {
         if (disposed) return;
         disposed = true;
+        clearTimeout(startupDeadline);
+        finishStartup();
         controller.abort();
         context?.revert();
         gsap.ticker.remove(draw);
@@ -112,6 +119,8 @@ export default function HeroSculpture() {
         hero.addEventListener('pointermove', movePointer, { passive: true });
         hero.addEventListener('pointerleave', resetPointer);
         ScrollTrigger.refresh();
+        clearTimeout(startupDeadline);
+        finishStartup();
       }).catch(() => {
         if (!isCurrent()) return;
         // HTML photograph and actions remain usable if WebGL initialization fails.

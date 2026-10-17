@@ -6,6 +6,7 @@
     <meta name="referrer" content="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F4EFE6" />
+    <link rel="stylesheet" href="/startup.css" />
     <title>Islam Medical Complex — Excellence in Modern Healthcare</title>
     <meta name="description" content="Islam Medical Complex in Sabzazar, Lahore — gynecology and obstetrics, pediatrics, outpatient and internal medicine consultations, and laboratory testing. Call +92 321 8410643." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +14,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="is-loading">
+    <div id="startup" class="startup" data-lenis-prevent>
+      <div class="startup-inner">
+        <p class="startup-brand">Islam Medical Complex</p>
+        <div class="startup-scenes" aria-hidden="true">
+          <figure class="startup-scene">
+            <svg viewBox="0 0 160 116">
+              <!-- Clinician guiding an ultrasound examination. -->
+              <path class="soft-stroke" d="M9 108H151M20 91H112M25 91V107M107 91V107" />
+              <circle cx="36" cy="37" r="8" />
+              <path d="M36 45V73L27 95M36 73L46 95M36 54L23 65V79" />
+              <g class="startup-probe"><path d="M36 54L53 59L73 76M69 76L76 78" /></g>
+              <circle cx="99" cy="69" r="6" />
+              <path d="M93 75L82 79Q75 69 65 78L58 84H40M82 79L91 85H108" />
+              <rect x="121" y="38" width="28" height="24" rx="3" />
+              <path d="M135 62V85M124 85H146M121 54C112 54 115 78 76 78" />
+              <path class="startup-screen soft-stroke" d="M127 55L135 44L143 55ZM132 52Q135 48 138 52" />
+            </svg>
+            <figcaption>Women’s health</figcaption>
+          </figure>
+          <figure class="startup-scene">
+            <svg viewBox="0 0 160 116">
+              <!-- Pediatrician listening while a child waves. -->
+              <path class="soft-stroke" d="M9 108H151M85 91H119M91 91V107M114 91V107" />
+              <circle cx="46" cy="32" r="8" />
+              <g class="startup-listen">
+                <path d="M46 40L55 68L44 98M55 68L65 98M48 48L65 54L86 69M45 47L34 61L44 74" />
+                <path class="soft-stroke" d="M45 44Q38 57 47 59Q56 59 53 48M47 59C42 74 78 81 86 69" />
+                <circle cx="87" cy="70" r="3" class="paper-fill" />
+              </g>
+              <circle cx="101" cy="57" r="7" />
+              <path d="M101 64V85L119 85V101M101 85L97 102M101 72L88 77" />
+              <g class="startup-wave"><path d="M101 72L115 69L120 55M117 55L120 59L124 56" /></g>
+            </svg>
+            <figcaption>Pediatrics</figcaption>
+          </figure>
+          <figure class="startup-scene">
+            <svg viewBox="0 0 160 116">
+              <!-- Laboratory clinician preparing a sample. -->
+              <path class="soft-stroke" d="M9 108H151M70 82H149M77 82V107M143 82V107" />
+              <circle cx="43" cy="31" r="8" />
+              <path d="M43 39L48 71L37 99M48 71L58 99M44 49L30 63L36 76" />
+              <g class="startup-lab-hand"><path d="M44 49L62 60L84 55M84 49V64M81 49H87M83 65V68" /></g>
+              <path d="M80 72V77Q80 81 84 81Q88 81 88 77V72M77 72H91" />
+              <path d="M105 77H132M111 77L117 66M120 45L126 50L114 68L108 64ZM125 55Q139 61 130 73M122 73H132" />
+              <path class="soft-stroke" d="M44 42V53M40 47H48" />
+            </svg>
+            <figcaption>Laboratory</figcaption>
+          </figure>
+        </div>
+        <p class="startup-title">Care, coming together.</p>
+        <div class="startup-track" aria-hidden="true"><span></span></div>
+        <p id="startup-status" class="startup-status" role="status">Preparing your visit…</p>
+        <button id="startup-continue" class="startup-continue" type="button" hidden>Continue to website</button>
+      </div>
+    </div>
+    <noscript><style>#startup { display: none; } body.is-loading { overflow: auto; }</style><p style="padding: 24px; color: #233F4D; font-family: sans-serif">Please enable JavaScript to view Islam Medical Complex, or call <a href="tel:+923218410643">+92 321 8410643</a>.</p></noscript>
+    <div id="root" inert aria-busy="true"></div>
+    <script src="/startup.js" defer></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

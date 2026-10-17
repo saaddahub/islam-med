@@ -64,6 +64,8 @@ Keep native dialog semantics, keyboard focus indicators, internal dialog scrolli
 
 ## Responsive verification
 
+The initial HTML includes a cream loading screen before the React bundle runs. Three thin ink-blue stick-figure scenes show maternity ultrasound, a pediatric consultation and laboratory preparation, as explicitly requested by the user. Small arm movements and an indeterminate hairline use CSS transforms and opacity; reduced motion keeps the scenes still. No artificial minimum duration is added. Opening images, fonts, the desktop sculpture's first render and scroll layout settle before the 240ms fade. The rest of the page is inert during startup. A slow asset can fall back to the HTML hero, a delayed startup offers a continue action, and a bundle failure offers reload rather than an empty screen. Below-fold photographs remain lazy loaded.
+
 Inspect desktop and phone together when changing surfaces or type. Check intermediate widths when layout structure changes. Keep navigation targets usable at narrow widths and avoid horizontal overflow. Browser viewport emulation is not a substitute for physical-device touch or cross-browser testing.
 
 ## Care journey and department navigation

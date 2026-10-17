@@ -1,0 +1,53 @@
+/* This tiny sheet loads before the application so the first paint is intentional. */
+html { scrollbar-gutter: stable; }
+body { margin: 0; background: #F4EFE6; }
+body.is-loading { overflow: hidden; }
+.startup {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  position: fixed; inset: 0; z-index: 10000;
+  display: grid; place-items: center; padding: 24px;
+  background: #F4EFE6; color: #233F4D;
+  font-family: Inter, system-ui, sans-serif;
+  transition: opacity 240ms var(--ease-out);
+}
+.startup.is-ready { opacity: 0; pointer-events: none; }
+.startup-inner { width: min(100%, 580px); text-align: center; }
+.startup-brand { margin: 0 0 44px; font-size: 13px; font-weight: 500; letter-spacing: 0.01em; }
+.startup-scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.startup-scene { margin: 0; min-width: 0; }
+.startup-scene svg { display: block; width: 100%; height: auto; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.startup-scene figcaption { margin-top: 12px; color: #53666E; font-size: 11px; }
+.startup .soft-stroke { stroke: #6F8995; }
+.startup .paper-fill { fill: #F4EFE6; }
+.startup-title { margin: 40px 0 20px; font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 5vw, 38px); font-weight: 400; line-height: 1.1; letter-spacing: -0.025em; }
+.startup-track { width: 112px; height: 2px; margin: 0 auto 14px; overflow: hidden; background: #D8CCBA; }
+.startup-track span { display: block; height: 100%; width: 45%; background: #2C4B5A; animation: startup-progress 1.8s linear infinite; }
+.startup-status { margin: 0; font-size: 11px; line-height: 1.6; color: #53666E; }
+.startup-continue { margin-top: 20px; min-height: 44px; padding: 10px 18px; border: 1px solid #6F8995; border-radius: 24px; background: transparent; color: #233F4D; font: inherit; font-size: 12px; cursor: pointer; }
+.startup-continue:focus-visible { outline: 2px solid #2C4B5A; outline-offset: 4px; }
+.startup-continue[hidden] { display: none; }
+.startup-probe { transform-origin: 62px 59px; animation: startup-probe 2.4s var(--ease-in-out) infinite; }
+.startup-wave { transform-origin: 99px 73px; animation: startup-wave 2.4s var(--ease-in-out) infinite; }
+.startup-listen { transform-origin: 53px 54px; animation: startup-listen 2.4s var(--ease-in-out) infinite; }
+.startup-lab-hand { transform-origin: 62px 60px; animation: startup-lab 2.4s var(--ease-in-out) infinite; }
+.startup-screen { animation: startup-screen 2.4s var(--ease-in-out) infinite; }
+.startup.is-ready *, .startup.is-failed *, .startup.is-paused * { animation-play-state: paused; }
+@keyframes startup-progress { from { transform: translateX(-115%); } to { transform: translateX(330%); } }
+@keyframes startup-probe { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
+@keyframes startup-wave { 0%, 60%, 100% { transform: rotate(0deg); } 25%, 45% { transform: rotate(-16deg); } 35% { transform: rotate(-5deg); } }
+@keyframes startup-listen { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(6deg); } }
+@keyframes startup-lab { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(7deg); } }
+@keyframes startup-screen { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+@media (max-width: 480px) {
+  .startup { padding: 24px 20px; }
+  .startup-scenes { gap: 10px; }
+  .startup-brand { margin-bottom: 36px; }
+  .startup-scene figcaption { font-size: 10px; margin-top: 10px; }
+  .startup-title { margin-top: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .startup { transition-duration: 120ms; }
+  .startup-scenes * { animation: none; }
+  .startup-track span { width: 100%; animation: startup-screen 1.8s var(--ease-in-out) infinite; }
+}
