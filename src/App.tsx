@@ -4,7 +4,7 @@ import { usePageMotion } from './lib/usePageMotion';
 import { useCinematicScrollMotion } from './lib/useCinematicScrollMotion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ServiceAccordion from './components/ServiceAccordion';
+import DepartmentsOverview from './components/DepartmentsOverview';
 import DoctorList from './components/DoctorList';
 import FacilityReveal from './components/FacilityReveal';
 import { StickyImagePairSection } from './components/StickyImagePairSection';
@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 import AppointmentModal from './components/AppointmentModal';
 import DoctorProfileModal from './components/DoctorProfileModal';
 import type { Doctor } from './data/doctors';
-import { DEPARTMENTS } from './data/departments';
+import { findCareEntry } from './data/departments';
 import DepartmentPage from './components/DepartmentPage';
 import { useStartupReady } from './lib/useStartupReady';
 
@@ -24,7 +24,7 @@ function LandingPage({ onOpenAppointment, onSelectDoctor }: { onOpenAppointment:
   useCinematicScrollMotion(rootRef);
   return <div ref={rootRef}>
     <Hero onOpenAppointment={onOpenAppointment} />
-    <ServiceAccordion onOpenAppointment={onOpenAppointment} />
+    <DepartmentsOverview onOpenAppointment={onOpenAppointment} />
     <FacilityReveal />
     <DoctorList onSelectDoctor={onSelectDoctor} onOpenAppointment={onOpenAppointment} />
     <StickyImagePairSection />
@@ -33,12 +33,12 @@ function LandingPage({ onOpenAppointment, onSelectDoctor }: { onOpenAppointment:
   </div>;
 }
 
-const readDepartment = () => DEPARTMENTS.find(department => location.hash === `#department-${department.id}`);
+const readDepartment = () => findCareEntry(location.hash);
 
 export function App() {
   const [department, setDepartment] = useState(readDepartment);
   // Remount scroll smoothing with each reading view, clearing any old scroll momentum.
-  useLenis(department?.id);
+  useLenis(department ? `${department.kind}-${department.id}` : undefined);
   useStartupReady();
   useEffect(() => {
     const update = () => setDepartment(readDepartment());
@@ -71,7 +71,7 @@ export function App() {
       <Navbar onOpenAppointment={openAppointment} />
       <main id="main-content" tabIndex={-1}>
       {department
-        ? <DepartmentPage key={department.id} department={department} onOpenAppointment={openAppointment} />
+        ? <DepartmentPage key={`${department.kind}-${department.id}`} department={department} onOpenAppointment={openAppointment} />
         : <LandingPage onOpenAppointment={openAppointment} onSelectDoctor={setSelectedDoctor} />}
       </main>
       <Footer onOpenAppointment={openAppointment} />

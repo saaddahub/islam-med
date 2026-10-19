@@ -26,8 +26,8 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
           {/* Subcopy in Inter */}
           <p data-hero-support className="font-sans text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed font-normal">
             Care for women, children and adults in Sabzazar, Lahore. Islam Medical Complex
-            brings together maternity and pediatric care, outpatient consultations,
-            internal medicine and laboratory testing.
+            brings together maternity, pediatric and general physician care with
+            specialist consultations, diagnostic services and rehabilitation.
           </p>
 
           {/* Action CTAs */}

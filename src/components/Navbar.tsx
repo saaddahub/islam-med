@@ -3,7 +3,7 @@ import { ArrowUpRight, Menu as MenuIcon, X, Phone, MapPin, ChevronDown } from 'l
 import Logo from './Logo';
 import Modal from './Modal';
 import { CLINIC } from '../data/clinic';
-import { DEPARTMENTS } from '../data/departments';
+import { CLINIC_SERVICES, DEPARTMENTS, careHref } from '../data/departments';
 
 interface NavbarProps {
   onOpenAppointment: () => void;
@@ -98,15 +98,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                   }
                 }}>
                 <summary className="desktop-nav-link">Departments <ChevronDown size={13} aria-hidden="true" /></summary>
-                <div className="department-dropdown">
+                <div className="department-dropdown" data-lenis-prevent>
                   <a href="#departments" className="department-dropdown-all" onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>Explore our departments <ArrowUpRight size={16} aria-hidden="true" /></a>
+                  <div className="department-dropdown-groups">
+                  <div><h2>Departments</h2>
                   <ul>
                     {DEPARTMENTS.map(department => <li key={department.id}>
-                      <a href={`#department-${department.id}`} onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>
+                      <a href={careHref(department)} aria-current={location.hash === careHref(department) ? 'page' : undefined} onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>
                         <span>{department.name}</span><ArrowUpRight size={15} aria-hidden="true" />
                       </a>
                     </li>)}
                   </ul>
+                  </div><div><h2>Services</h2><ul>
+                    {CLINIC_SERVICES.map(service => <li key={service.id}><a href={careHref(service)} aria-current={location.hash === careHref(service) ? 'page' : undefined} onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}><span>{service.name}</span><ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
+                  </ul></div></div>
                 </div>
               </details>
               {navLinks.slice(1).map(link => <a key={link.href} href={link.href} className="desktop-nav-link">{link.label}</a>)}
@@ -162,8 +167,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               <details className="mobile-departments" open>
                 <summary>Departments <ChevronDown size={18} aria-hidden="true" /></summary>
                 <ul>
-                  {DEPARTMENTS.map(department => <li key={department.id}><a href={`#department-${department.id}`} onClick={() => setIsMenuOpen(false)}>{department.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
+                  {DEPARTMENTS.map(department => <li key={department.id}><a href={careHref(department)} onClick={() => setIsMenuOpen(false)}>{department.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
                 </ul>
+              </details>
+              <details className="mobile-departments">
+                <summary>Services <ChevronDown size={18} aria-hidden="true" /></summary>
+                <ul>{CLINIC_SERVICES.map(service => <li key={service.id}><a href={careHref(service)} onClick={() => setIsMenuOpen(false)}>{service.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}</ul>
               </details>
               {navLinks.slice(1).map(link => <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}
             </nav>

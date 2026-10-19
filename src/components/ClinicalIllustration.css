@@ -1,0 +1,16 @@
+.clinical-art { color: var(--color-imc-blue); width: 100%; }
+.clinical-art svg { display: block; width: 100%; height: auto; overflow: visible; }
+.care-art-soft { stroke: var(--color-imc-blue-soft); }
+.care-art-paper { fill: var(--color-imc-paper); }
+.care-art-arm { animation: care-arm 3s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.care-art-wave { animation: care-wave 3s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.care-art-cradle { animation: care-cradle 3s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.care-art-light { animation: care-light 2.4s ease infinite; }
+.clinical-art:not([data-running="true"]) :is(.care-art-arm, .care-art-wave, .care-art-cradle, .care-art-light) { animation-play-state: paused; }
+@keyframes care-arm { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(4deg); } }
+@keyframes care-wave { 0%, 60%, 100% { transform: rotate(0deg); } 25%, 45% { transform: rotate(-14deg); } 35% { transform: rotate(-5deg); } }
+@keyframes care-cradle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes care-light { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .clinical-art * { animation: none; }
+}

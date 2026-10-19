@@ -39,9 +39,9 @@ export function useLenis(viewKey?: string) {
         if (!followAnchor) return;
         lenis.resize();
         const target = document.getElementById(anchor);
-        const pinnedStart = anchor === 'departments' ? ScrollTrigger.getById('cinema-departments')?.start : undefined;
-        lenis.scrollTo(pinnedStart !== undefined ? pinnedStart + 1 : target || 0, {
-          immediate: true, force: true, offset: pinnedStart !== undefined || !target || anchor === 'top' ? 0 : -96,
+        lenis.scrollTo(target || 0, {
+          // Lenis already honours each target's CSS scroll-margin-top.
+          immediate: true, force: true,
         });
       });
     };

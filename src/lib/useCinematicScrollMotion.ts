@@ -2,7 +2,7 @@ import { useLayoutEffect, type RefObject } from 'react';
 import { gsap, ScrollTrigger } from './useScrollTrigger';
 import { useReducedMotion } from './useReducedMotion';
 
-/** Each scene owns its transform layers; only department boundaries update React. */
+/** Each scene owns its transform layers; department previews update only on selection. */
 export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>) {
   const reduced = useReducedMotion();
 
@@ -18,9 +18,14 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
     }, (context) => {
       if (!context.conditions?.motion) return;
       const cinematic = context.conditions.cinema && document.documentElement.dataset.motion === 'full';
+      gsap.fromTo('.departments-intro', { y: 24, opacity: .4 }, { y: 0, opacity: 1, duration: .65, ease: 'power3.out',
+        scrollTrigger: { trigger: '#departments', start: 'top 80%', once: true },
+      });
+      gsap.fromTo('[data-care-link]', { y: 14, opacity: .4 }, { y: 0, opacity: 1, duration: .5, stagger: .035, ease: 'power3.out',
+        scrollTrigger: { trigger: '.department-index', start: 'top 85%', once: true },
+      });
       if (cinematic) {
         root.classList.add('cinema-active');
-        const departments = root.querySelector<HTMLElement>('#departments')!;
         const facility = root.querySelector<HTMLElement>('.facility-cinema-stage')!;
         const updateChapter = (element: HTMLElement) => (self: ScrollTrigger) => {
           element.dataset.sceneProgress = self.progress.toFixed(3);
@@ -29,24 +34,6 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
           start: 'top top', pin: true, pinSpacing: true, anticipatePin: 1,
           scrub: 0.4, invalidateOnRefresh: true,
         };
-
-        // One readable stop per department; direct selection remains available.
-        const departmentCount = departments.querySelectorAll('[data-department-row]').length;
-        let lastDepartment = -1;
-        const selectDepartment = (self: ScrollTrigger) => {
-          const index = Math.min(departmentCount - 1, Math.floor(self.progress * departmentCount));
-          departments.dataset.sceneProgress = self.progress.toFixed(3);
-          if (index !== lastDepartment) {
-            lastDepartment = index;
-            departments.dispatchEvent(new CustomEvent<number>('departmentchange', { detail: index }));
-          }
-        };
-        ScrollTrigger.create({
-          ...pinOptions, id: 'cinema-departments', trigger: departments, refreshPriority: 2,
-          end: () => `+=${window.innerHeight * departmentCount * 0.65}`,
-          onUpdate: selectDepartment,
-          onRefresh: selectDepartment,
-        });
 
         // Photographic hinges keep their front faces visible; the heading clears before expansion.
         const wings = facility.querySelectorAll('[data-facility-wing]');
