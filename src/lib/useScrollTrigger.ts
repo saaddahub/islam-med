@@ -3,6 +3,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
+  // Browser bars can change the visible height during a touch scroll. Ignore
+  // those small height changes; orientation/width changes still rebuild scenes.
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 // Standard easing tokens (§2)

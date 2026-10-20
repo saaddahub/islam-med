@@ -11,6 +11,7 @@ export default function DepartmentsOverview({ onOpenAppointment }: { onOpenAppoi
     <div className="departments-container">
       <header className="departments-intro">
         <h2 id="departments-title" className="font-editorial">Our <em>departments.</em></h2>
+        <div className="department-mobile-art"><ClinicalIllustration variant="gynecology" /></div>
         <p>Find the care you need.<br />Explore a department to learn more and plan your visit.</p>
       </header>
       <div className="departments-layout">

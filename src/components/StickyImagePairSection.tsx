@@ -1,7 +1,30 @@
 import StickyImagePair from './StickyImagePair';
 import SquiggleUnderline from './SquiggleUnderline';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMediaQuery } from '../lib/useMediaQuery';
+import { useReducedMotion } from '../lib/useReducedMotion';
 
 export function StickyImagePairSection() {
+  const compact = useMediaQuery('(max-width: 1023px)');
+  const reduced = useReducedMotion();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!compact || !track) return;
+    const slides = Array.from(track.children);
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.intersectionRatio >= .65) setActive(slides.indexOf(entry.target)); });
+    }, { root: track, threshold: .65 });
+    slides.forEach(slide => observer.observe(slide));
+    return () => observer.disconnect();
+  }, [compact]);
+  const move = (direction: number) => {
+    const track = trackRef.current;
+    const next = track?.children[active + direction] as HTMLElement | undefined;
+    if (track && next) track.scrollTo({ left: next.offsetLeft - (track.children[0] as HTMLElement).offsetLeft, behavior: reduced ? 'instant' : 'smooth' });
+  };
   return (
     <section
       id="spaces-exhibit"
@@ -30,7 +53,7 @@ export function StickyImagePairSection() {
         </div>
 
         {/* Sticky Image-Pair Sequence with alternating reverse */}
-        <div className="space-y-24 sm:space-y-32">
+        <div ref={trackRef} className="spaces-gallery-track space-y-24 sm:space-y-32" tabIndex={compact ? 0 : undefined} role={compact ? 'region' : undefined} aria-label={compact ? 'Medical complex photo gallery' : undefined}>
 
           {/* Pair 1: Caption LEFT, Image RIGHT */}
           <StickyImagePair
@@ -80,6 +103,10 @@ export function StickyImagePairSection() {
             reverse={true}
           />
 
+        </div>
+        <div className="spaces-gallery-controls">
+          <span>Swipe to explore</span><span>{String(active + 1).padStart(2, '0')} / 04</span>
+          <div><button type="button" onClick={() => move(-1)} disabled={active === 0} aria-label="Previous photograph"><ChevronLeft size={18} /></button><button type="button" onClick={() => move(1)} disabled={active === 3} aria-label="Next photograph"><ChevronRight size={18} /></button></div>
         </div>
 
       </div>

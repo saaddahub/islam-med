@@ -6,7 +6,10 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
   return (
     <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-imc-paper pt-28 pb-12 sm:pt-32 sm:pb-16">
       <div className="hero-still" aria-hidden="true">
-        <img src="/pharmacy.png" alt="" fetchPriority="high" decoding="async" />
+        <picture className="hero-photo-picture">
+          <source media="(max-width: 1023px)" srcSet="/pharmacy-mobile.webp" />
+          <img src="/pharmacy.png" alt="" fetchPriority="high" decoding="async" width={2336} height={1744} />
+        </picture>
       </div>
       <HeroSculpture />
       {/* Main Content Area */}
@@ -25,13 +28,14 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
 
           {/* Subcopy in Inter */}
           <p data-hero-support className="font-sans text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed font-normal">
-            Care for women, children and adults in Sabzazar, Lahore. Islam Medical Complex
+            <span className="hero-desktop-description">Care for women, children and adults in Sabzazar, Lahore. Islam Medical Complex
             brings together maternity, pediatric and general physician care with
-            specialist consultations, diagnostic services and rehabilitation.
+            specialist consultations, diagnostic services and rehabilitation.</span>
+            <span className="hero-mobile-description">Maternity, specialist consultations and everyday care, together in Sabzazar, Lahore.</span>
           </p>
 
           {/* Action CTAs */}
-          <div data-hero-support className="space-y-3 pt-2">
+          <div data-hero-support className="hero-actions space-y-3 pt-2">
             <div className="flex flex-wrap items-center gap-4">
               <button
                 type="button"
@@ -46,7 +50,7 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
                 href="#departments"
                 className="flex items-center gap-2 px-5 py-3.5 rounded-full bg-imc-paper text-imc-ink font-medium text-sm sm:text-base border border-slate-200 hover:bg-white hover:border-slate-300 active:scale-95 transition-[background-color,border-color,transform] duration-150 cursor-pointer"
               >
-                <span>Explore Departments</span>
+                <span className="hero-desktop-description">Explore Departments</span><span className="hero-mobile-description">Explore care</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" aria-hidden="true" />
               </a>
             </div>
@@ -54,7 +58,7 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
           </div>
 
           {/* Authentic hospital services indicators */}
-          <div data-hero-support className="pt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-600 border-t border-slate-300/70">
+          <div data-hero-support className="hero-service-indicators pt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-600 border-t border-slate-300/70">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-imc-blue" aria-hidden="true" />
               <span className="font-medium">24/7 Gynecological Emergency</span>
@@ -71,6 +75,8 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
 
         </div>
       </div>
+
+      <div className="hero-mobile-assurance"><ShieldCheck size={15} aria-hidden="true" /><span>24/7 gynecological emergency care</span><ArrowDown size={15} aria-hidden="true" /></div>
 
       <div className="hero-scene-caption" aria-hidden="true">
         <span>Islam Medical Complex</span><span>Sabzazar, Lahore</span>

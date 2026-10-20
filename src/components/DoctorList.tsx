@@ -107,6 +107,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
 }) => {
   const [hoveredDoctorId, setHoveredDoctorId] = useState<string | null>(null);
   const isTouchDevice = !useMediaQuery('(hover: hover) and (pointer: fine)');
+  const compact = useMediaQuery('(max-width: 1023px)');
   const isReduced = useReducedMotion();
 
   const handleRowClick = (doctor: Doctor) => {
@@ -125,7 +126,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
       className="relative z-20 w-full bg-imc-night text-white py-20 sm:py-28 border-t border-white/10"
     >
       {/* Signature Cursor-Following Pill Button (suppressed on touch & reduced motion) */}
-      {!isTouchDevice && !isReduced && (
+      {!isTouchDevice && !compact && !isReduced && (
         <CursorFollowButton visible={!!hoveredDoctorId} />
       )}
 
@@ -157,22 +158,23 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                 }}
                 transition={rowTransition}
                 onMouseEnter={() => {
-                  if (!isTouchDevice) setHoveredDoctorId(doctor.id);
+                  if (!isTouchDevice && !compact) setHoveredDoctorId(doctor.id);
                 }}
-                onFocus={() => setHoveredDoctorId(doctor.id)}
+                onFocus={() => { if (!isTouchDevice && !compact) setHoveredDoctorId(doctor.id); }}
                 onBlur={(event) => {
                   if (!event.currentTarget.contains(event.relatedTarget)) setHoveredDoctorId(null);
                 }}
 
-                className={`group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-150 ${
+                className={`doctor-directory-row group relative py-6 sm:py-7 px-4 sm:px-6 my-0.5 cursor-pointer select-none rounded-2xl text-white transition-colors duration-150 ${
                   isHovered ? 'shadow-lg' : ''
                 }`}
               >
                 {/* Main Row Header (Stable layout that never wraps on hover) */}
-                <div className="grid grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)_auto] items-center gap-x-4 gap-y-3 lg:gap-x-6">
+                <div className="doctor-row-main grid grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)_auto] items-center gap-x-4 gap-y-3 lg:gap-x-6">
+                  <div className="doctor-mobile-avatar"><img src={doctor.image.replace(/([?&])w=\d+/, '$1w=160')} alt="" width={112} height={112} loading="lazy" decoding="async" /></div>
                   
                   {/* Left: Department & Role */}
-                  <div className="col-span-2 lg:col-span-1 min-w-0 space-y-1">
+                  <div className="doctor-row-meta col-span-2 lg:col-span-1 min-w-0 space-y-1">
                     <div
                       className={`text-xs sm:text-sm font-label tracking-widest uppercase transition-colors duration-150 ${
                         isHovered ? 'text-imc-mist' : 'text-slate-400'
@@ -190,7 +192,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   </div>
 
                   {/* Doctor Full Name in Anton */}
-                  <div className="min-w-0 lg:text-right">
+                  <div className="doctor-row-name min-w-0 lg:text-right">
                     <h3
                       className={`font-editorial text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase tracking-tight transition-colors duration-150 ${
                         isHovered ? 'text-white' : 'text-slate-200'
@@ -208,7 +210,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                   </div>
 
                   {/* Far Right: Circular Arrow Indicator */}
-                  <div className="flex items-center justify-end shrink-0">
+                  <div className="doctor-row-arrow flex items-center justify-end shrink-0">
                     <div
                       className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-[background-color,color,border-color,transform,box-shadow] duration-200 border ${
                         isHovered

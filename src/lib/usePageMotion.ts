@@ -1,9 +1,11 @@
 import { useLayoutEffect } from 'react';
 import { useReducedMotion } from './useReducedMotion';
+import { useMediaQuery } from './useMediaQuery';
 
 // Observe after React mounts so fallback reveals can find the page content.
 export function usePageMotion() {
   const reduced = useReducedMotion();
+  const compact = useMediaQuery('(max-width: 1023px)');
 
   useLayoutEffect(() => {
     const root = document.documentElement;
@@ -19,8 +21,8 @@ export function usePageMotion() {
     root.dataset.motion = tier;
     if (tier === 'none') return;
 
-    const scrollDriven = CSS.supports('animation-timeline: view()');
-    const mode = scrollDriven ? 'sd' : 'fb';
+    const scrollDriven = !compact && CSS.supports('animation-timeline: view()');
+    const mode = compact ? 'mobile-motion' : scrollDriven ? 'sd' : 'fb';
     const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
     let observer: IntersectionObserver | undefined;
     let progress: HTMLDivElement | undefined;
@@ -37,7 +39,7 @@ export function usePageMotion() {
           entry.target.classList.remove('reveal-pending');
           observer?.unobserve(entry.target);
         }
-      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+      }, { rootMargin: compact ? '0px 0px -6% 0px' : '0px 0px -10% 0px', threshold: 0.08 });
       items.forEach((item) => {
         item.classList.add('reveal-pending');
         observer?.observe(item);
@@ -51,5 +53,5 @@ export function usePageMotion() {
       items.forEach((item) => item.classList.remove('reveal-pending'));
       progress?.remove();
     };
-  }, [reduced]);
+  }, [reduced, compact]);
 }

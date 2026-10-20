@@ -27,6 +27,9 @@ export const FacilityReveal: React.FC = () => {
             patient experience, from reception to your clinical consultation.
           </p>
         </div>
+        <div className="facility-mobile-tabs" role="group" aria-label="Choose a facility">
+          {FACILITIES_DATA.features.map((feature, index) => <button type="button" key={feature.id} aria-pressed={index === selectedFeatureIndex} onClick={() => setSelectedFeatureIndex(index)}>{feature.title}</button>)}
+        </div>
         <div className="facility-photo-space">
           {[FACILITIES_DATA.features[1], FACILITIES_DATA.features[2]].map((feature, index) => (
             <div key={feature.id} data-facility-wing={index === 0 ? 'left' : 'right'} className="facility-photo-wing cinema-only" aria-hidden="true">
@@ -35,6 +38,7 @@ export const FacilityReveal: React.FC = () => {
             </div>
           ))}
           <div data-facility-main className="facility-photo-main">
+            <div className="facility-photo-surface" data-facility-surface>
             <AnimatePresence initial={false} mode="wait">
               <motion.div key={currentFeature.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 transition={{ duration: isReduced ? 0 : 0.25 }} className="absolute inset-0">
@@ -42,10 +46,12 @@ export const FacilityReveal: React.FC = () => {
                 <div className="facility-photo-shade absolute inset-0" />
               </motion.div>
             </AnimatePresence>
+            </div>
             <div data-facility-caption className="facility-photo-caption">
               <span className="cinema-eyebrow">{currentFeature.tag}</span>
               <h3 className="font-editorial">{currentFeature.title}</h3>
               <p>{currentFeature.subtitle}</p>
+              <p className="facility-mobile-description">{currentFeature.description}</p>
               <div className="facility-specs">{currentFeature.specs.map(spec => <span key={spec}>{spec}</span>)}</div>
             </div>
           </div>

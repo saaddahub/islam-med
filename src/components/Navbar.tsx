@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 ${
+        className={`site-header fixed top-0 left-0 right-0 z-50 ${
           isScrolled
             ? 'py-3 sm:py-4 px-2 sm:px-6 lg:px-8'
             : 'py-0 px-0'
@@ -148,8 +148,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
       {/* Slide-out / Dropdown Menu Overlay */}
       {isMenuOpen && (
         <Modal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} id="site-navigation" labelledBy="site-navigation-title" className="navigation-modal">
-          <div className="w-full max-w-xl bg-imc-paper text-imc-ink rounded-2xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div className="navigation-sheet w-full max-w-xl bg-imc-paper text-imc-ink rounded-2xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] space-y-6">
+            <div className="navigation-sheet-header flex items-center justify-between border-b border-slate-100 pb-4">
               <h2 id="site-navigation-title" className="font-editorial text-3xl text-imc-ink">
                 Explore the complex
               </h2>
@@ -164,9 +164,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
             </div>
 
             <nav aria-label="All sections" className="mobile-navigation-links">
-              <details className="mobile-departments" open>
+              {navLinks.slice(1).map(link => <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}
+              <details className="mobile-departments">
                 <summary>Departments <ChevronDown size={18} aria-hidden="true" /></summary>
                 <ul>
+                  <li><a href="#departments" onClick={() => setIsMenuOpen(false)}>Department overview<ArrowUpRight size={15} aria-hidden="true" /></a></li>
                   {DEPARTMENTS.map(department => <li key={department.id}><a href={careHref(department)} onClick={() => setIsMenuOpen(false)}>{department.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
                 </ul>
               </details>
@@ -174,10 +176,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                 <summary>Services <ChevronDown size={18} aria-hidden="true" /></summary>
                 <ul>{CLINIC_SERVICES.map(service => <li key={service.id}><a href={careHref(service)} onClick={() => setIsMenuOpen(false)}>{service.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}</ul>
               </details>
-              {navLinks.slice(1).map(link => <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}
             </nav>
 
-            <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
+            <div className="navigation-sheet-contact pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-600">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#DC2626]" aria-hidden="true" />
                 <a href={CLINIC.phoneHref} className="inline-flex min-h-11 items-center font-medium">{CLINIC.phone}</a>

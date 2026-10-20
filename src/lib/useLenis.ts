@@ -2,11 +2,62 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from './useScrollTrigger';
 import { useReducedMotion } from './useReducedMotion';
+import { useMediaQuery } from './useMediaQuery';
 
 export function useLenis(viewKey?: string) {
   const reduced = useReducedMotion();
+  const smooth = useMediaQuery('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || !smooth) {
+      // Keep native touch momentum. Align deep links again after async layout work,
+      // but stop following as soon as the visitor starts interacting.
+      let frame = 0;
+      let follow = true;
+      const anchor = location.hash.slice(1);
+      const scrollToTarget = (id: string) => {
+        const target = document.getElementById(id);
+        if (!target) return;
+        const margin = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - margin, behavior: 'instant' });
+      };
+      const align = () => {
+        if (!follow) return;
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          if (!follow) return;
+          const target = document.getElementById(anchor);
+          if (target) scrollToTarget(anchor);
+          else window.scrollTo({ top: 0, behavior: 'instant' });
+        });
+      };
+      const stop = () => { follow = false; cancelAnimationFrame(frame); };
+      const navigate = () => {
+        stop();
+        // A hash click from inside a modal can occur while the destination is
+        // still inert. Wait for the dialog to close before the native scroll.
+        frame = requestAnimationFrame(() => {
+          scrollToTarget(location.hash.slice(1));
+        });
+      };
+      const sameAnchor = (event: MouseEvent) => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href^="#"]') : null;
+        if (link && link.hash === location.hash) navigate();
+      };
+      const events = ['touchstart', 'wheel', 'pointerdown', 'keydown'] as const;
+      events.forEach(event => window.addEventListener(event, stop, { passive: true }));
+      window.addEventListener('hashchange', navigate);
+      window.addEventListener('click', sameAnchor);
+      ScrollTrigger.addEventListener('refresh', align);
+      align();
+      return () => {
+        cancelAnimationFrame(frame);
+        events.forEach(event => window.removeEventListener(event, stop));
+        window.removeEventListener('hashchange', navigate);
+        window.removeEventListener('click', sameAnchor);
+        ScrollTrigger.removeEventListener('refresh', align);
+      };
+    }
 
     const lenis = new Lenis({
       duration: 0.95,
@@ -75,7 +126,7 @@ export function useLenis(viewKey?: string) {
       lenis.destroy();
       gsap.ticker.remove(tickerCallback);
     };
-  }, [reduced, viewKey]);
+  }, [reduced, smooth, viewKey]);
 }
 
 export default useLenis;

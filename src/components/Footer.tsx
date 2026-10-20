@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAppointment }) => {
         </div>
 
         {/* Multi-Column Directory in Clean Inter Sans */}
-        <div data-stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10 text-xs text-slate-300">
+        <div data-stagger className="footer-directory grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-white/10 text-xs text-slate-300">
 
           {/* Col 1: Brand & Patient Care */}
           <div data-reveal="up" className="lg:col-span-2 space-y-4">
