@@ -8,9 +8,17 @@ interface FounderSpotlightProps {
 
 export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppointment }) => {
   return (
-    <section id="about" className="founder-section relative z-20 w-full" aria-labelledby="founder-name">
+    <section id="about" className="founder-section relative z-20 w-full" aria-labelledby="leadership-heading">
       <div className="founder-container">
-        <div data-founder-frame className="founder-composition">
+        <header className="leadership-header">
+          <p className="cinema-eyebrow">Leadership &amp; vision</p>
+          <h2 id="leadership-heading" className="font-editorial">The people behind<br /><em>your care.</em></h2>
+        </header>
+        <div className="founder-composition">
+          <div className="leadership-pair">
+            <svg className="leadership-thread" viewBox="0 0 600 420" fill="none" aria-hidden="true">
+              <path data-leadership-thread pathLength="1" d="M 35 280 C -30 95 100 -35 225 55 C 290 100 270 305 370 340 C 510 390 635 220 565 115" />
+            </svg>
           <figure className="founder-portrait-column">
             <div className="founder-portrait-outline">
               <div className="founder-portrait-crop">
@@ -25,19 +33,35 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                 />
               </div>
             </div>
-            <figcaption data-founder-copy className="founder-caption">
-              <p>Leadership &amp; vision</p>
-              <span>Islam Medical Complex · {CLINIC.location}</span>
+            <figcaption data-leadership-name className="founder-caption">
+              <p className="founder-role">Founder</p>
+              <h3 className="font-editorial">Imran Islam</h3>
             </figcaption>
           </figure>
+          <figure className="founder-portrait-column leadership-director">
+            <div className="founder-portrait-outline">
+              <div className="founder-portrait-crop">
+                <img
+                  data-founder-portrait
+                  src="/doctors/dr-yasmin-sattar.jpg"
+                  alt="Dr Yasmeen, Director of Islam Medical Complex"
+                  width={768}
+                  height={1024}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <figcaption data-leadership-name className="founder-caption">
+              <p className="founder-role">Director</p>
+              <h3 className="font-editorial">Dr Yasmeen</h3>
+            </figcaption>
+          </figure>
+          </div>
 
           <div className="founder-content">
             <div>
-              <h2 id="founder-name" data-founder-heading className="font-editorial">Imran Islam</h2>
-              <p className="founder-role">Founder</p>
-            </div>
-
-            <div data-founder-copy>
+              <p className="leadership-location">Islam Medical Complex · {CLINIC.location}</p>
               <div className="founder-quote">
                 <p className="font-editorial">
                   Care with attention to your privacy, dignity and individual needs.

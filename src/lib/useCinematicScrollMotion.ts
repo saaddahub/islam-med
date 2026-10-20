@@ -70,16 +70,17 @@ export function useCinematicScrollMotion(rootRef: RefObject<HTMLElement | null>)
       }
 
       if (!context.conditions.compact) {
-        const founder = root.querySelector('#about')!;
-        gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
-          trigger: founder, start: 'top 85%', end: 'top 20%', scrub: 0.45,
-        } })
-          .fromTo('[data-founder-frame]', { clipPath: 'inset(0% 12% 0% 12%)' },
-            { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6 }, 0)
-          .fromTo('[data-founder-portrait]', { scale: 1.2, x: -22 }, { scale: 1, x: 0, duration: 0.6 }, 0)
-          .fromTo('[data-founder-heading]', { clipPath: 'inset(-10% 100% -10% 0%)', x: -22 },
-            { clipPath: 'inset(-10% 0% -10% 0%)', x: 0, duration: 0.45 }, 0.12)
-          .fromTo('[data-founder-copy]', { y: 35, opacity: 0.3 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.42 }, 0.22);
+      const leadership = root.querySelector('.leadership-pair')!;
+      gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
+        trigger: leadership, start: 'top 92%', end: 'top 35%', scrub: 0.45,
+      } })
+        .fromTo('[data-leadership-thread]', { strokeDasharray: 1, strokeDashoffset: 1 },
+          { strokeDashoffset: 0, duration: 1 }, 0)
+        .fromTo('.founder-portrait-outline', { rotationZ: i => i === 0 ? -6 : 6, y: 24, scale: .94 },
+          { rotationZ: 0, y: 0, scale: 1, stagger: .12, duration: .65 }, 0)
+        .fromTo('[data-founder-portrait]', { scale: 1.12 }, { scale: 1, duration: .8 }, 0)
+        .fromTo('[data-leadership-name]', { y: 16, opacity: .4 },
+          { y: 0, opacity: 1, stagger: .12, duration: .45 }, .2);
       }
 
       return () => {
