@@ -6,6 +6,8 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
   return (
     <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-imc-paper pt-28 pb-12 sm:pt-32 sm:pb-16">
       <div className="hero-visual">
+        <div className="hero-mobile-wing" aria-hidden="true"><img src="/directory-corridor.jpg" alt="" width={764} height={1024} loading="lazy" decoding="async" /></div>
+        <div className="hero-mobile-wing hero-mobile-wing-right" aria-hidden="true"><img src="/directory-sign.png" alt="" width={764} height={1024} loading="lazy" decoding="async" /></div>
         <div className="hero-still" aria-hidden="true">
           <picture className="hero-photo-picture">
             <source media="(max-width: 1023px)" srcSet="/pharmacy-mobile.webp" />

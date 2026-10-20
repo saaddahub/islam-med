@@ -10,15 +10,8 @@ export default function HeroSculpture() {
     const hero = canvas?.closest<HTMLElement>('#hero');
     if (!canvas || !hero) return;
     const media = gsap.matchMedia();
-    media.add({
-      desktop: '(min-width: 1024px) and (min-height: 650px)',
-      compact: '(max-width: 1023px)',
-      motion: '(prefers-reduced-motion: no-preference)',
-    }, (mediaContext) => {
-      const compact = Boolean(mediaContext.conditions?.compact);
-      if (!mediaContext.conditions?.motion || (!compact && !mediaContext.conditions?.desktop)) return;
-      const tier = document.documentElement.dataset.motion;
-      if (tier === 'none' || (!compact && tier !== 'full')) return;
+    media.add('(min-width: 1024px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)', () => {
+      if (document.documentElement.dataset.motion !== 'full') return;
       const generation = ++generationRef.current;
       const controller = new AbortController();
       let finishStartup: () => void = () => {};
@@ -40,8 +33,7 @@ export default function HeroSculpture() {
       const isCurrent = () => !disposed && generationRef.current === generation;
       const resize = () => {
         if (!scene || !isCurrent()) return;
-        scene.resize(compact ? canvas.parentElement!.clientWidth : document.documentElement.clientWidth,
-          compact ? canvas.parentElement!.clientHeight : window.innerHeight);
+        scene.resize(document.documentElement.clientWidth, window.innerHeight);
         rendered = -1;
       };
       const syncDialog = () => {
@@ -94,7 +86,7 @@ export default function HeroSculpture() {
       canvas.addEventListener('webglcontextlost', loseContext);
       void import('../lib/createHeroSculpture').then(async ({ createHeroSculpture }) => {
         if (!isCurrent()) return;
-        const created = await createHeroSculpture(canvas, controller.signal, compact);
+        const created = await createHeroSculpture(canvas, controller.signal);
         if (!isCurrent()) { created.dispose(); return; }
         scene = created;
         resize();
@@ -102,14 +94,6 @@ export default function HeroSculpture() {
         hero.classList.add('hero-3d-ready');
         context = gsap.context(() => {}, hero);
         context.add(() => {
-          if (compact) {
-            gsap.to(progress, { value: 1, ease: 'none', scrollTrigger: {
-              id: 'mobile-hero', trigger: hero, start: 'top top',
-              end: () => `+=${Math.min(hero.offsetHeight * .42, 360)}`, scrub: true,
-              invalidateOnRefresh: true,
-            } });
-            return;
-          }
           gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
             id: 'cinema-hero', trigger: hero, start: 'top top',
             end: () => `+=${window.innerHeight * 1.25}`,
@@ -132,10 +116,8 @@ export default function HeroSculpture() {
         });
         gsap.ticker.add(draw);
         window.addEventListener('resize', resize);
-        if (!compact) {
-          hero.addEventListener('pointermove', movePointer, { passive: true });
-          hero.addEventListener('pointerleave', resetPointer);
-        }
+        hero.addEventListener('pointermove', movePointer, { passive: true });
+        hero.addEventListener('pointerleave', resetPointer);
         ScrollTrigger.refresh();
         clearTimeout(startupDeadline);
         finishStartup();

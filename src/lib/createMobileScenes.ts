@@ -2,6 +2,20 @@ import { gsap } from './useScrollTrigger';
 
 /** Compact scenes use native scrolling, short ranges and independent transform layers. */
 export function createMobileScenes(root: HTMLElement) {
+  // The shared startup screen waits for these visible phone images, even on a deep link.
+  root.querySelectorAll<HTMLImageElement>('.hero-mobile-wing img').forEach(image => { image.loading = 'eager'; });
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: {
+    trigger: '#hero', start: 'top top', end: () => `+=${Math.min(root.querySelector<HTMLElement>('#hero')!.offsetHeight * .42, 360)}`,
+    scrub: true, invalidateOnRefresh: true,
+  } })
+    .fromTo('.hero-still', { scale: .8, rotationX: 6, rotationY: -16, rotationZ: -5, y: 0, transformPerspective: 1000 },
+      { scale: 1, rotationX: 0, rotationY: 0, rotationZ: 0, y: 0, duration: 1 }, 0)
+    .fromTo('.hero-mobile-wing', { xPercent: i => i === 0 ? -14 : 14, rotationY: i => i === 0 ? 28 : -28,
+      rotationZ: i => i === 0 ? -14 : 14, y: 12, scale: .94, autoAlpha: 1, transformPerspective: 1000 },
+      { xPercent: i => i === 0 ? -60 : 60, rotationY: i => i === 0 ? 48 : -48,
+        rotationZ: i => i === 0 ? -22 : 22, scale: .84, y: 0, duration: .72 }, 0)
+    .to('.hero-mobile-wing', { autoAlpha: 0, duration: .28 }, .5);
+
   gsap.fromTo('.departments-intro', { y: 16, opacity: .5 }, { y: 0, opacity: 1, duration: .5, ease: 'power3.out',
     scrollTrigger: { trigger: '.departments-intro', start: 'top 90%', once: true },
   });

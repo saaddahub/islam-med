@@ -7,7 +7,7 @@ const lerp = THREE.MathUtils.lerp;
 const smooth = (start: number, end: number, value: number) => THREE.MathUtils.smoothstep(value, start, end);
 
 /** One sculpted object opens into one photograph. All pose changes are reversible. */
-export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: AbortSignal, compact = false) {
+export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: AbortSignal) {
   // Load before allocating a context: cancelled responsive mounts never share a renderer.
   const texture = await new Promise<THREE.Texture>((resolve, reject) => {
     if (signal.aborted) { reject(new DOMException('Aborted', 'AbortError')); return; }
@@ -24,13 +24,13 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
       signal.removeEventListener('abort', cancel);
       reject(new Error('Hero photograph could not load'));
     };
-    image.src = compact ? '/pharmacy-mobile.webp' : '/pharmacy.png';
+    image.src = '/pharmacy.png';
   });
   if (signal.aborted) { texture.dispose(); throw new DOMException('Aborted', 'AbortError'); }
   let renderer: THREE.WebGLRenderer;
-  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: compact ? 'low-power' : 'high-performance' }); }
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
   catch (error) { texture.dispose(); throw error; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, compact ? 1.25 : 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.setClearColor(0xf4efe6, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -109,8 +109,8 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
     renderer.setSize(width, height, false);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
-    const finalWidth = worldWidth * (compact ? 0.96 : 0.88);
-    const finalHeight = Math.min(worldHeight * (compact ? 0.94 : 0.68), finalWidth / (compact ? 4 / 3 : 1.65));
+    const finalWidth = worldWidth * 0.88;
+    const finalHeight = Math.min(worldHeight * 0.68, finalWidth / 1.65);
     const image = texture.image as HTMLImageElement;
     const imageAspect = image.width / image.height;
     const cropHeight = Math.min(1, imageAspect / (finalWidth / finalHeight));
@@ -125,10 +125,10 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
     const open = smooth(0.14, 0.82, progress);
     const settle = smooth(0.67, 0.94, progress);
     const fan = Math.sin(open * Math.PI);
-    const finalWidth = worldWidth * (compact ? 0.96 : 0.88);
-    const finalHeight = Math.min(worldHeight * (compact ? 0.94 : 0.68), finalWidth / (compact ? 4 / 3 : 1.65));
-    const initialScale = compact ? Math.min(worldWidth / 5.4, worldHeight / 5.4) : Math.min(1, aspect / 1.8);
-    assembly.position.set(lerp(compact ? 0 : worldWidth * 0.265, 0, move), lerp(0.05, compact ? 0 : -0.25, move), 0);
+    const finalWidth = worldWidth * 0.88;
+    const finalHeight = Math.min(worldHeight * 0.68, finalWidth / 1.65);
+    const initialScale = Math.min(1, aspect / 1.8);
+    assembly.position.set(lerp(worldWidth * 0.265, 0, move), lerp(0.05, -0.25, move), 0);
     assembly.scale.setScalar(lerp(initialScale, 1, move));
     assembly.rotation.set(
       lerp(-0.12, 0, open) + pointerY * 0.055 * (1 - open),
@@ -158,7 +158,7 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
       photo.visible = reveal.value > 0;
 
     });
-    shadow.position.set(assembly.position.x, compact ? -2.45 * initialScale : -2.7, -0.5);
+    shadow.position.set(assembly.position.x, -2.7, -0.5);
     shadow.scale.set(5.2 * initialScale, 0.65, 1);
     shadowMaterial.opacity = 1 - smooth(0.1, 0.5, progress);
     renderer.render(scene, camera);
