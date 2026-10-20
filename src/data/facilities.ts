@@ -16,7 +16,7 @@ export const FACILITIES_DATA = {
       subtitle: 'A clear starting point for your visit.',
       tag: 'RECEPTION & OPD',
       description: 'Reception counters provide information and assistance, helping patients reach the appropriate clinic with attention to privacy, dignity and comfort.',
-      image: '/directory-corridor.jpg',
+      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=90&w=2400',
       specs: ['Clinic Information', 'Patient Assistance', 'Medical & Surgical Referrals'],
     },
     {
@@ -25,7 +25,7 @@ export const FACILITIES_DATA = {
       subtitle: 'Care through pregnancy, birth and childhood.',
       tag: 'MATERNITY & PEDIATRICS',
       description: 'Gynecology, obstetrics and pediatric services support women, newborns, children and families through outpatient and inpatient care.',
-      image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1000',
+      image: 'https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=90&w=2400',
       specs: ['Pregnancy & Delivery', 'Gynecological Procedures', 'Pediatric Consultations'],
     },
     {
@@ -34,7 +34,7 @@ export const FACILITIES_DATA = {
       subtitle: 'Clinical assessment supported by laboratory services.',
       tag: 'ADULT CARE & LABORATORY',
       description: 'Outpatient and internal medicine consultations work alongside laboratory testing to support assessment, treatment and ongoing care.',
-      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1200',
+      image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=90&w=2400',
       specs: ['Adult Medicine', 'Preventive Care', 'Laboratory Testing'],
     },
   ],

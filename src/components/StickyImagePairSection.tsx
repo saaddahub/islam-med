@@ -58,9 +58,9 @@ export function StickyImagePairSection() {
           {/* Pair 1: Caption LEFT, Image RIGHT */}
           <StickyImagePair
             heading="01 / Reception & Wayfinding"
-            image="/directory-corridor.jpg"
+            image="https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=90&w=2400"
             caption={{
-              thumbnail: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&q=80&w=600",
+              thumbnail: "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&q=90&w=800",
               label: "A Clear Start to Your Visit",
               description: "Reception staff provide clinic information and help patients reach the appropriate medical or surgical service.",
             }}
@@ -70,9 +70,9 @@ export function StickyImagePairSection() {
           {/* Pair 2: Image LEFT, Caption RIGHT */}
           <StickyImagePair
             heading="02 / Women’s Health"
-            image="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1400"
+            image="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=90&w=2400"
             caption={{
-              thumbnail: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=600",
+              thumbnail: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=90&w=800",
               label: "Gynecological & Obstetric Care",
               description: "Pregnancy care, delivery services, gynecological procedures and minimally invasive laparoscopic surgery.",
             }}
@@ -82,9 +82,9 @@ export function StickyImagePairSection() {
           {/* Pair 3: Caption LEFT, Image RIGHT */}
           <StickyImagePair
             heading="03 / Clinical Care"
-            image="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1400"
+            image="https://images.unsplash.com/photo-1578496479914-7ef3b0193be3?auto=format&fit=crop&q=90&w=2400"
             caption={{
-              thumbnail: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=600",
+              thumbnail: "https://images.unsplash.com/photo-1576085898477-1af31ada606a?auto=format&fit=crop&q=90&w=800",
               label: "Assessment & Treatment",
               description: "Outpatient and internal medicine consultations support assessment, treatment and referral, with laboratory testing when required.",
             }}
@@ -94,9 +94,9 @@ export function StickyImagePairSection() {
           {/* Pair 4: Image LEFT, Caption RIGHT */}
           <StickyImagePair
             heading="04 / Patient Comfort"
-            image="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1400"
+            image="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=90&w=2400"
             caption={{
-              thumbnail: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=600",
+              thumbnail: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=90&w=800",
               label: "Personal Attention & Dignity",
               description: "Privacy, clear communication, cleanliness and comfort are central to your visit.",
             }}

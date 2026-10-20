@@ -1,3 +1,5 @@
+import { imageSources } from '../lib/imageSources';
+
 export interface StickyImagePairCaption {
   thumbnail: string;
   label: string;
@@ -23,7 +25,7 @@ export function StickyImagePair({
     <div className={`sticky-pair-wrapper ${reverse ? 'reverse' : ''} ${className}`}>
       <div className="sticky-pair-caption-col">
         <div className="sticky-pair-caption-inner">
-          <img data-reveal="up" src={caption.thumbnail} alt={caption.label} loading="lazy" decoding="async" width={600} height={450} className="caption-thumb" />
+          <img data-reveal="up" src={caption.thumbnail} srcSet={imageSources(caption.thumbnail)} sizes="320px" alt={caption.label} loading="lazy" decoding="async" width={600} height={450} className="caption-thumb" />
           <div data-reveal="up">
             {heading && (
               <span className="text-xs font-label uppercase tracking-widest text-imc-blue font-semibold mb-1 block">
@@ -39,7 +41,8 @@ export function StickyImagePair({
       </div>
       <div className="sticky-pair-image-col">
         <div data-gallery-frame className="gallery-frame">
-          <img src={image} alt={caption.label || 'Feature scroll exhibit'} loading="lazy" decoding="async" className="scroll-image" />
+          {/* A tall cover crop needs more source detail than the column width suggests. */}
+          <img src={image} srcSet={imageSources(image)} sizes="(max-width: 1023px) 90vw, 1300px" alt={caption.label || 'Feature scroll exhibit'} loading="lazy" decoding="async" className="scroll-image" />
         </div>
       </div>
     </div>

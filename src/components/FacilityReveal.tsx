@@ -3,6 +3,7 @@ import { FACILITIES_DATA } from '../data/facilities';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
+import { imageSources } from '../lib/imageSources';
 
 export const FacilityReveal: React.FC = () => {
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState(0);
@@ -24,16 +25,16 @@ export const FacilityReveal: React.FC = () => {
           </h2>
           <p className="font-sans text-sm sm:text-base text-slate-600">
             Privacy, dignity, clear communication and personal attention guide the
-            patient experience, from reception to your clinical consultation.
+            patient experience, from reception to your clinical consultation. Clinical images below are illustrative.
           </p>
         </div>
         <div className="facility-mobile-tabs" role="group" aria-label="Choose a facility">
           {FACILITIES_DATA.features.map((feature, index) => <button type="button" key={feature.id} aria-pressed={index === selectedFeatureIndex} onClick={() => setSelectedFeatureIndex(index)}>{feature.title}</button>)}
         </div>
         <div className="facility-photo-space">
-          {[FACILITIES_DATA.features[1], FACILITIES_DATA.features[2]].map((feature, index) => (
-            <div key={feature.id} data-facility-wing={index === 0 ? 'left' : 'right'} className="facility-photo-wing cinema-only" aria-hidden="true">
-              <img src={feature.image} alt="" loading="lazy" decoding="async" />
+          {FACILITIES_DATA.features.filter(feature => feature.id !== currentFeature.id).map((feature, index) => (
+            <div key={index === 0 ? 'left' : 'right'} data-facility-wing={index === 0 ? 'left' : 'right'} className="facility-photo-wing cinema-only" aria-hidden="true">
+              <img src={feature.image} srcSet={imageSources(feature.image)} sizes="(max-width: 1023px) 70vw, 40vw" alt="" loading="lazy" decoding="async" />
               <span className="cinema-eyebrow">{feature.title}</span>
             </div>
           ))}
@@ -42,7 +43,7 @@ export const FacilityReveal: React.FC = () => {
             <AnimatePresence initial={false} mode="wait">
               <motion.div key={currentFeature.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 transition={{ duration: isReduced ? 0 : 0.25 }} className="absolute inset-0">
-                <img src={currentFeature.image} alt={currentFeature.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={currentFeature.image} srcSet={imageSources(currentFeature.image)} sizes="(max-width: 1023px) 92vw, 100vw" alt={currentFeature.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 <div className="facility-photo-shade absolute inset-0" />
               </motion.div>
             </AnimatePresence>

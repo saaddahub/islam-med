@@ -24,13 +24,13 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
       signal.removeEventListener('abort', cancel);
       reject(new Error('Hero photograph could not load'));
     };
-    image.src = '/pharmacy.png';
+    image.src = '/images/imc-pharmacy-2336.webp';
   });
   if (signal.aborted) { texture.dispose(); throw new DOMException('Aborted', 'AbortError'); }
   let renderer: THREE.WebGLRenderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
   catch (error) { texture.dispose(); throw error; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setClearColor(0xf4efe6, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -56,7 +56,7 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
   const geometries: THREE.BufferGeometry[] = [];
   const materials: THREE.Material[] = [blue];
   texture.colorSpace = THREE.SRGBColorSpace;
-  texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 4);
+  texture.anisotropy = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
 
   // Slice UVs sample one shared photograph and meet exactly in the final plane.
   const ribs = Array.from({ length: COUNT }, (_, index) => {

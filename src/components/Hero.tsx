@@ -6,12 +6,11 @@ export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => v
   return (
     <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-imc-paper pt-28 pb-12 sm:pt-32 sm:pb-16">
       <div className="hero-visual">
-        <div className="hero-mobile-wing" aria-hidden="true"><img src="/directory-corridor.jpg" alt="" width={764} height={1024} loading="lazy" decoding="async" /></div>
+        <div className="hero-mobile-wing" aria-hidden="true"><img src="/images/imc-corridor-restored.webp" srcSet="/images/imc-corridor-640.webp 640w, /images/imc-corridor-restored.webp 1086w" sizes="(max-width: 1023px) 44vw, 1px" alt="" width={1086} height={1448} loading="lazy" decoding="async" /></div>
         <div className="hero-mobile-wing hero-mobile-wing-right" aria-hidden="true"><img src="/directory-sign.png" alt="" width={764} height={1024} loading="lazy" decoding="async" /></div>
         <div className="hero-still" aria-hidden="true">
           <picture className="hero-photo-picture">
-            <source media="(max-width: 1023px)" srcSet="/pharmacy-mobile.webp" />
-            <img src="/pharmacy.png" alt="" fetchPriority="high" decoding="async" width={2336} height={1744} />
+            <img src="/images/imc-pharmacy-1800.webp" srcSet="/images/imc-pharmacy-800.webp 800w, /images/imc-pharmacy-1280.webp 1280w, /images/imc-pharmacy-1800.webp 1800w, /images/imc-pharmacy-2336.webp 2336w" sizes="(max-width: 1023px) 92vw, 50vw" alt="" fetchPriority="high" decoding="async" width={2336} height={1744} />
           </picture>
         </div>
         <HeroSculpture />
