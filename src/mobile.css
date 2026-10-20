@@ -2,6 +2,7 @@
 .hero-mobile-description, .hero-mobile-assurance, .department-mobile-art,
 .doctor-mobile-avatar, .facility-mobile-tabs, .facility-mobile-description,
 .spaces-gallery-controls { display: none; }
+.hero-visual { display: contents; }
 .hero-photo-picture { display: block; width: 100%; height: 100%; }
 .facility-photo-surface { position: absolute; inset: 0; overflow: hidden; }
 
@@ -34,25 +35,28 @@
   .navigation-sheet-contact { flex-shrink: 0; display: block; padding-top: 12px; }
   .navigation-sheet-contact > div:last-child { font-size: 11px; line-height: 1.5; margin-top: 4px; }
 
-  .hero-cinema { padding: calc(106px + env(safe-area-inset-top, 0px)) 0 40px; min-height: 0; perspective: 1100px; isolation: isolate; }
-  .hero-copy { padding-inline: 24px; margin-block: 0; }
-  .hero-copy-inner { max-width: 560px; margin-inline: auto; }
-  .hero-copy-inner > * + * { margin-top: 18px; }
-  .hero-headline { font-size: clamp(46px, 12vw, 68px); line-height: 1.02; letter-spacing: -.035em; text-wrap: balance; }
-  .hero-line:first-child { display: block; }
+  .hero-cinema { padding: calc(102px + env(safe-area-inset-top, 0px)) 0 32px; min-height: 0; isolation: isolate; }
+  .hero-copy, .hero-copy-inner { display: contents; }
+  .hero-copy-inner > * + * { margin-top: 0; }
+  .hero-headline { order: 1; padding-inline: 20px; font-size: clamp(38px, 10.5vw, 54px); line-height: 1.02; letter-spacing: -.025em; text-align: center; }
+  .hero-line { display: block; width: fit-content; margin-inline: auto; white-space: nowrap; }
+  .hero-line:nth-child(2) { font-size: 1.6em; line-height: .95; margin-block: 3px 13px; }
   .hero-desktop-description { display: none; }
   .hero-mobile-description { display: inline; }
-  .hero-copy-inner > p { font-size: 15px; line-height: 1.65; max-width: 38ch; }
-  .hero-actions { padding-top: 2px; }
-  .hero-actions > div { gap: 10px; }
-  .hero-actions :is(a, button) { min-height: 48px; padding: 12px 18px; font-size: 13px; }
+  .hero-copy-inner > p { order: 3; padding-inline: 24px; margin: 12px auto 0; font-size: 15px; line-height: 1.6; max-width: 400px; text-align: center; }
+  .hero-actions { order: 4; width: calc(100% - 48px); max-width: 430px; margin: 22px auto 0; padding: 0; }
+  .hero-actions > div { gap: 16px; flex-wrap: nowrap; }
+  .hero-actions :is(a, button) { min-height: 50px; padding: 13px 18px; font-size: 13px; }
+  .hero-actions button { flex: 1; justify-content: center; }
+  .hero-actions a { border: 0; padding-inline: 0; background: transparent; white-space: nowrap; }
   .hero-service-indicators { display: none; }
-  .hero-still { position: relative; inset: auto; order: 2; margin: 28px 24px 0; height: clamp(240px, 68vw, 370px); overflow: visible; z-index: 0; transform-origin: center center; }
-  .hero-still::before { content: ''; position: absolute; inset: 8px -3px -5px 8px; z-index: -1; border: 1px solid var(--color-imc-blue-soft); border-radius: 16px; transform: rotate(2deg); }
-  .hero-photo-picture { border-radius: 16px; overflow: hidden; }
+  .hero-visual { order: 2; display: block; position: relative; width: calc(100% - 24px); max-width: 600px; height: clamp(244px, 72vw, 310px); margin: 6px auto 0; }
+  .hero-still { position: absolute; inset: 12px; margin: 0; height: auto; overflow: hidden; }
+  .hero-photo-picture { border-radius: 12px; overflow: hidden; }
   .hero-still img { object-position: 50% 50%; }
-  .hero-mobile-assurance { order: 3; display: flex; gap: 8px; align-items: center; margin: 24px 24px 0; color: var(--color-imc-muted); font-size: 11px; }
-  .hero-mobile-assurance > svg:last-child { margin-left: auto; }
+  .hero-mobile-assurance { order: 5; display: flex; gap: 8px; align-items: center; justify-content: center; margin: 20px 20px 0; color: var(--color-imc-muted); font-size: 11px; }
+  .hero-mobile-assurance > svg:last-child { display: none; }
+  .hero-3d-ready .hero-scroll-note { display: none; }
 
   .departments-overview { padding: 56px 0 40px; }
   .departments-container { padding-inline: 24px; }
@@ -188,7 +192,7 @@
   .site-header > div { padding-inline: 10px; }
   .site-header a[aria-label="Islam Medical Complex home"] > div > span { display: none; }
   .hero-copy, .departments-container { padding-inline: 20px; }
-  .hero-headline { font-size: 43px; }
+  .hero-headline { font-size: 36px; }
   .hero-actions :is(a, button) { padding-inline: 12px; font-size: 12px; }
   .departments-intro { grid-template-columns: minmax(0, 1fr) 88px; }
   .department-index { column-gap: 16px; }

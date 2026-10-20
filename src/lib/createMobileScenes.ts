@@ -2,15 +2,6 @@ import { gsap } from './useScrollTrigger';
 
 /** Compact scenes use native scrolling, short ranges and independent transform layers. */
 export function createMobileScenes(root: HTMLElement) {
-  const heroPhoto = root.querySelector('.hero-still');
-  gsap.fromTo(heroPhoto, { rotationX: 7, rotationY: -4, rotationZ: -2, scale: .95, y: 16, transformPerspective: 900 }, {
-    rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1, y: 0, ease: 'none',
-    scrollTrigger: { trigger: heroPhoto, start: 'top 90%', end: 'top 35%', scrub: true },
-  });
-  gsap.fromTo('.hero-still img', { scale: 1.08, yPercent: -2 }, { scale: 1, yPercent: 2, ease: 'none',
-    scrollTrigger: { trigger: heroPhoto, start: 'top 95%', end: 'bottom 10%', scrub: true },
-  });
-
   gsap.fromTo('.departments-intro', { y: 16, opacity: .5 }, { y: 0, opacity: 1, duration: .5, ease: 'power3.out',
     scrollTrigger: { trigger: '.departments-intro', start: 'top 90%', once: true },
   });

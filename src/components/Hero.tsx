@@ -5,13 +5,15 @@ import HeroSculpture from './HeroSculpture';
 export default function Hero({ onOpenAppointment }: { onOpenAppointment: () => void }) {
   return (
     <section id="hero" className="hero-cinema relative min-h-[100dvh] w-full flex flex-col justify-between bg-imc-paper pt-28 pb-12 sm:pt-32 sm:pb-16">
-      <div className="hero-still" aria-hidden="true">
-        <picture className="hero-photo-picture">
-          <source media="(max-width: 1023px)" srcSet="/pharmacy-mobile.webp" />
-          <img src="/pharmacy.png" alt="" fetchPriority="high" decoding="async" width={2336} height={1744} />
-        </picture>
+      <div className="hero-visual">
+        <div className="hero-still" aria-hidden="true">
+          <picture className="hero-photo-picture">
+            <source media="(max-width: 1023px)" srcSet="/pharmacy-mobile.webp" />
+            <img src="/pharmacy.png" alt="" fetchPriority="high" decoding="async" width={2336} height={1744} />
+          </picture>
+        </div>
+        <HeroSculpture />
       </div>
-      <HeroSculpture />
       {/* Main Content Area */}
       <div className="hero-copy relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
         <div className="hero-copy-inner max-w-2xl space-y-6">
