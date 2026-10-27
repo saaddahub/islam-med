@@ -7,11 +7,12 @@ const lerp = THREE.MathUtils.lerp;
 const smooth = (start: number, end: number, value: number) => THREE.MathUtils.smoothstep(value, start, end);
 
 /** One sculpted object opens into one photograph. All pose changes are reversible. */
-export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: AbortSignal) {
+export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: AbortSignal, photograph = '/images/imc-pharmacy-2336.webp') {
   // Load before allocating a context: cancelled responsive mounts never share a renderer.
   const texture = await new Promise<THREE.Texture>((resolve, reject) => {
     if (signal.aborted) { reject(new DOMException('Aborted', 'AbortError')); return; }
     const image = new Image();
+    image.crossOrigin = 'anonymous';
     const cancel = () => { image.src = ''; reject(new DOMException('Aborted', 'AbortError')); };
     signal.addEventListener('abort', cancel, { once: true });
     image.onload = () => {
@@ -24,7 +25,7 @@ export async function createHeroSculpture(canvas: HTMLCanvasElement, signal: Abo
       signal.removeEventListener('abort', cancel);
       reject(new Error('Hero photograph could not load'));
     };
-    image.src = '/images/imc-pharmacy-2336.webp';
+    image.src = photograph;
   });
   if (signal.aborted) { texture.dispose(); throw new DOMException('Aborted', 'AbortError'); }
   let renderer: THREE.WebGLRenderer;

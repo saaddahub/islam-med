@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { trackStartupTask } from '../lib/useStartupReady';
+import { useContent } from '../content/context';
 
 export default function HeroSculpture() {
+  const photograph = useContent().copy.Hero.photograph_3;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const generationRef = useRef(0);
   useEffect(() => {
@@ -86,7 +88,7 @@ export default function HeroSculpture() {
       canvas.addEventListener('webglcontextlost', loseContext);
       void import('../lib/createHeroSculpture').then(async ({ createHeroSculpture }) => {
         if (!isCurrent()) return;
-        const created = await createHeroSculpture(canvas, controller.signal);
+        const created = await createHeroSculpture(canvas, controller.signal, photograph);
         if (!isCurrent()) { created.dispose(); return; }
         scene = created;
         resize();
@@ -130,6 +132,6 @@ export default function HeroSculpture() {
       return teardown;
     });
     return () => media.revert();
-  }, []);
+  }, [photograph]);
   return <canvas ref={canvasRef} className="hero-sculpture" aria-hidden="true" />;
 }

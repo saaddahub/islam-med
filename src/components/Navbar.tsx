@@ -1,15 +1,19 @@
+import { clinicLinks } from '../content/model';
+import { useContent } from '../content/context';
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Menu as MenuIcon, X, Phone, MapPin, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 import Modal from './Modal';
-import { CLINIC } from '../data/clinic';
-import { CLINIC_SERVICES, DEPARTMENTS, careHref } from '../data/departments';
+import { careHref } from '../data/departments';
 
 interface NavbarProps {
   onOpenAppointment: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
+  const content = useContent();
+  const copy = content.copy.Navbar;
+  const CLINIC = clinicLinks(content.clinic); const DEPARTMENTS = content.departments; const CLINIC_SERVICES = content.services;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -73,15 +77,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
               <div className="flex flex-col min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="font-anton uppercase tracking-wider text-lg sm:text-2xl leading-none text-imc-blue">
-                    ISLAM
-                  </span>
+                    {copy.text_1}</span>
                   <span className="font-anton uppercase tracking-wider text-[10px] sm:text-sm leading-tight text-[#DC2626] max-w-16 sm:max-w-none sm:whitespace-nowrap mt-0.5">
-                    MEDICAL COMPLEX
-                  </span>
+                    {copy.text_2}</span>
                 </div>
                 <span className="text-[8px] sm:text-[9px] tracking-[0.08em] sm:tracking-widest uppercase font-label text-slate-600 whitespace-nowrap">
-                  Clinical Excellence & Surgery
-                </span>
+                  {copy.text_3}</span>
               </div>
             </a>
 
@@ -97,11 +98,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                     event.currentTarget.querySelector('summary')?.focus();
                   }
                 }}>
-                <summary className="desktop-nav-link">Departments <ChevronDown size={13} aria-hidden="true" /></summary>
+                <summary className="desktop-nav-link">{copy.text_4}<ChevronDown size={13} aria-hidden="true" /></summary>
                 <div className="department-dropdown" data-lenis-prevent>
-                  <a href="#departments" className="department-dropdown-all" onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>Explore our departments <ArrowUpRight size={16} aria-hidden="true" /></a>
+                  <a href="#departments" className="department-dropdown-all" onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>{copy.link_or_button_text_1}<ArrowUpRight size={16} aria-hidden="true" /></a>
                   <div className="department-dropdown-groups">
-                  <div><h2>Departments</h2>
+                  <div><h2>{copy.heading_1}</h2>
                   <ul>
                     {DEPARTMENTS.map(department => <li key={department.id}>
                       <a href={careHref(department)} aria-current={location.hash === careHref(department) ? 'page' : undefined} onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}>
@@ -109,7 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                       </a>
                     </li>)}
                   </ul>
-                  </div><div><h2>Services</h2><ul>
+                  </div><div><h2>{copy.heading_2}</h2><ul>
                     {CLINIC_SERVICES.map(service => <li key={service.id}><a href={careHref(service)} aria-current={location.hash === careHref(service) ? 'page' : undefined} onClick={event => { const details = event.currentTarget.closest('details'); if (details) details.open = false; }}><span>{service.name}</span><ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
                   </ul></div></div>
                 </div>
@@ -125,8 +126,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
                 aria-label="Book Appointment"
                 className="flex items-center justify-center min-h-11 gap-2 px-4 sm:px-5 py-2 rounded-full bg-imc-blue text-white font-medium text-xs sm:text-sm whitespace-nowrap tracking-tight hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform,box-shadow] duration-150 cursor-pointer"
               >
-                <span className="sm:hidden">Book</span>
-                <span className="hidden sm:inline">Book Appointment</span>
+                <span className="sm:hidden">{copy.text_5}</span>
+                <span className="hidden sm:inline">{copy.text_6}</span>
               </button>
 
               {/* Mobile Menu Toggle */}
@@ -151,8 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
           <div className="navigation-sheet w-full max-w-xl bg-imc-paper text-imc-ink rounded-2xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.15)] space-y-6">
             <div className="navigation-sheet-header flex items-center justify-between border-b border-slate-100 pb-4">
               <h2 id="site-navigation-title" className="font-editorial text-3xl text-imc-ink">
-                Explore the complex
-              </h2>
+                {copy.heading_3}</h2>
               <button
                 type="button"
                 onClick={() => setIsMenuOpen(false)}
@@ -166,14 +166,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAppointment }) => {
             <nav aria-label="All sections" className="mobile-navigation-links">
               {navLinks.slice(1).map(link => <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}
               <details className="mobile-departments">
-                <summary>Departments <ChevronDown size={18} aria-hidden="true" /></summary>
+                <summary>{copy.text_7}<ChevronDown size={18} aria-hidden="true" /></summary>
                 <ul>
-                  <li><a href="#departments" onClick={() => setIsMenuOpen(false)}>Department overview<ArrowUpRight size={15} aria-hidden="true" /></a></li>
+                  <li><a href="#departments" onClick={() => setIsMenuOpen(false)}>{copy.link_or_button_text_2}<ArrowUpRight size={15} aria-hidden="true" /></a></li>
                   {DEPARTMENTS.map(department => <li key={department.id}><a href={careHref(department)} onClick={() => setIsMenuOpen(false)}>{department.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}
                 </ul>
               </details>
               <details className="mobile-departments">
-                <summary>Services <ChevronDown size={18} aria-hidden="true" /></summary>
+                <summary>{copy.text_8}<ChevronDown size={18} aria-hidden="true" /></summary>
                 <ul>{CLINIC_SERVICES.map(service => <li key={service.id}><a href={careHref(service)} onClick={() => setIsMenuOpen(false)}>{service.name}<ArrowUpRight size={15} aria-hidden="true" /></a></li>)}</ul>
               </details>
             </nav>

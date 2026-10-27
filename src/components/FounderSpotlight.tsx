@@ -1,18 +1,22 @@
+import { clinicLinks } from '../content/model';
+import { useContent } from '../content/context';
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { CLINIC } from '../data/clinic';
 
 interface FounderSpotlightProps {
   onOpenAppointment: () => void;
 }
 
 export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppointment }) => {
+  const content = useContent();
+  const copy = content.copy.FounderSpotlight;
+  const CLINIC = clinicLinks(content.clinic);
   return (
     <section id="about" className="founder-section relative z-20 w-full" aria-labelledby="leadership-heading">
       <div className="founder-container">
         <header className="leadership-header">
-          <p className="cinema-eyebrow">Leadership &amp; vision</p>
-          <h2 id="leadership-heading" className="font-editorial">The people behind<br /><em>your care.</em></h2>
+          <p className="cinema-eyebrow">{copy.text_1}</p>
+          <h2 id="leadership-heading" className="font-editorial">{copy.heading_1}<br /><em>{copy.text_2}</em></h2>
         </header>
         <div className="founder-composition">
           <div className="leadership-pair">
@@ -24,8 +28,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               <div className="founder-portrait-crop">
                 <img
                   data-founder-portrait
-                  src="/imran-islam-founder.webp"
-                  alt="Imran Islam, Founder of Islam Medical Complex"
+                  src={copy.photograph_1}
+                  alt={copy.image_description_1}
                   width={1024}
                   height={1536}
                   loading="lazy"
@@ -34,8 +38,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               </div>
             </div>
             <figcaption data-leadership-name className="founder-caption">
-              <p className="founder-role">Founder</p>
-              <h3 className="font-editorial">Imran Islam</h3>
+              <p className="founder-role">{copy.text_3}</p>
+              <h3 className="font-editorial">{copy.heading_2}</h3>
             </figcaption>
           </figure>
           <figure className="founder-portrait-column leadership-director">
@@ -43,8 +47,8 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               <div className="founder-portrait-crop">
                 <img
                   data-founder-portrait
-                  src="/doctors/dr-yasmin-sattar.jpg"
-                  alt="Dr Yasmeen, Director of Islam Medical Complex"
+                  src={copy.photograph_2}
+                  alt={copy.image_description_2}
                   width={768}
                   height={1024}
                   loading="lazy"
@@ -53,33 +57,29 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
               </div>
             </div>
             <figcaption data-leadership-name className="founder-caption">
-              <p className="founder-role">Director</p>
-              <h3 className="font-editorial">Dr Yasmeen</h3>
+              <p className="founder-role">{copy.text_4}</p>
+              <h3 className="font-editorial">{copy.heading_3}</h3>
             </figcaption>
           </figure>
           </div>
 
           <div className="founder-content">
             <div>
-              <p className="leadership-location">Islam Medical Complex · {CLINIC.location}</p>
+              <p className="leadership-location">{copy.text_5}{CLINIC.location}</p>
               <div className="founder-quote">
                 <p className="font-editorial">
-                  Care with attention to your privacy, dignity and individual needs.
-                </p>
+                  {copy.text_6}</p>
                 <p className="founder-quote-detail">
-                  The patient experience at Islam Medical Complex begins with clear communication,
-                  helpful reception staff and access to women's health, pediatric, outpatient
-                  and internal medicine services.
-                </p>
+                  {copy.text_7}</p>
               </div>
 
               <div className="founder-practice">
-                <h3>Our approach to care</h3>
-                <p>Personal attention, cleanliness and comfort are central to how patients are welcomed and cared for.</p>
+                <h3>{copy.heading_4}</h3>
+                <p>{copy.text_8}</p>
                 <ul aria-label="Our approach">
-                  <li>Women's &amp; Children's Health</li>
-                  <li>Adult &amp; Preventive Care</li>
-                  <li>Clear Communication &amp; Personal Attention</li>
+                  <li>{copy.text_9}</li>
+                  <li>{copy.text_10}</li>
+                  <li>{copy.text_11}</li>
                 </ul>
               </div>
 
@@ -89,11 +89,11 @@ export const FounderSpotlight: React.FC<FounderSpotlightProps> = ({ onOpenAppoin
                   onClick={onOpenAppointment}
                   className="founder-consult transition-[background-color,transform] duration-150 active:scale-95"
                 >
-                  <span>Contact reception</span>
+                  <span>{copy.text_12}</span>
                   <ArrowUpRight size={19} aria-hidden="true" />
                 </button>
                 <a href="#facilities" className="founder-campus transition-[background-color,transform] duration-150 active:scale-95">
-                  <span>Explore our campus</span>
+                  <span>{copy.text_13}</span>
                   <span className="founder-campus-arrow"><ArrowUpRight size={19} aria-hidden="true" /></span>
                 </a>
               </div>

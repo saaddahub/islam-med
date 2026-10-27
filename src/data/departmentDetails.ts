@@ -10,7 +10,7 @@ export interface DepartmentSection { title: string; paragraphs?: string[]; items
 // https://www.nhs.uk/tests-and-treatments/physiotherapy/
 // https://www.nhs.uk/pregnancy/your-pregnancy-care/ultrasound-scans/
 // https://www.hdft.nhs.uk/listening-to-your-babys-heartbeat/
-const CARE_DETAILS: Record<string, DepartmentSection[]> = {
+export const CARE_DETAILS: Record<string, DepartmentSection[]> = {
   "department-gynecology": [
     {
       "title": "Women’s health, with personal attention",

@@ -1,0 +1,25 @@
+{
+  "databaseId": "imc",
+  "tableId": "site_content",
+  "bucketId": "site_media",
+  "table": { "name": "Website content", "permissions": [], "rowSecurity": true },
+  "columns": [
+    { "key": "content", "type": "mediumtext", "required": true, "array": false },
+    { "key": "version", "type": "integer", "required": true, "min": 0, "max": 2147483647, "array": false },
+    { "key": "updated_at", "type": "string", "required": true, "size": 40, "array": false },
+    { "key": "guard", "type": "string", "required": true, "size": 36, "array": false }
+  ],
+  "rows": [
+    { "rowId": "draft", "permissions": ["read(\"label:siteadmin\")", "update(\"label:siteadmin\")"], "data": { "content": "", "version": 0, "updated_at": "", "guard": "" } },
+    { "rowId": "published", "permissions": ["read(\"any\")", "update(\"label:siteadmin\")"], "data": { "content": "", "version": 0, "updated_at": "", "guard": "" } }
+  ],
+  "bucket": {
+    "name": "Website photographs",
+    "permissions": ["read(\"any\")", "create(\"label:siteadmin\")"],
+    "fileSecurity": false,
+    "enabled": true,
+    "maximumFileSize": 8388608,
+    "allowedFileExtensions": ["jpg", "jpeg", "png", "webp", "avif"],
+    "compression": "none"
+  }
+}

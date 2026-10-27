@@ -17,6 +17,7 @@ import type { Doctor } from './data/doctors';
 import { findCareEntry } from './data/departments';
 import DepartmentPage from './components/DepartmentPage';
 import { useStartupReady } from './lib/useStartupReady';
+import { useContent } from './content/context';
 
 function LandingPage({ onOpenAppointment, onSelectDoctor }: { onOpenAppointment: () => void; onSelectDoctor: (doctor: Doctor) => void }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -33,15 +34,16 @@ function LandingPage({ onOpenAppointment, onSelectDoctor }: { onOpenAppointment:
   </div>;
 }
 
-const readDepartment = () => findCareEntry(location.hash);
-
 export function App() {
-  const [department, setDepartment] = useState(readDepartment);
+  const content = useContent();
+  const [hash, setHash] = useState(() => location.hash);
+  const route = findCareEntry(hash);
+  const department = route && [...content.departments, ...content.services].find(entry => entry.id === route.id && entry.kind === route.kind);
   // Remount scroll smoothing with each reading view, clearing any old scroll momentum.
   useLenis(department ? `${department.kind}-${department.id}` : undefined);
   useStartupReady();
   useEffect(() => {
-    const update = () => setDepartment(readDepartment());
+    const update = () => setHash(location.hash);
     window.addEventListener('hashchange', update);
     return () => window.removeEventListener('hashchange', update);
   }, []);

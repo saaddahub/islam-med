@@ -13,7 +13,7 @@ Use Node.js 24 and `npm ci`, then:
 - `npm run test:security`: production build and security regression checks.
 - `npm audit`: current dependency advisory check.
 
-The site has no backend, authentication, appointment submission, or email subscription service. Booking buttons show reception contact options. The site does not collect or persist patient details.
+The optional Appwrite content backend provides staff authentication, private drafts, image uploads and publication through `/admin`. Follow [the admin setup guide](docs/admin-setup.md) to connect it. Without configuration the public site uses its original content; development offers a local editor preview. Booking buttons show reception contact options. The site does not collect or persist patient details.
 
 ## Departments and services
 

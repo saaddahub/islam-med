@@ -1,6 +1,7 @@
+import { clinicLinks } from '../content/model';
+import { useContent } from '../content/context';
 import Modal from './Modal';
 import { X, ArrowUpRight } from 'lucide-react';
-import { CLINIC, CLINIC_MAP_URL } from '../data/clinic';
 
 interface AppointmentModalProps {
   isOpen: boolean;
@@ -11,6 +12,9 @@ export const AppointmentModal = ({
   isOpen,
   onClose,
 }: AppointmentModalProps) => {
+  const content = useContent();
+  const copy = content.copy.AppointmentModal;
+  const CLINIC = clinicLinks(content.clinic); const CLINIC_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CLINIC.address)}`;
 
   if (!isOpen) return null;
 
@@ -27,15 +31,12 @@ export const AppointmentModal = ({
         </button>
 
         <h2 id="appointment-title" className="font-editorial text-4xl sm:text-5xl pr-9 sm:pr-10">
-          Arrange your visit
-        </h2>
+          {copy.heading_1}</h2>
         <p id="appointment-description" className="mt-4 font-sans text-sm leading-relaxed text-imc-muted max-w-sm">
-          Online booking is not available yet. Call reception or visit the medical complex
-          to arrange an appointment.
-        </p>
+          {copy.text_1}</p>
 
         <div className="mt-8 pb-7 border-b border-imc-blue/15">
-          <p className="text-sm font-medium">Call reception</p>
+          <p className="text-sm font-medium">{copy.text_2}</p>
           <a
             href={CLINIC.phoneHref}
             aria-label={`Call reception at ${CLINIC.phone}`}
@@ -48,25 +49,25 @@ export const AppointmentModal = ({
 
         <dl className="mt-6 space-y-5 text-sm leading-relaxed">
           <div className="sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
-            <dt className="font-medium">Visit us</dt>
+            <dt className="font-medium">{copy.text_3}</dt>
             <dd className="mt-1 sm:mt-0 text-imc-muted">
               {CLINIC.address}
               <a href={CLINIC_MAP_URL} target="_blank" rel="noopener noreferrer" className="mt-2 flex w-fit min-h-11 items-center gap-1 text-imc-blue underline">
-                Get directions <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                {copy.link_or_button_text_1}<ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </dd>
           </div>
           <div className="sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
-            <dt className="font-medium">Clinic timings</dt>
+            <dt className="font-medium">{copy.text_4}</dt>
             <dd className="mt-1 sm:mt-0 text-imc-muted">{CLINIC.clinicHours}</dd>
           </div>
           <div className="sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4">
-            <dt className="font-medium">Email us</dt>
+            <dt className="font-medium">{copy.text_5}</dt>
             <dd><a href={CLINIC.emailHref} className="inline-flex min-h-11 items-center break-all text-imc-blue underline">{CLINIC.email}</a></dd>
           </div>
         </dl>
 
-        <p className="mt-7 text-xs leading-relaxed text-imc-muted">{CLINIC.emergencyCare}.</p>
+        <p className="mt-7 text-xs leading-relaxed text-imc-muted">{CLINIC.emergencyCare}{copy.text_6}</p>
       </div>
     </Modal>
   );

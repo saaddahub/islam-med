@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+.content-loading { min-height: 100dvh; display: grid; place-items: center; font-size: 14px; }
+.draft-preview-banner, .content-error { position: relative; z-index: 100; padding: 12px 20px; text-align: center; background: var(--color-imc-blue); color: var(--color-imc-paper); font: 12px/1.7 var(--font-sans); }
+.draft-preview-banner a { margin-left: 12px; text-decoration: underline; }
+.draft-preview-banner { position: fixed; inset: auto 0 0; }
+.draft-preview-banner ~ #top { padding-bottom: 64px; }
+#hero[data-custom-headline="true"] .hero-line { white-space: normal; overflow-wrap: anywhere; }
+.content-error { background: var(--color-imc-linen); color: var(--color-imc-ink); }
+
 .font-editorial {
   font-family: 'Newsreader', Georgia, serif;
   font-weight: 400;

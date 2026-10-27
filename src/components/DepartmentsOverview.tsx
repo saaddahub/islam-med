@@ -1,18 +1,22 @@
+import { useContent } from '../content/context';
 import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { CLINIC_SERVICES, DEPARTMENTS, careHref, type Department } from '../data/departments';
+import { careHref, type Department } from '../data/departments';
 import ClinicalIllustration from './ClinicalIllustration';
 import './DepartmentsOverview.css';
 
 export default function DepartmentsOverview({ onOpenAppointment }: { onOpenAppointment: () => void }) {
+  const content = useContent();
+  const copy = content.copy.DepartmentsOverview;
+  const DEPARTMENTS = content.departments; const CLINIC_SERVICES = content.services;
   const [preview, setPreview] = useState({ entry: DEPARTMENTS[0], instant: false });
   const select = (entry: Department, instant = false) => setPreview(previous => previous.entry === entry ? previous : { entry, instant });
   return <section id="departments" className="departments-overview relative z-20" aria-labelledby="departments-title">
     <div className="departments-container">
       <header className="departments-intro">
-        <h2 id="departments-title" className="font-editorial">Our <em>departments.</em></h2>
+        <h2 id="departments-title" className="font-editorial">{copy.heading_1}<em>{copy.text_1}</em></h2>
         <div className="department-mobile-art"><ClinicalIllustration variant="gynecology" /></div>
-        <p>Find the care you need.<br />Explore a department to learn more and plan your visit.</p>
+        <p>{copy.text_2}<br />{copy.text_3}</p>
       </header>
       <div className="departments-layout">
         <div className="department-preview">
@@ -22,7 +26,7 @@ export default function DepartmentsOverview({ onOpenAppointment }: { onOpenAppoi
           <div className="department-preview-copy">
             <h3 className="font-editorial">{preview.entry.name}</h3>
             <p>{preview.entry.shortDesc}</p>
-            <a href={careHref(preview.entry)}>Explore {preview.entry.kind} <ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a href={careHref(preview.entry)}>{copy.link_or_button_text_1}{preview.entry.kind} <ArrowUpRight size={17} aria-hidden="true" /></a>
           </div>
         </div>
         <nav aria-label="Department overview" className="department-index">
@@ -37,8 +41,8 @@ export default function DepartmentsOverview({ onOpenAppointment }: { onOpenAppoi
       </div>
       <div className="department-services">
         <div>
-          <h3 className="font-editorial">Services, together.</h3>
-          <p>Consultations, testing and everyday support in one place.</p>
+          <h3 className="font-editorial">{copy.heading_2}</h3>
+          <p>{copy.text_4}</p>
         </div>
         <nav aria-label="Clinical services" className="department-services-index">
           {CLINIC_SERVICES.map(entry => <a data-care-link key={entry.id} href={careHref(entry)}>
@@ -46,8 +50,8 @@ export default function DepartmentsOverview({ onOpenAppointment }: { onOpenAppoi
           </a>)}
         </nav>
       </div>
-      <div className="departments-reception"><p>Not sure where to begin? Our reception team can guide you.</p>
-        <button type="button" onClick={onOpenAppointment}>Speak to reception <ArrowUpRight size={16} aria-hidden="true" /></button>
+      <div className="departments-reception"><p>{copy.text_5}</p>
+        <button type="button" onClick={onOpenAppointment}>{copy.link_or_button_text_2}<ArrowUpRight size={16} aria-hidden="true" /></button>
       </div>
     </div>
   </section>;

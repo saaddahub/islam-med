@@ -1,11 +1,14 @@
+import { useContent } from '../content/context';
 import React, { useState } from 'react';
-import { FACILITIES_DATA } from '../data/facilities';
 import SquiggleUnderline from './SquiggleUnderline';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useReducedMotion } from '../lib/useReducedMotion';
 import { imageSources } from '../lib/imageSources';
 
 export const FacilityReveal: React.FC = () => {
+  const content = useContent();
+  const copy = content.copy.FacilityReveal;
+  const FACILITIES_DATA = { features: content.facilities };
   const [selectedFeatureIndex, setSelectedFeatureIndex] = useState(0);
   const isReduced = useReducedMotion();
   const currentFeature = FACILITIES_DATA.features[selectedFeatureIndex];
@@ -14,19 +17,16 @@ export const FacilityReveal: React.FC = () => {
     <section id="facilities" className="facility-cinema relative z-20 w-full bg-imc-paper text-imc-ink border-t border-slate-200">
       <div className="facility-cinema-stage">
         <div className="cinema-hud cinema-only" aria-hidden="true">
-          <span>Spaces for healing</span><span>Designed around you</span>
+          <span>{copy.text_1}</span><span>{copy.text_2}</span>
         </div>
         <div data-facility-heading className="facility-cinema-heading">
           <h2 className="font-serif-display text-4xl sm:text-6xl md:text-7xl text-imc-ink leading-[1.05]">
-            Spaces designed for{' '}
+            {copy.heading_1}{' '}
             <span className="relative inline-block italic font-normal">
-              healing<SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
-            </span>{' '}and quiet.
-          </h2>
+              {copy.text_3}<SquiggleUnderline color="var(--color-imc-blue-soft)" className="w-full" />
+            </span>{' '}{copy.heading_2}</h2>
           <p className="font-sans text-sm sm:text-base text-slate-600">
-            Privacy, dignity, clear communication and personal attention guide the
-            patient experience, from reception to your clinical consultation. Clinical images below are illustrative.
-          </p>
+            {copy.text_4}</p>
         </div>
         <div className="facility-mobile-tabs" role="group" aria-label="Choose a facility">
           {FACILITIES_DATA.features.map((feature, index) => <button type="button" key={feature.id} aria-pressed={index === selectedFeatureIndex} onClick={() => setSelectedFeatureIndex(index)}>{feature.title}</button>)}
@@ -63,7 +63,7 @@ export const FacilityReveal: React.FC = () => {
           {FACILITIES_DATA.features.map((feature, index) => (
             <button type="button" key={feature.id} onClick={() => setSelectedFeatureIndex(index)} aria-pressed={index === selectedFeatureIndex}
               className={`facility-feature-button text-left cursor-pointer ${index === selectedFeatureIndex ? 'is-selected' : ''}`}>
-              <span className="font-label text-xs text-slate-500">0{index + 1} / {feature.tag}</span>
+              <span className="font-label text-xs text-slate-500">{copy.text_5}{index + 1} {copy.text_6}{feature.tag}</span>
               <span className="font-editorial text-2xl sm:text-3xl">{feature.title}</span>
               <span className="text-sm text-slate-600 leading-relaxed">{feature.description}</span>
             </button>

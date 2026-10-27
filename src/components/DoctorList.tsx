@@ -1,5 +1,5 @@
+import { useContent } from '../content/context';
 import React, { useState, useEffect, useRef } from 'react';
-import { DOCTORS } from '../data/doctors';
 import type { Doctor } from '../data/doctors';
 import { ArrowUpRight, Clock } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
@@ -16,6 +16,7 @@ interface CursorFollowButtonProps {
 }
 
 const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
+  const copy = useContent().copy.DoctorList;
   const x = useMotionValue(-500);
   const y = useMotionValue(-500);
   const springConfig = { stiffness: 750, damping: 32, mass: 0.05 };
@@ -92,7 +93,7 @@ const CursorFollowButton: React.FC<CursorFollowButtonProps> = ({ visible }) => {
           className="hidden md:block select-none pointer-events-none"
         >
           <span className="rounded-full bg-imc-blue text-white px-3.5 py-1.5 text-xs font-label font-medium shadow-2xl flex items-center gap-1.5 border border-white/25 backdrop-blur-md">
-            <span>View Profile</span>
+            <span>{copy.text_1}</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
           </span>
         </motion.div>
@@ -105,6 +106,9 @@ export const DoctorList: React.FC<DoctorListProps> = ({
   onSelectDoctor,
   onOpenAppointment,
 }) => {
+  const content = useContent();
+  const copy = content.copy.DoctorList;
+  const DOCTORS = content.doctors;
   const [hoveredDoctorId, setHoveredDoctorId] = useState<string | null>(null);
   const isTouchDevice = !useMediaQuery('(hover: hover) and (pointer: fine)');
   const compact = useMediaQuery('(max-width: 1023px)');
@@ -135,7 +139,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         {/* Giant Oversized Section Label in Anton */}
         <div className="relative mb-8 sm:mb-12 select-none">
           <h2 data-reveal="mask" className="font-editorial text-6xl sm:text-8xl uppercase tracking-tight text-white leading-[1.05] opacity-95">
-            Our <em className="font-normal">doctors</em>
+            {copy.heading_1}<em className="font-normal">{copy.text_2}</em>
           </h2>
         </div>
 
@@ -259,7 +263,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                             
                             <div className="text-slate-300 flex items-center gap-2 text-xs">
                               <Clock className="w-3.5 h-3.5 text-imc-mist shrink-0" aria-hidden="true" />
-                              <span>Timings: <strong className="text-white">{doctor.availability[0]}</strong></span>
+                              <span>{copy.text_3}<strong className="text-white">{doctor.availability[0]}</strong></span>
                             </div>
                           </div>
                         </div>
@@ -275,7 +279,7 @@ export const DoctorList: React.FC<DoctorListProps> = ({
                             }}
                             className="relative z-10 px-4 py-2 rounded-full bg-imc-blue hover:bg-imc-blue-hover text-white font-medium text-xs tracking-wider uppercase active:scale-95 transition-[background-color,transform] duration-150 cursor-pointer shadow-md flex items-center gap-1.5"
                           >
-                            <span>View profile</span>
+                            <span>{copy.text_4}</span>
                             <ArrowUpRight className="w-3.5 h-3.5 text-imc-mist" aria-hidden="true" />
                           </button>
                         </div>
@@ -294,19 +298,16 @@ export const DoctorList: React.FC<DoctorListProps> = ({
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-white/[0.04] text-white border border-white/10">
           <div className="space-y-1">
             <h4 className="font-editorial text-2xl sm:text-3xl uppercase tracking-tight">
-              Looking for a specific specialist or second opinion?
-            </h4>
+              {copy.heading_2}</h4>
             <p className="font-sans text-xs sm:text-sm text-slate-300">
-              Contact reception for help finding the right department and confirming your consultation timings.
-            </p>
+              {copy.text_5}</p>
           </div>
           <button
             type="button"
             onClick={onOpenAppointment}
             className="shrink-0 px-6 py-3 rounded-full bg-imc-blue text-white font-medium text-xs sm:text-sm uppercase tracking-wider hover:bg-imc-blue-hover active:scale-95 transition-[background-color,transform] duration-150 shadow-md cursor-pointer"
           >
-            Contact reception
-          </button>
+            {copy.link_or_button_text_1}</button>
         </div>
 
       </div>

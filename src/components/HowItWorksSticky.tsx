@@ -1,10 +1,13 @@
+import { useContent } from '../content/context';
 import { useLayoutEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { PROCESS_STEPS } from '../data/processSteps';
 import { gsap, ScrollTrigger } from '../lib/useScrollTrigger';
 import { useReducedMotion } from '../lib/useReducedMotion';
 
 export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointment: () => void }) {
+  const content = useContent();
+  const copy = content.copy.HowItWorksSticky;
+  const PROCESS_STEPS = content.steps;
   const routeRef = useRef<HTMLOListElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const reduced = useReducedMotion();
@@ -74,8 +77,8 @@ export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointm
   return <section id="how-it-works" className="journey-section" aria-labelledby="journey-title">
     <div className="journey-container">
       <header className="journey-heading">
-        <h2 id="journey-title" className="font-editorial">How it <em>works.</em></h2>
-        <p>A little guidance at every step, from your first enquiry to your follow-up.</p>
+        <h2 id="journey-title" className="font-editorial">{copy.heading_1}<em>{copy.text_1}</em></h2>
+        <p>{copy.text_2}</p>
       </header>
       <div className="journey-map">
         <svg ref={svgRef} className="journey-line" aria-hidden="true" fill="none" preserveAspectRatio="none">
@@ -95,7 +98,7 @@ export default function HowItWorksSticky({ onOpenAppointment }: { onOpenAppointm
         </ol>
       </div>
       <div className="journey-action">
-        <button type="button" onClick={onOpenAppointment} className="founder-consult">Arrange your visit <ArrowUpRight size={18} aria-hidden="true" /></button>
+        <button type="button" onClick={onOpenAppointment} className="founder-consult">{copy.link_or_button_text_1}<ArrowUpRight size={18} aria-hidden="true" /></button>
       </div>
     </div>
   </section>;
