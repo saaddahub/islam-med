@@ -104,7 +104,7 @@ Uploads become public immediately, before publication. Use only clinic-approved 
 
 Without configuration, Vite development provides a labeled local editor. Browser-only drafts cannot upload or publish. Public pages never read them unless `?preview=draft` is selected. Production disables the local editor.
 
-Deploy `dist` over HTTPS and route `/admin` and `/admin/` to `index.html`, preserving assets. Netlify-style hosts receive `_redirects`. The CSP allows database requests only to the configured Appwrite API origin; rebuild when changing it.
+Deploy `dist` over HTTPS. The root `vercel.json` routes `/admin` and `/admin/` to `index.html` on Vercel, preserving normal asset requests. Netlify-style hosts receive `_redirects`. Set the public `VITE_APPWRITE_ENDPOINT` and `VITE_APPWRITE_PROJECT_ID` variables in the hosting project's environment settings before building; local environment files are deliberately excluded from Git. Redeploy after changing hosting variables. The CSP allows database requests only to the configured Appwrite API origin; rebuild when changing it.
 
 The Free plan has resource limits and can pause inactive projects. Check [current Free-plan limits](https://appwrite.io/docs/advanced/billing/free) before relying on it for a live client site.
 
