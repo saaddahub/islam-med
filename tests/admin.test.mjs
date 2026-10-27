@@ -159,6 +159,16 @@ test('ordinary accounts are rejected and Appwrite permissions independently prot
   assert.equal(backend.rows.draft.version, 0);
 }));
 
+test('draft loading avoids a duplicate account lookup while server permissions protect it', () => withAppwrite(async (client, backend) => {
+  await assert.rejects(client.loadContent(true), /administrator access/);
+  await client.signIn('staff@example.com', 'test-password');
+  const start = backend.requests.length;
+  await Promise.all([client.loadContent(true), client.loadContent()]);
+  assert.deepEqual(backend.requests.slice(start).map(request => request.path.split('/').at(-1)).sort(), ['draft', 'published']);
+  backend.labels = [];
+  await assert.rejects(client.loadContent(true), /administrator access/);
+}));
+
 test('stale saves and publishes roll back without changing website content', () => withAppwrite(async (client, backend) => {
   await client.signIn('staff@example.com', 'test-password');
   await client.saveDraft(clone(), 0);

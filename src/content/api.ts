@@ -80,7 +80,7 @@ export async function loadContent(draft = false): Promise<ContentRecord> {
   if (!isConnected) return emptyRecord();
   try {
     if (draft) {
-      if (!await requireAdmin()) throw new Error('Sign in to preview a draft.');
+      // Appwrite enforces the draft's siteadmin permission on this request.
       const { database } = await services();
       return parseRecord(await database.getRow({ databaseId, tableId, rowId: 'draft' }));
     }
